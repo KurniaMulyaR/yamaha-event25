@@ -3,6 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\PengirimanController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DelearController;
+use App\Http\Controllers\WilayahController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,18 +21,46 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'home'])->name('home');
 
 Route::resource('booking', BookingController::class);
-Route::get('/pembayaran', [BookingController::class, 'pembayaran'])->name('booking');
-Route::resource('profile', ProfileController::class);
+Route::post('/pembayaran', [BookingController::class, 'pembayaran'])->name('pembayaran');
+
+Route::get('/ajax/provinsi', [WilayahController::class, 'provinsi']);
+Route::get('/ajax/kota/{provinsi}', [WilayahController::class, 'kota']);
+Route::get('/ajax/kecamatan/{kota}', [WilayahController::class, 'kecamatan']);
+Route::get('/ajax/kelurahan/{kecamatan}', [WilayahController::class, 'kelurahan']);
+Route::get('/ajax/dealer/{kecamatan}', [WilayahController::class, 'dealer']);
+
+Route::middleware(['auth','role:user'])->group(function () {
+    Route::resource('profile', ProfileController::class);
+});
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
+
+Route::prefix('admin')
+    ->name('admin.')
+    ->middleware(['auth','role:admin'])
+    ->group(function () {
+
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('dashboard');
+
+        Route::resource('user', UserController::class);
+        Route::get('/reportusers', [UserController::class, 'getUser'])->name('getUser');
+        Route::resource('produk', ProdukController::class);
+        Route::get('/reportproduk', [ProdukController::class, 'getProduk'])->name('getProduk');
+        Route::resource('pengiriman', PengirimanController::class);
+
+        Route::resource('delear', DelearController::class);
+        Route::get('/reportdelear', [DelearController::class, 'getDelear'])->name('getDelear');
+        Route::post('/admin/dealer/import', [DealerController::class, 'import'])
+            ->name('dealer.import');
 
 
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    });
 
 require __DIR__.'/auth.php';

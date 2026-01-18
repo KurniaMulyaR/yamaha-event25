@@ -48,6 +48,11 @@
 
             <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-3 gap-6">
         
+            <form method="POST" action="{{ route('pembayaran') }}">
+                  @csrf
+                  <input id="produk_id" name="produk_id" value="{{ $produk->id }}" hidden />
+                  <input id="user_id" name="user_id" value="{{ $user->id }}" hidden />
+                  <input id="pesanan_id" name="pesanan_id" value="{{ $pesanan->id }}" hidden />
                 <!-- LEFT -->
                 <div class="lg:col-span-2 space-y-6">
         
@@ -95,11 +100,9 @@
                             <span class="text-xl font-bold">VIRTUAL ACCOUNT</span>
                         </label>
 
-                        <div 
-                        x-show="payment === 'va'"
-        x-transition.opacity.duration.300ms
-        class="mt-6 space-y-4"
-                        class="space-y-4">
+                        <div x-show="payment === 'va'"
+                            x-transition.opacity.duration.300ms
+                            class="mt-6 space-y-4">
                             <input type="text" placeholder="Card Number"
                                 class="w-full rounded-md bg-white text-black px-4 py-2">
         
@@ -129,18 +132,19 @@
                         PRODUK YANG ANDA PILIH
                     </h3>
         
-                    <img src="/img/xmax.png" alt="XMAX"
+                    <img src="storage/{{ $produk->img }}" alt="XMAX"
                         class="w-full object-contain mb-4">
         
                     <h2 class="text-center font-bold text-lg">
-                        XMAX TECHMAX SPECIAL LIVERY
+                        {{ $produk->name }} {{ $produk->type }}
                     </h2>
         
                     <div class="mt-6 flex items-center justify-between bg-red-700/80 px-4 py-3 rounded-lg">
                         <span class="font-semibold">Booking Fee</span>
-                        <span class="font-bold">Rp. X0.000.000</span>
+                        <span class="font-bold">{{ 'Rp.' . number_format($produk->price, 0,',','.') }}</span>
                     </div>
                 </div>
+            </form>
         
             </div>
         </div>

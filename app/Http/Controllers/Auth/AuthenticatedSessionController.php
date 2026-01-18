@@ -20,6 +20,16 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+
+        return redirect()->route('home');
+    }
+
+
     /**
      * Handle an incoming authentication request.
      *
@@ -28,11 +38,24 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $request->authenticate();
+        $credentials = $request->only('email', 'password');
 
-        $request->session()->regenerate();
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+            $user = Auth::user();
+
+            // 👇 ROLE CHECK
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            }
+
+            return redirect()->route('user.dashboard');
+        }
+
+        return back()->withErrors([
+            'email' => 'Email atau password salah',
+        ]);
     }
 
     /**

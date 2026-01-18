@@ -1,3 +1,4 @@
+@props(['produk'])
 <section>
     <div class="w-full bg-black py-6">
         <div class="max-w-3xl mx-auto flex items-center justify-between text-white text-sm">
@@ -54,21 +55,27 @@
                             :class="active === item.key
                                 ? 'bg-red-600'
                                 : 'bg-white text-black hover:bg-gray-200'"
-                            x-text="item.name"
+                            x-text="item.title"
                         ></button>
                     </template>
                 </div>
 
-                <div class="text-xl bg-black/50 backdrop-blur-md rounded-xl p-6 text-white border border-white/20 mt-2">
-                    Stock <span class="float-right">30/50</span>
-                    <div class="h-1 bg-white/30 mt-1">
-                        <div class="h-1 bg-red-600 w-3/5"></div>
+                <div class="bg-black/50 backdrop-blur-md rounded-xl p-6 text-white border border-white/20 mt-2">
+                    <div class="flex justify-between text-sm">
+                        <span>Stock</span>
+                        <span x-text="`${soldUnit}/${totalUnit}`"></span>
                     </div>
-                </div>
 
-                <button class="w-[256px] p-2 my-3 mx-4 rounded bg-white text-black hover:bg-gray-200 text-left">
-                    Lihat Spesifikasi
-                </button>
+                    <div class="h-2 bg-white/20 rounded overflow-hidden">
+                        <div
+                            class="h-full bg-red-600 transition-all duration-500"
+                            :style="`width:${stockPercent}%`"
+                        ></div>
+                    </div>
+
+                    <p class="text-xs mt-1 text-white/70"
+                    x-text="`${soldUnit} unit terjual dari ${totalUnit}`"></p>
+                </div>
             </div>
 
             <!-- BIKE IMAGE -->
@@ -86,47 +93,52 @@
 
             <!-- RIGHT PANEL -->
             <div class="w-1/3">
-                <h3 class="text-sm">
+                <h3 class="text-white p-2 text-bold">
                     Tentukan Varian & Warna Pilihan Anda  
                 </h3>
                 <div class="bg-black/50 backdrop-blur-md rounded-xl p-6 text-white border border-white/20">
                     <h3 class="text-sm mb-2">PILIH VARIANT</h3>
     
-                    <button class="w-[256px] bg-blue-600 py-2 rounded mb-2">
-                        TECHMAX SPECIAL LIVERY
-                    </button>
-                    <button class="w-[256px] bg-white text-black py-2 rounded">
-                        TECHMAX
-                    </button>
+                    <button
+                        class="w-[256px] py-2 mb-2 rounded transition font-semibold bg-blue-600 text-white"
+                        x-text="models.find(m => m.key === active)?.type"
+                    ></button>
                 </div>
 
                 <div class="text-xs bg-black/50 backdrop-blur-md rounded-xl p-6 text-white border border-white/20 mt-2">
-                    <h3 class="text-sm mb-2">PILIH WARNA - ELIXIR DARK SILVER</h3>
-
-                    <div x-data="{ active: 1 }" class="flex gap-3">
-    
-                        <template x-for="i in 2" :key="i">
-                            <button
-                                @click="active = i"
-                                class="w-10 h-10 rounded-full flex items-center justify-center transition"
-                                :class="active === i ? 'border border-white hover:bg-gray-200' : 'border border-white/40 hover:bg-gray-600'"
-                            >
-                                <div
-                                    class="w-8 h-8 rounded-full"
-                                    :class="active === i ? 'bg-gray-200' : 'bg-gray-600'"
-                                ></div>
-                            </button>
-                        </template>
-                    
-                    </div>
+                        <h3>PILIH WARNA - <span class="text-white" x-text="models.find(m => m.key === active)?.colour"></span></h3>
+                    <button
+                        class="w-10 h-10 rounded-full flex items-center justify-center transition border border-white/40 hover:bg-gray-600"
+                    >
+                        <div
+                            class="w-8 h-8 rounded-full bg-gray-800"
+                        ></div>
+                    </button>
                 </div>
 
                 <div class="text-xs bg-black/50 backdrop-blur-md rounded-xl p-6 text-white border border-white/20 mt-2">
                     <div class="flex justify-between items-center">
-                        <span class="text-lg font-bold">Rp. 100.000.000</span>
-                        <button class="bg-blue-600 px-4 py-2 rounded">
+                        <h3 class="text-lg font-bold"
+                            x-text="models.find(m => m.key === active)?.price"></h3>
+
+                    <form method="POST" action="{{ route('booking.store') }}">
+                        @csrf
+
+                        <!-- kirim produk aktif -->
+                        <input
+                            type="hidden"
+                            name="produk_id"
+                            :value="models.find(m => m.key === active)?.id"
+                        >
+
+                        <button
+                            type="submit"
+                            class="bg-blue-600 px-4 py-2 rounded text-white w-full"
+                            :disabled="!active"
+                        >
                             BUY NOW
                         </button>
+                    </form>
                     </div>
                 </div>
             </div>
@@ -139,36 +151,43 @@
 <script>
 function modelSlider() {
     return {
-        active: 'xmax',
+        active: null,
+        models: @json($produk),
 
-        models: [
-            {
-                key: 'tmax',
-                name: 'TMAX',
-                image: '/img/tmax.png',
-                price: 'Rp 350.000.000'
-            },
-            {
-                key: 'xmax',
-                name: 'XMAX',
-                image: '/img/xmax.png',
-                price: 'Rp 100.000.000'
-            },
-            {
-                key: 'nmax',
-                name: 'NMAX',
-                image: '/img/nmax.png',
-                price: 'Rp 35.000.000'
-            },
-        ],
+        init() {
+            if (this.models.length > 0) {
+                this.active = this.models[0].key
+            }
+        },
 
         setModel(key) {
             this.active = key
         },
 
+        get currentModel() {
+            return this.models.find(m => m.key === this.active)
+        },
+
         get currentPrice() {
-            return this.models.find(m => m.key === this.active).price
+            return this.currentModel ? this.currentModel.price : 0
+        },
+
+        get soldUnit() {
+            return this.currentModel ? this.currentModel.sold : 0
+        },
+
+        get totalUnit() {
+            return this.currentModel ? this.currentModel.ttlunit : 0
+        },
+
+        get stockPercent() {
+            if (!this.currentModel) return 0
+            return Math.min(
+                100,
+                Math.round((this.soldUnit / this.totalUnit) * 100)
+            )
         }
     }
 }
 </script>
+

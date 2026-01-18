@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ListProduk;
+use App\Models\ListPesanan;
+use App\Models\DataUser;
+use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+
 
 class BookingController extends Controller
 {
@@ -34,7 +41,9 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $produk = ListProduk::findOrFail($request->produk_id);
+
+        return view('booking.index', compact('produk'));
     }
 
     /**
@@ -82,8 +91,54 @@ class BookingController extends Controller
         //
     }
 
-    public function pembayaran()
+    public function pembayaran(Request $request)
     {
-        return view('booking.pembayaran');
+        $password = Hash::make('MOTOR');
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $password,
+            'role' => 'user'
+        ]);
+
+        $dataUser = DataUser::create([
+            'userid' => $user->id,
+            'nama_pembeli' => $request->name,
+            'no_ktp_pembeli' => $request->noktp,
+            'tempat_lahir_pembeli' => $request->tempatlahir,
+            'tanggal_lahir_pembeli' => $request->tgllahir,
+            'alamat_pembeli' => $request->alamat,
+            'provinsi' => $request->provinsi,
+            'kota' => $request->kota,
+            'kecamatan' => $request->kecamatan,
+            'kelurahan' => $request->kelurahan,
+            'no_telepon_pembeli' => $request->nohp,
+            'no_handphone_pembeli' => 0,
+            'email_pembeli' => $user->email,
+            'dealer' => $request->dealer,
+            'metode_pembayaran' => $request->metodpem,
+            'stnk_nama_pemakai' => $request->name,
+            'stnk_no_ktp' => $request->noktp,
+            'stnk_tempat_lahir'=> $request->tempatlahir,
+            'stnk_tanggal_lahir'=> $request->tgllahir,
+            'stnk_alamat'=> $request->alamat,
+            'stnk_provinsi'=> $request->provinsi,
+            'stnk_kecamatan'=> $request->kecamatan,
+            'stnk_kelurahan'=> $request->kelurahan,
+            'stnk_no_telepon'=> $request->nohp,
+            'stnk_no_handphone'=> $request->nohp,
+            'stnk_email' => $user->email,
+        ]);
+
+        $pesanan = ListPesanan::create([
+            'userid' => $user->id,
+            'produkid' => $request->produk_id,
+            'delearid' => $request->dealer,
+            'status' => 'PENDING',
+            'keterangan' => 'NULL'
+        ]);
+
+        return view('booking.pembayaran', compact('user', 'dataUser', 'pesanan'));
     }
 }

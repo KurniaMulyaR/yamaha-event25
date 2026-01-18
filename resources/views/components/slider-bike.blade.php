@@ -1,13 +1,7 @@
+@props(['produk'])
 <section
-    x-data="{
-        current: 0,
-        slides: [
-            { image: '{{ asset('img/nmax.png') }}', title: 'NMAX' },
-            { image: '{{ asset('img/xmax.png') }}', title: 'XMAX' },
-            { image: '{{ asset('img/tmax.png') }}', title: 'TMAX' },
-        ]
-    }"
-    x-init="setInterval(() => current = (current + 1) % slides.length, 4000)"
+    x-data="sliderBike()"
+    x-init="init()"
     class="w-full py-20 overflow-hidden bg-black text-white"
 >
     <div class="max-w-5xl mx-auto text-center">
@@ -34,15 +28,35 @@
         </div>
 
         <!-- DOTS -->
-        <div class="flex justify-center gap-3 mt-8">
-            <template x-for="(_, index) in slides" :key="index">
+        <div class="flex justify-center items-center gap-3 mt-8">
+            <template x-for="(slide, index) in slides" :key="index">
                 <button
                     @click="current = index"
-                    class="w-3 h-3 rounded-full"
-                    :class="current === index ? 'bg-white' : 'bg-gray-500'"
+                    type="button"
+                    class="w-3 h-3 rounded-full transition-all duration-300 focus:outline-none"
+                    :class="current === index 
+                        ? 'bg-white scale-125' 
+                        : 'bg-gray-500 opacity-60 hover:opacity-100'"
                 ></button>
             </template>
         </div>
 
     </div>
 </section>
+
+<script>
+function sliderBike() {
+    return {
+        current: 0,
+        slides: @json($produk),
+        init() {
+            if (this.slides.length) {
+                setInterval(() => {
+                    this.current = (this.current + 1) % this.slides.length
+                }, 4000)
+            }
+        }
+    }
+}
+</script>
+

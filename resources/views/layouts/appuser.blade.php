@@ -12,6 +12,8 @@
 
         <!-- Alpine.js -->
         <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
         <!-- Styles -->
         <style>
@@ -32,5 +34,10 @@
         </main>
 
         <x-footer />
+
+        
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+        @stack('scripts')
     </body>
 </html>
