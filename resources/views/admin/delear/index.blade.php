@@ -140,18 +140,6 @@
             <input type="file" id="importFile"
                 class="w-full border p-2 rounded mb-4">
 
-            <!-- Progress -->
-            <div id="progressWrapper" class="hidden mb-4">
-                <div class="w-full bg-gray-200 rounded-full h-4">
-                    <div id="progressBar"
-                        class="bg-blue-600 h-4 rounded-full text-xs text-white text-center"
-                        style="width:0%">
-                        0%
-                    </div>
-                </div>
-                <p id="progressText" class="text-sm mt-2"></p>
-            </div>
-
             <div class="flex justify-end gap-2">
                 <button id="closeImportModal"
                     class="px-4 py-2 bg-gray-300 rounded">
@@ -341,27 +329,6 @@
                 }
             });
         });
-
-        // PROGRESS POLLING
-        function pollProgress(batchId) {
-            let interval = setInterval(() => {
-                $.get(`/admin/dealer/import/progress/${batchId}`, function (res) {
-                    $('#progressBar')
-                        .css('width', res.progress + '%')
-                        .text(res.progress + '%');
-
-                    $('#progressText').text(res.message);
-
-                    if (res.progress >= 100) {
-                        clearInterval(interval);
-                        setTimeout(() => {
-                            $('#importModal').addClass('hidden');
-                            $('#dealerTable').DataTable().ajax.reload();
-                        }, 1000);
-                    }
-                });
-            }, 1000);
-        }
 
     </script>
 </x-app-layout>

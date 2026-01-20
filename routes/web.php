@@ -57,8 +57,8 @@ Route::prefix('admin')
 
         Route::resource('delear', DelearController::class);
         Route::get('/reportdelear', [DelearController::class, 'getDelear'])->name('getDelear');
-        Route::post('/admin/dealer/import', [DealerController::class, 'import'])
-            ->name('dealer.import');
+        Route::post('/dealer/import', [DelearController::class, 'import'])
+->name('dealer.import');
 
 
     });

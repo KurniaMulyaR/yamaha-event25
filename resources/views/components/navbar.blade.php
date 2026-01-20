@@ -12,7 +12,14 @@
   
       <!-- Menu Desktop -->
       <ul class="md:flex space-x-8 text-white">
-        <li><a href="#" class="hover:text-gray-300">Login</a></li>
+        <li>
+          <button
+            @click="openLogin = true"
+            class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded font-semibold"
+          >
+              LOGIN
+          </button>
+        </li>
       </ul>
   
       <!-- Button -->
@@ -21,5 +28,80 @@
       </a>
   
     </nav>
+
+    <div x-data="{ openLogin: false }">
+
+      <!-- LOGIN MODAL -->
+      <div
+          x-show="openLogin"
+          x-transition
+          class="fixed inset-0 z-50 flex items-center justify-center"
+      >
+          <!-- OVERLAY -->
+          <div
+              class="absolute inset-0 bg-black/60"
+              @click="openLogin = false"
+          ></div>
+
+          <!-- MODAL BOX -->
+          <div class="relative bg-white rounded-xl w-full max-w-md p-6 z-10">
+              <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
+
+              <form method="POST" action="{{ route('login') }}">
+                  @csrf
+
+                  <!-- EMAIL -->
+                  <div class="mb-4">
+                      <label class="block mb-1 font-medium">Email</label>
+                      <input
+                          type="email"
+                          name="email"
+                          required
+                          class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-red-500"
+                      >
+                  </div>
+
+                  <!-- PASSWORD -->
+                  <div class="mb-4">
+                      <label class="block mb-1 font-medium">Password</label>
+                      <input
+                          type="password"
+                          name="password"
+                          required
+                          class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-red-500"
+                      >
+                  </div>
+
+                  <!-- ACTION -->
+                  <div class="flex justify-between items-center">
+                      <button
+                          type="submit"
+                          class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
+                      >
+                          Login
+                      </button>
+
+                      <button
+                          type="button"
+                          @click="openLogin = false"
+                          class="text-gray-500 hover:underline"
+                      >
+                          Batal
+                      </button>
+                  </div>
+              </form>
+          </div>
+      </div>
+
+  </div>
+
+  @if ($errors->any())
+  <script>
+      document.addEventListener('alpine:init', () => {
+          Alpine.store('login', { open: true })
+      })
+  </script>
+  @endif
+
   </header>
   

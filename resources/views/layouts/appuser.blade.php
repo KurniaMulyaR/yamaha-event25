@@ -35,7 +35,6 @@
 
         <x-footer />
 
-        
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
         @stack('scripts')

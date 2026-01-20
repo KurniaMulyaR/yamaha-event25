@@ -5,28 +5,28 @@ namespace App\Imports;
 use App\Models\Provinces;
 use App\Models\District;
 use App\Models\Cities;
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class ListDealerImport implements ToCollection
+class ListDealerImport implements ToModel, WithHeadingRow
 {
     /**
     * @param Collection $collection
     */
-    public function collection(Collection $collection)
+    public function model(array $row)
     {
-        $province = Province::where('name', $row['provinsi'])->first();
-        $city = Cities::where('name', $row['kota'])->first();
-        $district = District::where('name', $row['kecamatan'])->first();
+        // $province = Province::where('name', $row['provinsi'])->first();
+        // $city = Cities::where('name', $row['KOT/KAB'])->first();
+        $district = District::with(['cities.province'])->where('name', $row['kecamatan'])->first();
 
         return new ListDealer([
             'code'          => $row['code'],
-            'district_code' => $row['district_code'],
-            'namedds'       => $row['namedds'],
-            'namedelear'    => $row['namedelear'],
-            'province_id'   => $province?->id,
-            'city_id'       => $city?->id,
-            'district_id'   => $district?->id,
+            'district_code' => (int) $row['kecamatan'],
+            'namedds'       => $row['nameddsmd'],
+            'namedelear'    => $row['namadealer'],
+            'province_id'   => $district->cities->province->id,
+            'city_id'       => $district->cities->id,
+            'district_id'   => $district->id,
         ]);
     }
 }

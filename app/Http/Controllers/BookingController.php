@@ -9,6 +9,9 @@ use App\Models\DataUser;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Midtrans\Snap;
+use Midtrans\Config;
+use GuzzleHttp\Client;
 
 
 class BookingController extends Controller
@@ -140,5 +143,100 @@ class BookingController extends Controller
         ]);
 
         return view('booking.pembayaran', compact('user', 'dataUser', 'pesanan'));
+    }
+
+        public function metped(Request $request)
+    {
+        $pesanan = ListPesanan::findOrFail($request->pesanan_id);
+
+        $pesanan->metode_pembayaran = $request->metodpem;
+        $pesanan->save();
+
+        $produk = ListProduk::findOrFail($pesanan->produkid);
+        $Datauser = DataUser::with(['user'])->where('userid', $pesanan->userid)->first();
+
+        $user = User::findOrFail($Datauser->userid);
+        
+        $passwordPlain = Str::random(10);
+
+         // Set your Merchant Server Key
+
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = true;
+        Config::$is3ds = true;
+
+        $orderId = 'ORDER-' . $pesanan->id . '-' . Str::upper(Str::random(5));
+
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $orderId,
+                'gross_amount' => $produk->price,
+            ),
+            'customer_details' => array(
+                'first_name' => $Datauser->nama_pembeli,
+                'email' => $Datauser->user->email,
+                'phone' => $Datauser->no_telepon_pembeli,
+            ),
+            'enabled_payments' => $request->payment_type === 'credit'
+                ? ['credit_card']
+                : ['bca_va', 'bni_va', 'bri_va']
+        );
+
+        $snapToken = Snap::getSnapToken($params);
+
+         // ===== INFONIP WHATSAPP =====
+        $client = new Client([
+            'base_uri' => config('services.infobip.base_url'),
+            'headers' => [
+                'Authorization' => 'App ' . config('services.infobip.api_key'),
+                'Content-Type'  => 'application/json',
+                'Accept'        => 'application/json',
+            ]
+        ]);
+
+        $passwordPlain = 'MOTOR';
+
+        $message = <<<TEXT
+        ✅ Pembayaran Berhasil dengan Metode {$request->metodpem}.
+        
+        Order ID: {$orderId}
+
+        Akun Anda sudah aktif.
+
+        Email:
+        {$Datauser->user->email}
+
+        Password:
+        {$passwordPlain}
+
+        ⚠️ Demi keamanan, HARAP segera login dan ganti password Anda.
+        TEXT;
+
+        try {
+            $client->post('/whatsapp/1/message/text', [
+                'json' => [
+                    'from' => config('services.infobip.sender'),
+                    'to' => $Datauser->no_telepon_pembeli,
+                    'content' => [
+                        'text' => $message
+                    ]
+                ]
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Infobip Error', [
+                'order_id' => $orderId,
+                'message' => $e->getMessage()
+            ]);
+        }
+
+        $user->password = Hash::make($passwordPlain);
+        $user->save();
+
+         // ===== END INFONIP WHATSAPP =====
+
+        return response()->json([
+            'snap_token' => $snapToken
+        ]);
     }
 }

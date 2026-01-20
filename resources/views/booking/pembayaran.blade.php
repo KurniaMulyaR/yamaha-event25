@@ -48,7 +48,7 @@
 
             <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-3 gap-6">
         
-            <form method="POST" action="{{ route('pembayaran') }}">
+            <form method="POST" action="{{ route('metpem') }}">
                   @csrf
                   <input id="produk_id" name="produk_id" value="{{ $produk->id }}" hidden />
                   <input id="user_id" name="user_id" value="{{ $user->id }}" hidden />
@@ -57,71 +57,27 @@
                 <div class="lg:col-span-2 space-y-6">
         
                     <!-- CREDIT CARD -->
-                    <div class=" rounded-xl p-6 bg-white/5 backdrop-blur"
-                    :class="payment === 'credit' ? 'border-blue-500' : 'border-white/10'">
-                        <label class="flex items-center gap-3 mb-4 cursor-pointer text-white font-bold text-lg mb-6 bg-[#CB3A31] border-b border-red-900 p-3 rounded-xl">
-                            <input  type="radio"
-                                    name="payment"
-                                    value="credit"
-                                    x-model="payment"
-                                    class="accent-blue-500">
-                            <span class="text-xl font-bold">CREDIT CARD</span>
+                    <div class="rounded-xl p-6 bg-white/5 backdrop-blur"
+                        :class="payment === 'credit' ? 'border-blue-500' : 'border-white/10'">
+                        <label class="flex items-center gap-3 cursor-pointer text-white font-bold text-lg bg-[#CB3A31] p-3 rounded-xl">
+                            <input type="radio" value="credit" x-model="payment">
+                            CREDIT CARD
                         </label>
-        
-                        <div 
-                            x-show="payment === 'credit'"
-                            x-transition.opacity.duration.300ms
-                            class="mt-6 space-y-4"
-                        >
-                            <input type="text" placeholder="Card Number"
-                                class="w-full rounded-md bg-white text-black px-4 py-2">
-        
-                            <input type="text" placeholder="Name On Card"
-                                class="w-full rounded-md bg-white text-black px-4 py-2">
-        
-                            <div class="grid grid-cols-2 gap-4">
-                                <input type="text" placeholder="Expiration Date (YY / MM)"
-                                    class="rounded-md bg-white text-black px-4 py-2">
-                                <input type="text" placeholder="Security Code"
-                                    class="rounded-md bg-white text-black px-4 py-2">
-                            </div>
-                        </div>
                     </div>
-        
-                    <!-- VIRTUAL ACCOUNT -->
-                    <div class="rounded-xl p-6 bg-white/5 backdrop-blur border border-white/10"
-                    :class="payment === 'va' ? 'border-red-500' : 'border-white/10'">
-                        <label class="flex items-center gap-3 cursor-pointer text-white font-bold text-lg mb-6 bg-[#CB3A31] border-b border-red-900 p-3 rounded-xl">
-                            <input type="radio"
-                            name="payment"
-                            value="va"
-                            x-model="payment"
-                            class="accent-red-500">
-                            <span class="text-xl font-bold">VIRTUAL ACCOUNT</span>
-                        </label>
 
-                        <div x-show="payment === 'va'"
-                            x-transition.opacity.duration.300ms
-                            class="mt-6 space-y-4">
-                            <input type="text" placeholder="Card Number"
-                                class="w-full rounded-md bg-white text-black px-4 py-2">
-        
-                            <input type="text" placeholder="Name On Card"
-                                class="w-full rounded-md bg-white text-black px-4 py-2">
-        
-                            <div class="grid grid-cols-2 gap-4">
-                                <input type="text" placeholder="Expiration Date (YY / MM)"
-                                    class="rounded-md bg-white text-black px-4 py-2">
-                                <input type="text" placeholder="Security Code"
-                                    class="rounded-md bg-white text-black px-4 py-2">
-                            </div>
-                        </div>
+                    <!-- VIRTUAL ACCOUNT -->
+                    <div class="rounded-xl p-6 bg-white/5 backdrop-blur mt-4"
+                        :class="payment === 'va' ? 'border-red-500' : 'border-white/10'">
+                        <label class="flex items-center gap-3 cursor-pointer text-white font-bold text-lg bg-[#CB3A31] p-3 rounded-xl">
+                            <input type="radio" value="va" x-model="payment">
+                            VIRTUAL ACCOUNT
+                        </label>
                     </div>
         
                     <!-- BUTTON -->
                     <button
-                        class="w-full bg-[#162861] hover:bg-[#2D3C6C] transition
-                               py-3 rounded-lg font-bold tracking-wide">
+                        @click="pay()"
+                        class="mt-6 w-full bg-green-600 text-white py-3 rounded-xl font-bold">
                         BOOKING NOW
                     </button>
                 </div>
@@ -152,3 +108,49 @@
     </div>
 </section>
 @endsection
+
+@push('script')
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="{{ config('midtrans.client_key') }}">
+</script>
+    <script>
+        function pay() {
+            event.preventDefault();
+            var metode_pembayaran = document.querySelector('input[x-model="payment"]:checked').value;
+            console.log(metode_pembayaran);
+
+            // Kirim data ke server untuk mendapatkan snap token
+            fetch('{{ route('metped') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    pesanan_id: {{ $pesanan->id }},
+                    metodpem: metode_pembayaran
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Panggil Midtrans Snap dengan snap token yang diterima dari server
+                snap.pay(data.snap_token, {
+                    onSuccess: function(result){
+                        console.log('success');
+                        window.location.href = '/booking'; // Redirect setelah pembayaran sukses
+                    },
+                    onPending: function(result){
+                        console.log('pending');
+                        window.location.href = '/booking'; // Redirect setelah pembayaran pending
+                    },
+                    onError: function(result){
+                        console.log('error');
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+@endpush
