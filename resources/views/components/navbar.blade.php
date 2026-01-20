@@ -11,25 +11,16 @@
       </div>
   
       <!-- Menu Desktop -->
-      <ul class="md:flex space-x-8 text-white">
+      <ul class="md:flex space-x-8 text-white z-20">
         <li>
+          <div x-data="{ openLogin: false }">
+            
           <button
             @click="openLogin = true"
             class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded font-semibold"
           >
               LOGIN
           </button>
-        </li>
-      </ul>
-  
-      <!-- Button -->
-      <a href="#" class="hidden md:block bg-white text-black px-4 py-2 rounded font-semibold hover:bg-gray-200">
-        Login
-      </a>
-  
-    </nav>
-
-    <div x-data="{ openLogin: false }">
 
       <!-- LOGIN MODAL -->
       <div
@@ -44,7 +35,7 @@
           ></div>
 
           <!-- MODAL BOX -->
-          <div class="relative bg-white rounded-xl w-full max-w-md p-6 z-10">
+          <div class="relative bg-white text-black rounded-xl w-full max-w-md p-6 z-10">
               <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
 
               <form method="POST" action="{{ route('login') }}">
@@ -92,6 +83,17 @@
               </form>
           </div>
       </div>
+        </li>
+      </ul>
+  
+      <!-- Button -->
+      <a href="#" class="hidden md:block bg-white text-black px-4 py-2 rounded font-semibold hover:bg-gray-200">
+        Login
+      </a>
+  
+    </nav>
+
+    
 
   </div>
 
