@@ -8,7 +8,7 @@
     <div>
         <x-slider-bike :produk="$produk"/>
     </div>
-    <div class="mx-auto mt-6 text-center">
+    <div class="mx-auto mt-6 text-center z-20">
         <h1 class="text-white text-bold text-5xl">
             Maxi Maximal
         </h1>

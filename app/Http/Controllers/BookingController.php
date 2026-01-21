@@ -13,7 +13,6 @@ use Midtrans\Snap;
 use Midtrans\Config;
 use GuzzleHttp\Client;
 
-
 class BookingController extends Controller
 {
     /**

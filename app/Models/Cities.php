@@ -14,4 +14,9 @@ class Cities extends Model
     protected $fillable = [
          'code','province_code','name','meta'
     ];
+
+    public function province()
+    {
+        return $this->BelongsTo(Provinces::class, 'province_code', 'id');
+    }
 }

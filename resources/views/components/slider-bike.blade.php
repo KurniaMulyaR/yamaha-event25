@@ -1,7 +1,7 @@
 @props(['produk'])
 <section
-    x-data="sliderBike()"
-    x-init="init()"
+    x-data="sliderike()"
+    x-init="int()"
     class="w-full py-20 overflow-hidden bg-black text-white"
 >
     <div class="max-w-5xl mx-auto text-center">
@@ -45,12 +45,14 @@
 </section>
 
 <script>
-function sliderBike() {
+function sliderike() {
     return {
         current: 0,
         slides: @json($produk),
-        init() {
-            if (this.slides.length) {
+        int() {
+            console.log(this.slides.length);
+            if (this.slides.length > 1) {
+                
                 setInterval(() => {
                     this.current = (this.current + 1) % this.slides.length
                 }, 4000)

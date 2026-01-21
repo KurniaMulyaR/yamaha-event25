@@ -19,7 +19,7 @@ class ListPesanan extends Model
     ];
 
 
-    public function user()
+    public function datauser()
     {
         return $this->hasOne(DataUser::class, 'userid', 'id');
     }

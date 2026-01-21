@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\DataUser;
 
 class UserController extends Controller
 {
@@ -19,7 +20,8 @@ class UserController extends Controller
 
     public function getUser(Request $request)
     {
-        $query = User::query();
+        $query = DataUser::query()
+                    ->with(['user','village.districts.cities.province','dealer']);
 
         // Search
         if ($search = $request->input('search.value')) {
@@ -29,15 +31,38 @@ class UserController extends Controller
 
         $total = $query->count();
 
-        $users = $query
+        $dataUsers = $query
             ->offset($request->start)
             ->limit($request->length)
             ->get()
-            ->map(function ($user) {
+            ->map(function ($dataUser) {
                 return [
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'email' => $user->email,
+                    'id' => $dataUser->user->id,
+                    'name' => $dataUser->user->name,
+                    'email' => $dataUser->user->email,
+                    'no_ktp_pembeli' => $dataUser->no_ktp_pembeli ,
+                    'tempat_lahir_pembeli' => $dataUser->tempat_lahir_pembeli,
+                    'tanggal_lahir_pembeli' => $dataUser->tanggal_lahir_pembeli,
+                    'alamat_pembeli' => $dataUser->alamat_pembeli,
+                    'provinsi' => $dataUser->districts->cities->province->name,
+                    'kota' => $dataUser->districts->cities->name,
+                    'kecamatan' => $dataUser->districts->name,
+                    'kelurahan' => $dataUser->name,
+                    'no_telepon_pembeli' => $dataUser->no_telepon_pembeli,
+                    'no_handphone_pembeli' => $dataUser->no_handphone_pembeli,
+                    'dealer' => $dataUser->dealer->namedelear,
+                    'metode_pembayaran' => $dataUser->metode_pembayaran,
+                    'stnk_nama_pemakai' => $dataUser->stnk_nama_pemakai,
+                    'stnk_no_ktp' => $dataUser->stnk_no_ktp,
+                    'stnk_tempat_lahir' => $dataUser->stnk_tempat_lahir,
+                    'stnk_tanggal_lahir' => $dataUser->stnk_tanggal_lahir,
+                    'stnk_alamat' => $dataUser->stnk_alamat,
+                    'stnk_provinsi' => $dataUser->districts->cities->province->name,
+                    'stnk_kecamatan' => $dataUser->districts->name,
+                    'stnk_kelurahan' => $dataUser->name,
+                    'stnk_no_telepon' => $dataUser->stnk_no_telepon,
+                    'stnk_no_handphone' => $dataUser->stnk_no_handphone,
+                    'stnk_email' => $dataUser->user->email,
                     'created_at' => $user->created_at->format('Y-m-d'),
                     'action' => view('admin.user.partials', compact('user'))->render()
                 ];
@@ -47,7 +72,7 @@ class UserController extends Controller
             'draw' => intval($request->draw),
             'recordsTotal' => $total,
             'recordsFiltered' => $total,
-            'data' => $users,
+            'data' => $dataUsers,
         ]);
     }
     /**

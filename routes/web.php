@@ -54,6 +54,7 @@ Route::prefix('admin')
         Route::resource('produk', ProdukController::class);
         Route::get('/reportproduk', [ProdukController::class, 'getProduk'])->name('getProduk');
         Route::resource('pengiriman', PengirimanController::class);
+        Route::get('/reportpesanan', [PengirimanController::class, 'getPesanan'])->name('getPesanan');
 
         Route::resource('delear', DelearController::class);
         Route::get('/reportdelear', [DelearController::class, 'getDelear'])->name('getDelear');

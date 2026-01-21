@@ -23,12 +23,16 @@ class DataUser extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->hasOne(User::class, 'userid', 'id');
     }
+    public function village()
+    {
+        return $this->BelongsTo(Village::class, 'kelurahan', 'code');
+    }
     public function dealer()
     {
-        return $this->hasMany(ListDealer::class, 'dealer', 'id');
+        return $this->hasMany(ListDelear::class, 'dealer', 'id');
     }
 }

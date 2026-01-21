@@ -16,6 +16,7 @@
           <div x-data="{ openLogin: false }">
             
           <button
+            id="btnlogin"
             @click="openLogin = true"
             class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded font-semibold"
           >
@@ -26,7 +27,8 @@
       <div
           x-show="openLogin"
           x-transition
-          class="fixed inset-0 z-50 flex items-center justify-center"
+          id="modalLogin"
+          class="fixed inset-0 z-50 flex items-center justify-center hidden"
       >
           <!-- OVERLAY -->
           <div
@@ -73,9 +75,10 @@
                       </button>
 
                       <button
+                          id="cncellogin"
                           type="button"
                           @click="openLogin = false"
-                          class="text-gray-500 hover:underline"
+                          class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded hover:underline"
                       >
                           Batal
                       </button>
@@ -104,6 +107,18 @@
       })
   </script>
   @endif
+
+<script>
+    // OPEN MODAL
+        $('#btnlogin').on('click', function () {
+            $('#modalLogin').removeClass('hidden').addClass('flex');
+        });
+
+        // CLOSE MODAL
+        $('#cncellogin').on('click', function () {
+            $('#modalLogin').addClass('hidden').removeClass('flex');
+        });
+</script>
 
   </header>
   

@@ -14,4 +14,9 @@ class District extends Model
     protected $fillable = [
          'code','city_code','name','meta'
     ];
+
+    public function cities()
+    {
+        return $this->BelongsTo(Cities::class, 'city_code', 'code');
+    }
 }

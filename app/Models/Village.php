@@ -9,9 +9,14 @@ class Village extends Model
 {
     use HasFactory;
 
-    protected $table = 'indonesia_districts';
+    protected $table = 'indonesia_villages';
 
     protected $fillable = [
          'code','district_code','name','meta'
     ];
+
+    public function districts()
+    {
+        return $this->BelongsTo(District::class, 'district_code', 'code');
+    }
 }

@@ -1,5 +1,5 @@
 @props(['produk'])
-<section>
+<section id="booking">
     <div class="w-full bg-black py-6">
         <div class="max-w-3xl mx-auto flex items-center justify-between text-white text-sm">
     
@@ -85,7 +85,8 @@
                         x-show="active === item.key"
                         x-transition.opacity.duration.500ms
                         :src="item.image"
-                        class="max-h-[420px] drop-shadow-2xl"
+                        class="absolute inset-0 mx-auto max-h-[420px] drop-shadow-2xl"
+                        style="margin-top: 9.5rem"
                         alt=""
                     >
                 </template>

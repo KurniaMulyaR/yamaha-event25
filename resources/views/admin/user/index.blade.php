@@ -12,10 +12,33 @@
                     <thead class="bg-gray-100">
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Created</th>
-                            <th class="px-4 py-2 text-center">Action</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>No KTP</th>
+                            <th>Tempat Lahir</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Alamat</th>
+                            <th>Provinsi</th>
+                            <th>Kota</th>
+                            <th>Kecamatan</th>
+                            <th>Kelurahan</th>
+                            <th>No Telepon</th>
+                            <th>No Handphone</th>
+                            <th>Dealer</th>
+                            <th>Metode Pembayaran</th>
+                            <th>STNK Nama</th>
+                            <th>STNK No KTP</th>
+                            <th>STNK Tempat Lahir</th>
+                            <th>STNK Tanggal Lahir</th>
+                            <th>STNK Alamat</th>
+                            <th>STNK Provinsi</th>
+                            <th>STNK Kecamatan</th>
+                            <th>STNK Kelurahan</th>
+                            <th>STNK No Telepon</th>
+                            <th>STNK No Handphone</th>
+                            <th>STNK Email</th>
+                            <th>Dibuat</th>
+                            <th class="px-4 py-2 text-center">Aksi</th>
                         </tr>
                     </thead>
                 </table>
@@ -64,6 +87,16 @@
                         className: 'bg-green-600 text-white px-3 py-2 rounded'
                     },
                 ],
+                scrollX: true,
+                scrollY: "500px",
+                order: [1,'desc'],
+                scrollCollapse: true,
+                responsive: false,
+                fixedColumns: true,
+                fixedHeader: {
+                    header: true,
+                    footer: true
+                },
                 processing: true,
                 serverSide: true,
                 ajax: '/admin/reportusers',
@@ -71,9 +104,40 @@
                     { data: 'id' },
                     { data: 'name' },
                     { data: 'email' },
+                    { data: 'no_ktp_pembeli' },
+                    { data: 'tempat_lahir_pembeli' },
+                    { data: 'tanggal_lahir_pembeli' },
+                    { data: 'alamat_pembeli' },
+                    { data: 'provinsi' },
+                    { data: 'kota' },
+                    { data: 'kecamatan' },
+                    { data: 'kelurahan' },
+                    { data: 'no_telepon_pembeli' },
+                    { data: 'no_handphone_pembeli' },
+                    { data: 'dealer' },
+                    { data: 'metode_pembayaran' },
+
+                    // STNK
+                    { data: 'stnk_nama_pemakai' },
+                    { data: 'stnk_no_ktp' },
+                    { data: 'stnk_tempat_lahir' },
+                    { data: 'stnk_tanggal_lahir' },
+                    { data: 'stnk_alamat' },
+                    { data: 'stnk_provinsi' },
+                    { data: 'stnk_kecamatan' },
+                    { data: 'stnk_kelurahan' },
+                    { data: 'stnk_no_telepon' },
+                    { data: 'stnk_no_handphone' },
+                    { data: 'stnk_email' },
+
                     { data: 'created_at' },
                     { data: 'action', orderable: false, searchable: false }
-                ]
+                ],
+                previous: "<i class='mdi mdi-chevron-left'>",
+                next: "<i class='mdi mdi-chevron-right'>",
+                drawCallback: function drawCallback() {
+                    $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
+                },
             });
         });
 

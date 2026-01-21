@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ListPesanan;
 
 class PengirimanController extends Controller
 {
@@ -13,7 +14,45 @@ class PengirimanController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.pesanan.index');
+    }
+
+    public function getPesanan(Request $request)
+    {
+        $query = ListPesanan::query()
+                    ->with(['produk','delear','datauser.user']);
+
+        // Search
+        if ($search = $request->input('search.value')) {
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+        }
+
+        $total = $query->count();
+
+        $pesanan = $query
+            ->offset($request->start)
+            ->limit($request->length)
+            ->get()
+            ->map(function ($dataUser) {
+                return [
+                    'id' => $pesanan->user->id,
+                    'name' => $pesanan->datauser->user->name,
+                    'produk' => $pesanan->produk->name,
+                    'delear' => $pesanan->delear->namedelear,
+                    'status' => $pesanan->status,
+                    'keterangan' => $pesanan->keterangan,
+                    'created_at' => $pesanan->created_at->format('Y-m-d'),
+                    'action' => view('admin.pesanan.partials', compact('pesanan'))->render()
+                ];
+            });;
+
+        return response()->json([
+            'draw' => intval($request->draw),
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
+            'data' => $pesanan,
+        ]);
     }
 
     /**

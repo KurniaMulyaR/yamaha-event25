@@ -158,20 +158,33 @@
                         </div>
       
                         <div class="form-group">
-                          <label for="nohp" class="block text-sm/6 font-medium text-white">No HP</label>
+                          <label for="nohp" class="block text-sm/6 font-medium text-white">
+                            No HP
+                          </label>
+
                           <div class="mt-2">
-                            <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                              <input id="nohp" type="tel"
-                              name="nohp"
-                              placeholder="08xxxxxxxxxx"
-                              maxlength="13"
-                              inputmode="numeric"
-                              class="w-full rounded-md bg-white/10 border border-white/20
-                                      px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-                              oninput="this.value = this.value.replace(/[^0-9]/g,'')" />
+                            <div class="flex rounded-md overflow-hidden border border-white/20 focus-within:ring-2 focus-within:ring-red-500">
+                              
+                              <!-- Prefix -->
+                              <span class="flex items-center px-3 bg-gray-200 text-gray-700 text-sm">
+                                +62
+                              </span>
+
+                              <!-- Input -->
+                              <input
+                                id="nohp"
+                                type="tel"
+                                name="nohp"
+                                placeholder="812xxxxxxx"
+                                maxlength="11"
+                                inputmode="numeric"
+                                class="w-full bg-white px-4 py-2 focus:outline-none"
+                                oninput="this.value = this.value.replace(/[^0-9]/g,'')"
+                              />
                             </div>
                           </div>
-                      </div>
+                        </div>
+
 
                       <div class="form-group">
                         <label for="email" class="block text-sm/6 font-medium text-white">E-Mail</label>
