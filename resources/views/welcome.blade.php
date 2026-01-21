@@ -3,21 +3,20 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<main class="p-6 grid grid-flow-col grid-rows-1 gap-2">
+<main class="p-4 grid md:grid-cols-1 lg:grid-cols-2 gap-6 items-center">
             
     <div>
         <x-slider-bike :produk="$produk"/>
     </div>
-    <div class="mx-auto mt-6 text-center z-20">
-        <h1 class="text-white text-bold text-5xl">
-            Maxi Maximal
-        </h1>
-        <h2 class="text-white text-2xl mt-3">
-            Feel The Maximalride
-        </h2>
-        <h2 class="text-white text-2xl mt-3">
-            Booking Segera Dibuka Dalam
-        </h2>
+    <div class="mx-auto mt-6 text-center z-20" id="promoleft">
+        <!-- Logo -->
+      <div class="text-white text-8xl ml-[9rem] font-bold">
+        <img 
+            src="{{ asset('img/logo.png') }}" 
+            alt="Yamaha" 
+            class="w-auto"
+        >
+      </div>
         <h1 id="countdown" class="text-red-600 font-bold text-6xl mt-4">
             00 : 00 : 00
         </h1>

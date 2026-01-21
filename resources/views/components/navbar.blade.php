@@ -24,68 +24,68 @@
           </button>
 
       <!-- LOGIN MODAL -->
-      <div
-          x-show="openLogin"
-          x-transition
-          id="modalLogin"
-          class="fixed inset-0 z-50 flex items-center justify-center hidden"
-      >
-          <!-- OVERLAY -->
-          <div
-              class="absolute inset-0 bg-black/60"
-              @click="openLogin = false"
-          ></div>
+            <div
+                x-show="openLogin"
+                x-transition
+                id="modalLogin"
+                class="fixed inset-0 z-50 flex items-center justify-center hidden"
+            >
+                <!-- OVERLAY -->
+                <div
+                    class="absolute inset-0 bg-black/60"
+                    @click="openLogin = false"
+                ></div>
 
-          <!-- MODAL BOX -->
-          <div class="relative bg-white text-black rounded-xl w-full max-w-md p-6 z-10">
-              <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
+                <!-- MODAL BOX -->
+                <div class="relative bg-white text-black rounded-xl w-full max-w-md p-6 z-10">
+                    <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
 
-              <form method="POST" action="{{ route('login') }}">
-                  @csrf
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
 
-                  <!-- EMAIL -->
-                  <div class="mb-4">
-                      <label class="block mb-1 font-medium">Email</label>
-                      <input
-                          type="email"
-                          name="email"
-                          required
-                          class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-red-500"
-                      >
-                  </div>
+                        <!-- EMAIL -->
+                        <div class="mb-4">
+                            <label class="block mb-1 font-medium">Email</label>
+                            <input
+                                type="email"
+                                name="email"
+                                required
+                                class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-red-500"
+                            >
+                        </div>
 
-                  <!-- PASSWORD -->
-                  <div class="mb-4">
-                      <label class="block mb-1 font-medium">Password</label>
-                      <input
-                          type="password"
-                          name="password"
-                          required
-                          class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-red-500"
-                      >
-                  </div>
+                        <!-- PASSWORD -->
+                        <div class="mb-4">
+                            <label class="block mb-1 font-medium">Password</label>
+                            <input
+                                type="password"
+                                name="password"
+                                required
+                                class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-red-500"
+                            >
+                        </div>
 
-                  <!-- ACTION -->
-                  <div class="flex justify-between items-center">
-                      <button
-                          type="submit"
-                          class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
-                      >
-                          Login
-                      </button>
+                        <!-- ACTION -->
+                        <div class="flex justify-between items-center">
+                            <button
+                                type="submit"
+                                class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
+                            >
+                                Login
+                            </button>
 
-                      <button
-                          id="cncellogin"
-                          type="button"
-                          @click="openLogin = false"
-                          class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded hover:underline"
-                      >
-                          Batal
-                      </button>
-                  </div>
-              </form>
-          </div>
-      </div>
+                            <button
+                                id="cncellogin"
+                                type="button"
+                                @click="openLogin = false"
+                                class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded hover:underline"
+                            >
+                                Batal
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </li>
       </ul>
   
@@ -112,11 +112,13 @@
     // OPEN MODAL
         $('#btnlogin').on('click', function () {
             $('#modalLogin').removeClass('hidden').addClass('flex');
+            $('#promoleft').removeClass('z-20');
         });
 
         // CLOSE MODAL
         $('#cncellogin').on('click', function () {
             $('#modalLogin').addClass('hidden').removeClass('flex');
+            $('#promoleft').addClass('z-20');
         });
 </script>
 

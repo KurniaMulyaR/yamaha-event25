@@ -45,7 +45,7 @@
         <!-- background stripes -->
         <div class="absolute inset-0 bg-[size:120px_100%]"></div>
     
-        <div class="relative z-10 max-w-7xl mx-auto px-6 py-16 grid grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="relative z-10 max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 md:grid-cols-3 gap-6">
     
             <!-- FORM KONSUMEN -->
             <div class="lg:col-span-2 bg-black/60 rounded-xl">

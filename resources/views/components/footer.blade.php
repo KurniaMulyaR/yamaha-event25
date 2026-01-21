@@ -1,19 +1,26 @@
-<footer class="bg-[linear-gradient(180deg,#1A1A1A_54%,#21222B_89%)] shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
-    <nav class="container mx-auto px-6 py-4 flex items-center">
-      
-      <!-- Logo -->
-      <div class="text-white text-2xl font-bold">
-        <img 
-            src="{{ asset('img/logo.png') }}" 
-            alt="Yamaha" 
-            class="h-8 w-auto"
-        >
-      </div>
+<footer class="bg-[linear-gradient(180deg,#1A1A1A_54%,#21222B_89%)]
+               shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
+    
+    <nav class="max-w-7xl mx-auto px-4 py-4
+                flex flex-col sm:flex-row
+                items-center sm:justify-between gap-3">
 
-      <div class="text-white ml-[5rem]">
-        <h3>Copyrighting @ 2025 PT Yamaha Indonesia Motor Manufacturing All Right Reserved</h3>
-      </div>
-  
+        <!-- Logo -->
+        <div class="flex justify-center sm:justify-start">
+            <img 
+                src="{{ asset('img/logo.png') }}" 
+                alt="Yamaha"
+                class="h-8 w-auto"
+            >
+        </div>
+
+        <!-- Copyright -->
+        <div class="text-white text-center sm:text-right text-xs sm:text-sm leading-relaxed">
+            © 2025 PT Yamaha Indonesia Motor Manufacturing<br class="sm:hidden">
+            All Rights Reserved
+        </div>
+
     </nav>
-  </footer>
+</footer>
+
   

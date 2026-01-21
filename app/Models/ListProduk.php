@@ -17,4 +17,9 @@ class ListProduk extends Model
     protected $fillable = [
          'name','type','price','ttlunit','colour','img'
     ];
+
+    public function varian()
+    {
+        return $this->hasMany(Varian::class, 'produkid', 'id');
+    }
 }

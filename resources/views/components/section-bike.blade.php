@@ -36,37 +36,36 @@
         </div>
     </div>
 
-    <div class="h-screen bg-[url('/img/bg-bike.png')] bg-cover bg-center bg-no-repeat" x-data="modelSlider()">
-        <!-- OVERLAY -->
-        <div class="absolute inset-0 z-10"></div>
+    <div class="min-h-screen bg-[url('/img/bg-bike.png')] bg-cover bg-center bg-no-repeat" x-data="modelSlider()">
 
-        <!-- CONTENT -->
-        <div class="relative z-20 h-full flex items-center px-10">
+        <div class="relative z-20 min-h-screen px-4 py-6
+                    flex flex-col lg:flex-row gap-6 items-center">
 
             <!-- LEFT PANEL -->
-            <div class="w-1/3">
-                <div class="bg-black/50 backdrop-blur-md rounded-xl p-6 text-white border border-white/20">
-                    <h3 class="text-xl mb-3">PILIH MODEL</h3>
+            <div class="w-full lg:w-1/4 order-2 lg:order-1">
+                <div class="bg-black/60 backdrop-blur-md rounded-xl p-4 text-white border border-white/20">
+                    <h3 class="text-sm mb-3">PILIH MODEL</h3>
 
                     <template x-for="item in models" :key="item.key">
                         <button
                             @click="setModel(item.key)"
-                            class="w-[256px] py-2 my-2 rounded transition"
+                            class="w-full py-2 my-1 rounded transition text-sm"
                             :class="active === item.key
-                                ? 'bg-red-600'
+                                ? 'bg-red-600 text-white'
                                 : 'bg-white text-black hover:bg-gray-200'"
                             x-text="item.title"
                         ></button>
                     </template>
                 </div>
 
-                <div class="bg-black/50 backdrop-blur-md rounded-xl p-6 text-white border border-white/20 mt-2">
-                    <div class="flex justify-between text-sm">
+                <!-- STOCK -->
+                <div class="bg-black/60 backdrop-blur-md rounded-xl p-4 text-white border border-white/20 mt-2">
+                    <div class="flex justify-between text-xs">
                         <span>Stock</span>
                         <span x-text="`${soldUnit}/${totalUnit}`"></span>
                     </div>
 
-                    <div class="h-2 bg-white/20 rounded overflow-hidden">
+                    <div class="h-2 bg-white/20 rounded overflow-hidden mt-1">
                         <div
                             class="h-full bg-red-600 transition-all duration-500"
                             :style="`width:${stockPercent}%`"
@@ -79,68 +78,65 @@
             </div>
 
             <!-- BIKE IMAGE -->
-            <div class="flex-1 flex justify-center z-30">
+            <div class="w-full lg:flex-1 order-1 lg:order-2 flex justify-center relative min-h-[280px] sm:min-h-[360px]">
                 <template x-for="item in models" :key="item.key">
                     <img
                         x-show="active === item.key"
                         x-transition.opacity.duration.500ms
                         :src="item.image"
-                        class="absolute inset-0 mx-auto max-h-[420px] drop-shadow-2xl"
-                        style="margin-top: 9.5rem"
+                        class="absolute max-h-[260px] sm:max-h-[360px] lg:max-h-[420px]
+                            drop-shadow-2xl"
                         alt=""
                     >
                 </template>
             </div>
 
             <!-- RIGHT PANEL -->
-            <div class="w-1/3">
-                <h3 class="text-white p-2 text-bold">
-                    Tentukan Varian & Warna Pilihan Anda  
+            <div class="w-full lg:w-1/4 order-3">
+                <h3 class="text-white text-sm mb-2">
+                    Tentukan Varian & Warna Pilihan Anda
                 </h3>
-                <div class="bg-black/50 backdrop-blur-md rounded-xl p-6 text-white border border-white/20">
-                    <h3 class="text-sm mb-2">PILIH VARIANT</h3>
-    
+
+                <!-- VARIANT -->
+                <div class="bg-black/60 backdrop-blur-md rounded-xl p-4 text-white border border-white/20">
+                    <h3 class="text-xs mb-2">PILIH VARIANT</h3>
+
                     <button
-                        class="w-[256px] py-2 mb-2 rounded transition font-semibold bg-blue-600 text-white"
+                        class="w-full py-2 rounded font-semibold bg-red-600 text-white text-sm"
                         x-text="models.find(m => m.key === active)?.type"
                     ></button>
                 </div>
 
-                <div class="text-xs bg-black/50 backdrop-blur-md rounded-xl p-6 text-white border border-white/20 mt-2">
-                        <h3>PILIH WARNA - <span class="text-white" x-text="models.find(m => m.key === active)?.colour"></span></h3>
-                    <button
-                        class="w-10 h-10 rounded-full flex items-center justify-center transition border border-white/40 hover:bg-gray-600"
-                    >
-                        <div
-                            class="w-8 h-8 rounded-full bg-gray-800"
-                        ></div>
+                <!-- WARNA -->
+                <div class="bg-black/60 backdrop-blur-md rounded-xl p-4 text-white border border-white/20 mt-2">
+                    <h3 class="text-xs mb-2">
+                        PILIH WARNA -
+                        <span x-text="models.find(m => m.key === active)?.colour"></span>
+                    </h3>
+
+                    <button class="w-10 h-10 rounded-full border border-white/40">
+                        <div class="w-8 h-8 rounded-full bg-gray-800 mx-auto"></div>
                     </button>
                 </div>
 
-                <div class="text-xs bg-black/50 backdrop-blur-md rounded-xl p-6 text-white border border-white/20 mt-2">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold"
-                            x-text="models.find(m => m.key === active)?.price"></h3>
+                <!-- PRICE & CTA -->
+                <div class="bg-black/60 backdrop-blur-md rounded-xl p-4 text-white border border-white/20 mt-2">
+                    <h3 class="text-lg font-bold mb-2"
+                        x-text="models.find(m => m.key === active)?.price"></h3>
 
                     <form method="POST" action="{{ route('booking.store') }}">
                         @csrf
-
-                        <!-- kirim produk aktif -->
-                        <input
-                            type="hidden"
-                            name="produk_id"
-                            :value="models.find(m => m.key === active)?.id"
-                        >
+                        <input type="hidden" name="produk_id"
+                            :value="models.find(m => m.key === active)?.id">
 
                         <button
                             type="submit"
-                            class="bg-blue-600 px-4 py-2 rounded text-white w-full"
+                            class="bg-blue-600 w-full py-2 rounded font-semibold"
                             :disabled="!active"
                         >
                             BUY NOW
                         </button>
                     </form>
-                    </div>
                 </div>
             </div>
 

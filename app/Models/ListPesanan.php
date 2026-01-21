@@ -15,7 +15,7 @@ class ListPesanan extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-         'userid','produkid','delearid','status','keterangan'
+         'userid','produkid','delearid','status','keterangan','varianid'
     ];
 
 

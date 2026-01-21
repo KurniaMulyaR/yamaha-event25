@@ -13,7 +13,7 @@
     <!-- LEFT -->
     <button
         @click="current = (current - 1 + slides.length) % slides.length"
-        class="w-14 h-[9rem] bg-[linear-gradient(90deg,#000000_50%,#CB3A31_89%)]  rounded-l-xl flex items-center justify-center text-white text-2xl shadow-lg"
+        class="w-14 h-[9rem] rounded-l-xl flex items-center justify-center text-white text-2xl shadow-lg"
     >
         ‹
     </button>
@@ -39,7 +39,7 @@
     <!-- RIGHT -->
     <button
         @click="current = (current + 1) % slides.length"
-        class="w-14 h-[9rem] bg-[linear-gradient(90deg,#CB3A31_54%,#000_89%)]  rounded-r-xl flex items-center justify-center text-white text-2xl shadow-lg"
+        class="w-14 h-[9rem] rounded-r-xl flex items-center justify-center text-white text-2xl shadow-lg"
     >
         ›
     </button>
