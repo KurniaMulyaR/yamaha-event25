@@ -15,6 +15,11 @@ class Varian extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-         'name','produkid'
+         'name','produkid','jmlunit','colour','price'
     ];
+
+    public function produk()
+{
+    return $this->belongsTo(ListProduk::class, 'produkid');
+}
 }

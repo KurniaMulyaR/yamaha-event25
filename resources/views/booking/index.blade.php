@@ -45,7 +45,7 @@
         <!-- background stripes -->
         <div class="absolute inset-0 bg-[size:120px_100%]"></div>
     
-        <div class="relative z-10 max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="relative z-10 max-w-7xl mx-auto px-6 py-16 grid lg:grid-cols-2 lg:grid-cols-3 gap-6">
     
             <!-- FORM KONSUMEN -->
             <div class="lg:col-span-2 bg-black/60 rounded-xl">
@@ -96,7 +96,7 @@
                           <label for="tgllahir" class="block text-sm/6 font-medium text-white">Tanggal Lahir</label>
                           <div class="mt-2">
                             <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                              <input id="tgllahir" type="date" max="{{ now()->subYears(17)->format('Y-m-d') }}" name="tgllahir" required placeholder="Tanggal Lahir ..." class="w-full rounded-md bg-white/10 border border-white/20
+                              <input id="tgllahir" type="text" max="{{ now()->subYears(17)->format('Y-m-d') }}" name="tgllahir" required placeholder="Tanggal Lahir ..." class="w-full rounded-md bg-white/10 border border-white/20
                                           px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
                             </div>
                           </div>
@@ -216,7 +216,6 @@
                       <label for="metodpem" class="block text-sm/6 font-medium text-white">Metode Pembayaran</label>
                       <div class="mt-2 grid grid-cols-1">
                         <select id="metodpem" name="metodpem" autocomplete="metodpem-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                          <option>CREDIT CARD</option>
                           <option>VIRTUAL ACCOUNT</option>
                         </select>
                         <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
@@ -247,7 +246,8 @@
             </div>
     
             <!-- PRODUK -->
-            <div class="bg-black/60 rounded-xl text-center" style="height: 22rem">
+            <div>
+              <div class="bg-black/60 rounded-xl text-center" style="height: 22rem">
                 <h3 class="text-white font-bold text-lg mb-6 bg-[#CB3A31] border-b border-red-900 p-3 rounded-xl">
                     PRODUK YANG ANDA PILIH
                 </h3>
@@ -255,12 +255,97 @@
                 <img src="storage/{{ $produk->img }}" class="mx-auto h-40 object-contain">
     
                 <h4 class="text-white font-bold mt-4 text-2xl">{{ $produk->name }}</h4>
-                <p class="text-gray-300 text-xl">{{ $produk->type }}</p>
+                <p class="text-gray-300 text-xl">{{ $varian->name }}</p>
     
                 <p class="text-white font-bold mb-6 bg-[#CB3A31] border-b border-red-900 p-3 rounded-xl text-3xl mt-4">
-                    {{ 'Rp.' . number_format($produk->price, 0,',','.') }}
+                    {{ 'Rp.' . number_format($varian->price, 0,',','.') }}
                 </p>
             </div>
+
+            <!-- FAQ SECTION -->
+            <div class="max-w-7xl mx-auto px-6 py-20">
+                <div class="bg-black/60 rounded-xl overflow-hidden">
+                    <h2 class="text-white font-bold text-lg bg-[#CB3A31] p-4">
+                        FAQ – ORDER ONLINE
+                    </h2>
+
+                    <div class="divide-y divide-white/20">
+                        
+                        <details class="group p-4 cursor-pointer">
+                            <summary class="flex justify-between items-center text-white font-semibold">
+                                Apa itu layanan Order Online?
+                                <span class="transition group-open:rotate-180">⌄</span>
+                            </summary>
+                            <p class="mt-2 text-gray-300 text-sm">
+                                Layanan pemesanan kendaraan secara digital melalui website resmi tanpa harus datang ke dealer.
+                            </p>
+                        </details>
+
+                        <details class="group p-4 cursor-pointer">
+                            <summary class="flex justify-between items-center text-white font-semibold">
+                                Bagaimana cara melakukan pemesanan unit?
+                                <span class="transition group-open:rotate-180">⌄</span>
+                            </summary>
+                            <p class="mt-2 text-gray-300 text-sm">
+                                Pilih unit → isi data Anda → pilih dealer & metode pembayaran (Virtual Account) → konfirmasi pesanan.
+                            </p>
+                        </details>
+
+                        <details class="group p-4 cursor-pointer">
+                            <summary class="flex justify-between items-center text-white font-semibold">
+                                Berapa lama proses setelah transaksi?
+                                <span class="transition group-open:rotate-180">⌄</span>
+                            </summary>
+                            <p class="mt-2 text-gray-300 text-sm">
+                                Tergantung ketersediaan stok dan lokasi. Estimasi waktu akan diinformasikan setelah pesanan dikonfirmasi.
+                            </p>
+                        </details>
+
+                        <details class="group p-4 cursor-pointer">
+                            <summary class="flex justify-between items-center text-white font-semibold">
+                                Apakah layanan tersedia di seluruh Indonesia?
+                                <span class="transition group-open:rotate-180">⌄</span>
+                            </summary>
+                            <p class="mt-2 text-gray-300 text-sm">
+                                Tersedia di banyak wilayah, namun cakupan dapat berbeda sesuai jaringan dealer di area Anda.
+                            </p>
+                        </details>
+
+                        <details class="group p-4 cursor-pointer">
+                            <summary class="flex justify-between items-center text-white font-semibold">
+                                Bisakah memilih dealer tertentu?
+                                <span class="transition group-open:rotate-180">⌄</span>
+                            </summary>
+                            <p class="mt-2 text-gray-300 text-sm">
+                                Ya, Anda dapat memilih dealer yang tersedia di daerah Anda saat proses pemesanan.
+                            </p>
+                        </details>
+
+                        <details class="group p-4 cursor-pointer">
+                            <summary class="flex justify-between items-center text-white font-semibold">
+                                Bagaimana mengetahui status order?
+                                <span class="transition group-open:rotate-180">⌄</span>
+                            </summary>
+                            <p class="mt-2 text-gray-300 text-sm">
+                                Pantau melalui akun Anda di website maxi25.com dengan login menggunakan akun yang dikirimkan melalui email.
+                            </p>
+                        </details>
+
+                        <details class="group p-4 cursor-pointer">
+                            <summary class="flex justify-between items-center text-white font-semibold">
+                                Apakah data saya aman?
+                                <span class="transition group-open:rotate-180">⌄</span>
+                            </summary>
+                            <p class="mt-2 text-gray-300 text-sm">
+                                Ya, data Anda dilindungi dengan sistem keamanan resmi dan enkripsi standar industri.
+                            </p>
+                        </details>
+
+                    </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
     
@@ -270,6 +355,9 @@
 @push('scripts')
 
 <script>
+    $('#tgllahir').flatpickr({
+        dateFormat: "d-m-Y",
+      });
 $(function () {
 
     // LOAD PROVINSI

@@ -20,7 +20,7 @@
                             <th>Type</th>
                             <th>Price</th>
                             <th>Unit</th>
-                            <th>Colour</th>
+                            <th>Varian</th>
                             <th>img</th>
                             <th>Created</th>
                             <th class="px-4 py-2 text-center">Action</th>
@@ -33,7 +33,7 @@
 
     <!-- MODAL EDIT -->
     <div id="produkModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-lg w-full max-w-md p-6">
+        <div class="bg-white rounded-lg w-full max-w-md p-6 overflow-auto max-h-[35rem]">
             <h2 class="text-lg font-bold mb-4" id="modalTitle"></h2>
 
             <form id="produkForm" enctype="multipart/form-data">
@@ -91,6 +91,19 @@
                         class="w-32 h-32 rounded object-cover border">
                 </div>
 
+                <hr class="my-4">
+
+                <div class="mb-2 flex justify-between items-center">
+                    <label class="text-sm font-semibold">Varian</label>
+                    <button type="button"
+                        id="addEditVarian"
+                        class="px-3 py-1 bg-blue-600 text-white rounded text-sm">
+                        + Tambah Varian
+                    </button>
+                </div>
+
+                <div id="editVarianWrapper" class="space-y-3"></div>
+
                 <button class="bg-blue-600 text-white px-4 py-2 rounded">
                     Update
                 </button>
@@ -98,10 +111,55 @@
         </div>
     </div>
 
+    <template id="editVarianTemplate">
+        <div class="border rounded p-3 bg-gray-50 relative varian-item">
+            <button type="button"
+                class="removeVarian absolute top-2 right-2 text-red-600 font-bold">
+                ×
+            </button>
+
+            <!-- ID VARIAN (hidden, penting untuk update) -->
+            <input type="hidden" data-name="id">
+
+            <div class="mb-2">
+                <label class="text-xs font-semibold">Nama Varian</label>
+                <input type="text"
+                    class="w-full border rounded px-2 py-1"
+                    data-name="name"
+                    required>
+            </div>
+
+            <div class="mb-2">
+                <label class="text-xs font-semibold">Jumlah Unit</label>
+                <input type="number"
+                    class="w-full border rounded px-2 py-1"
+                    data-name="jmlunit"
+                    required>
+            </div>
+
+            <div class="mb-2">
+                <label class="text-xs font-semibold">Colour</label>
+                <input type="text"
+                    class="w-full border rounded px-2 py-1"
+                    data-name="colour"
+                    required>
+            </div>
+
+            <div class="mb-2">
+                <label class="text-xs font-semibold">Price</label>
+                <input type="text"
+                    class="w-full border rounded px-2 py-1"
+                    data-name="price"
+                    required>
+            </div>
+        </div>
+    </template>
+
+
 <div id="createProdukModal"
     class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
 
-    <div class="bg-white rounded-lg w-full max-w-md p-6">
+    <div class="bg-white rounded-lg w-full max-w-md p-6 max-h-[35rem] overflow-y-auto">
         <h2 class="text-lg font-bold mb-4">Create User</h2>
 
         <form id="createProdukForm">
@@ -116,12 +174,12 @@
                 <input type="text" id="create_type" name="type"
                     class="w-full border rounded px-3 py-2" required>
             </div>
-
+<!-- 
             <div class="mb-4">
                 <label class="text-sm font-semibold">Price</label>
                 <input type="number" id="create_price" name="price"
                     class="w-full border rounded px-3 py-2" required>
-            </div>
+            </div> -->
 
             <div class="mb-4">
                 <label class="text-sm font-semibold">Unit</label>
@@ -149,6 +207,19 @@
                     class="mt-3 w-24 h-24 rounded-full object-cover hidden border">
             </div>
 
+            <hr class="my-4">
+
+            <div class="mb-2 flex justify-between items-center">
+                <label class="text-sm font-semibold">Varian</label>
+                <button type="button"
+                    id="addVarian"
+                    class="px-3 py-1 bg-blue-600 text-white rounded text-sm">
+                    + Tambah Varian
+                </button>
+            </div>
+
+            <div id="varianWrapper" class="space-y-3"></div>
+
             <div class="flex justify-end gap-2">
                 <button type="button" id="closeCreateModal"
                     class="px-4 py-2 bg-gray-400 rounded text-white">
@@ -164,6 +235,47 @@
     </div>
 </div>
 
+<template id="varianTemplate">
+    <div class="border rounded p-3 relative bg-gray-50">
+        <button type="button"
+            class="removeVarian absolute top-2 right-2 text-red-600 font-bold">
+            ×
+        </button>
+
+        <div class="mb-2">
+            <label class="text-xs font-semibold">Nama Varian</label>
+            <input type="text"
+                class="w-full border rounded px-2 py-1"
+                data-name="name"
+                required>
+        </div>
+
+        <div class="mb-2">
+            <label class="text-xs font-semibold">Jumlah Unit</label>
+            <input type="number"
+                class="w-full border rounded px-2 py-1"
+                data-name="jmlunit"
+                required>
+        </div>
+
+        <div class="mb-2">
+            <label class="text-xs font-semibold">Price</label>
+            <input type="number"
+                class="w-full border rounded px-2 py-1"
+                data-name="price"
+                required>
+        </div>
+
+        <div class="mb-2">
+            <label class="text-xs font-semibold">Colour</label>
+            <input type="text"
+                class="w-full border rounded px-2 py-1"
+                data-name="colour"
+                required>
+        </div>
+    </div>
+</template>
+
 
     <script>
         $(document).ready(function () {
@@ -177,7 +289,7 @@
                     { data: 'type' },
                     { data: 'price' },
                     { data: 'ttlunit' },
-                    { data: 'colour' },
+                    { data: 'varian'},
                     { data: 'img' },
                     { data: 'created_at' },
                     { data: 'action', orderable: false, searchable: false }
@@ -191,6 +303,30 @@
             $('#closeCreateModal').on('click', function () {
                 $('#createProdukModal').addClass('hidden').removeClass('flex');
             });
+
+            let varianIndex = 0;
+
+            // ADD VARIAN
+            $('#addVarian').on('click', function () {
+
+                let $template = $($('#varianTemplate').html());
+
+                $template.find('[data-name]').each(function () {
+                    let field = $(this).data('name');
+                    $(this).attr('name', `varian[${varianIndex}][${field}]`);
+                });
+
+                $('#varianWrapper').append($template);
+                varianIndex++;
+            });
+
+            // REMOVE VARIAN (delegation)
+            $(document).on('click', '.removeVarian', function () {
+                $(this).closest('.varian-item').remove();
+            });
+
+            // OPTIONAL: auto add 1 varian saat form dibuka
+            $('#addVarian').trigger('click');
         });
 
         $('#create_img').on('change', function () {
@@ -210,18 +346,9 @@
         $('#createProdukForm').submit(function (e) {
             e.preventDefault();
 
-            let formData = new FormData();
-            formData.append('_token', '{{ csrf_token() }}');
-            formData.append('name', $('#create_name').val());;
-            formData.append('type', $('#create_type').val());;
-            formData.append('price', $('#create_price').val());;
-            formData.append('ttlunit', $('#create_unit').val());;
-            formData.append('colour', $('#create_colour').val());;
-
-            let photo = $('#create_img')[0].files[0];
-            if (photo) {
-                formData.append('img', photo);
-            }
+            let formData = new FormData(this); 
+            // 👆 OTOMATIS ambil semua input termasuk:
+            // name, type, price, ttlunit, colour, img, varian[0][...], varian[1][...]
 
             $.ajax({
                 url: '/admin/produk',
@@ -233,6 +360,7 @@
                     $('#createProdukModal').addClass('hidden');
                     $('#createProdukForm')[0].reset();
                     $('#photoPreview').addClass('hidden');
+                    $('#varianWrapper').empty(); // reset varian
 
                     $('#produkTable').DataTable().ajax.reload();
 
@@ -243,9 +371,17 @@
                         timer: 1500,
                         showConfirmButton: false
                     });
+                },
+                error: function (xhr) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: xhr.responseJSON?.message ?? 'Terjadi kesalahan'
+                    });
                 }
             });
         });
+
 
         $('#imgInput').on('change', function () {
             let file = this.files[0];
@@ -259,6 +395,7 @@
             reader.readAsDataURL(file);
         });
 
+        let editVarianIndex = 0;    
         $(document).on('click', '.editBtn', function () {
             let id = $(this).data('id');
 
@@ -277,11 +414,43 @@
                 } else {
                     $('#oldImage').addClass('hidden');
                 }
+                
+                if(data.varians){
+                    data.varians.forEach(function (v) {
+                        addEditVarian(v);
+                    });
+                }
 
                 $('#img').val('');
 
                 $('#produkModal').removeClass('hidden').addClass('flex');
             });
+        });
+
+        function addEditVarian(data = null) {
+            let $tpl = $($('#editVarianTemplate').html());
+            console.log($tpl);
+
+            $tpl.find('[data-name]').each(function () {
+                let field = $(this).data('name');
+                $(this).attr('name', `varian[${editVarianIndex}][${field}]`);
+                if (data && data[field]) {
+                    $(this).val(data[field]);
+                }
+            });
+
+            $('#editVarianWrapper').append($tpl);
+            editVarianIndex++;
+        }
+
+        // ADD NEW EMPTY VARIAN
+        $('#addEditVarian').on('click', function () {
+            addEditVarian();
+        });
+
+        // REMOVE VARIAN
+        $(document).on('click', '.removeVarian', function () {
+            $(this).closest('.varian-item').remove();
         });
 
         $.ajaxSetup({

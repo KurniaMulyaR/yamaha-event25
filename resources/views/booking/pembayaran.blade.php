@@ -55,15 +55,6 @@
                   <input id="pesanan_id" name="pesanan_id" value="{{ $pesanan->id }}" hidden />
                 <!-- LEFT -->
                 <div class="lg:col-span-2 space-y-6">
-        
-                    <!-- CREDIT CARD -->
-                    <div class="rounded-xl p-6 bg-white/5 backdrop-blur"
-                        :class="payment === 'credit' ? 'border-blue-500' : 'border-white/10'">
-                        <label class="flex items-center gap-3 cursor-pointer text-white font-bold text-lg bg-[#CB3A31] p-3 rounded-xl">
-                            <input type="radio" value="credit" x-model="payment">
-                            CREDIT CARD
-                        </label>
-                    </div>
 
                     <!-- VIRTUAL ACCOUNT -->
                     <div class="rounded-xl p-6 bg-white/5 backdrop-blur mt-4"

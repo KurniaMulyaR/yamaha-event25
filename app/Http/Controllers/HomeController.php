@@ -9,22 +9,44 @@ class HomeController extends Controller
 {
     public function home()
     {
-        $produk = ListProduk::select('name','type','price','ttlunit','colour','img','id')
-        ->orderBy('id')
-        ->get()
-        ->map(function ($item) {
-            return [
-                'title' => $item->name,
-                'image' => asset('storage/' . $item->img),
-                'id'    => $item->id, // 🔑 paling aman
-                'key'   => 'produk-' . $item->id, // 🔥 unik
-                'price' => 'Rp.' . number_format($item->price, 0,',','.'),
-                'ttlunit' => $item->ttlunit,
-                'sold' => 0,
-                'colour' => $item->colour,
-                'type' => $item->type,
-            ];
-        });
+        $produk = ListProduk::with('varians')
+    ->select('id','name','type','price','ttlunit','colour','img')
+    ->orderBy('id')
+    ->get()
+    ->map(function ($item) {
+        return [
+            'id'      => $item->id,
+            'key'     => 'produk-' . $item->id,
+
+            // PRODUK
+            'title'   => $item->name,
+            'name'    => $item->name,
+            'type'    => $item->type,
+            'price'   => $item->price,
+            'price_rp'=> 'Rp.' . number_format($item->price, 0, ',', '.'),
+            'ttlunit' => $item->ttlunit,
+            'colour'  => $item->colour,
+            'sold'    => 0,
+
+            // IMAGE
+            'img'     => $item->img,
+            'image'   => $item->img
+                ? asset('storage/' . $item->img)
+                : null,
+
+            // 🔥 VARIAN (PENTING BUAT EDIT)
+            'varians' => $item->varians->map(function ($v) {
+                return [
+                    'id'      => $v->id,
+                    'name'    => $v->name,
+                    'jmlunit' => $v->jmlunit,
+                    'colour'  => $v->colour,
+                    'price'  => 'Rp.' . number_format($v->price, 0, ',', '.'),
+                ];
+            })->values(),
+        ];
+    });
+
 
         return view('welcome', compact('produk'));
     }

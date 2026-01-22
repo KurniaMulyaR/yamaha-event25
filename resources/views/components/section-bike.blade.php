@@ -57,24 +57,6 @@
                         ></button>
                     </template>
                 </div>
-
-                <!-- STOCK -->
-                <div class="bg-black/60 backdrop-blur-md rounded-xl p-4 text-white border border-white/20 mt-2">
-                    <div class="flex justify-between text-xs">
-                        <span>Stock</span>
-                        <span x-text="`${soldUnit}/${totalUnit}`"></span>
-                    </div>
-
-                    <div class="h-2 bg-white/20 rounded overflow-hidden mt-1">
-                        <div
-                            class="h-full bg-red-600 transition-all duration-500"
-                            :style="`width:${stockPercent}%`"
-                        ></div>
-                    </div>
-
-                    <p class="text-xs mt-1 text-white/70"
-                    x-text="`${soldUnit} unit terjual dari ${totalUnit}`"></p>
-                </div>
             </div>
 
             <!-- BIKE IMAGE -->
@@ -101,37 +83,64 @@
                 <div class="bg-black/60 backdrop-blur-md rounded-xl p-4 text-white border border-white/20">
                     <h3 class="text-xs mb-2">PILIH VARIANT</h3>
 
-                    <button
-                        class="w-full py-2 rounded font-semibold bg-red-600 text-white text-sm"
-                        x-text="models.find(m => m.key === active)?.type"
-                    ></button>
+                    <div class="space-y-2">
+                        <template x-for="v in product.varians" :key="v.id">
+                            <button
+                                @click="activeVarian = v"
+                                class="w-full py-2 rounded font-semibold text-sm transition"
+                                :class="activeVarian?.id === v.id 
+                                    ? 'bg-red-600 text-white' 
+                                    : 'bg-white text-black hover:bg-gray-200'"
+                                x-text="`${v.name}`"
+                            ></button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- STOCK -->
+                <div class="bg-black/60 backdrop-blur-md rounded-xl p-4 text-white border border-white/20 mt-2">
+                    <div class="flex justify-between text-xs">
+                        <span>Stok</span>
+                        <!-- <span x-text="activeVarian ? activeVarian.jmlunit + ' unit' : '-'"></span> -->
+                    </div>
+
+                    <div class="h-2 bg-white/20 rounded overflow-hidden mt-1">
+                        <div
+                            class="h-full bg-red-600 transition-all duration-500"
+                            :style="`width:${stockPercent}%`"
+                        ></div>
+                    </div>
                 </div>
 
                 <!-- WARNA -->
                 <div class="bg-black/60 backdrop-blur-md rounded-xl p-4 text-white border border-white/20 mt-2">
                     <h3 class="text-xs mb-2">
                         PILIH WARNA -
-                        <span x-text="models.find(m => m.key === active)?.colour"></span>
+                        <span x-text="activeVarian?.colour ?? '-'"></span>
                     </h3>
 
-                    <button class="w-10 h-10 rounded-full border border-white/40">
-                        <div class="w-8 h-8 rounded-full bg-gray-800 mx-auto"></div>
-                    </button>
+                    <button
+                        class="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center"
+                        :style="`background:${activeVarian?.colour ?? '#333'}`"
+                    ></button>
                 </div>
 
                 <!-- PRICE & CTA -->
                 <div class="bg-black/60 backdrop-blur-md rounded-xl p-4 text-white border border-white/20 mt-2">
                     <h3 class="text-lg font-bold mb-2"
-                        x-text="models.find(m => m.key === active)?.price"></h3>
+                        x-text="activeVarian?.price"></h3>
 
                     <form method="POST" action="{{ route('booking.store') }}">
                         @csrf
                         <input type="hidden" name="produk_id"
                             :value="models.find(m => m.key === active)?.id">
 
+                        <input type="hidden" name="varian_id"
+                            :value="activeVarian?.id">
+
                         <button
                             type="submit"
-                            class="bg-blue-600 w-full py-2 rounded font-semibold"
+                            class="bg-red-600 hover:bg-red-800 w-full py-2 rounded font-semibold"
                             :disabled="!active"
                         >
                             BUY NOW
@@ -148,7 +157,8 @@
 <script>
 function modelSlider() {
     return {
-        active: null,
+        active: 'produk-1',
+        activeVarian: null,
         models: @json($produk),
 
         init() {
@@ -175,6 +185,10 @@ function modelSlider() {
 
         get totalUnit() {
             return this.currentModel ? this.currentModel.ttlunit : 0
+        },
+
+        get product() {
+            return this.models.find(m => m.key === this.active)
         },
 
         get stockPercent() {

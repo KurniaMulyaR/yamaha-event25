@@ -2,13 +2,15 @@
     <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
       
       <!-- Logo -->
-      <div class="text-white text-2xl font-bold">
-        <img 
-            src="{{ asset('img/logo.png') }}" 
-            alt="Yamaha" 
-            class="h-8 w-auto"
-        >
-      </div>
+        <a href="{{ route('home') }}">
+            <div class="text-white text-6xl font-bold">
+                <img 
+                    src="{{ asset('img/logo.png') }}" 
+                    alt="Yamaha" 
+                    class="h-12 w-auto"
+                >
+            </div>
+        </a>
   
       <!-- Menu Desktop -->
       <ul class="md:flex space-x-8 text-white z-20">
@@ -18,9 +20,9 @@
           <button
             id="btnlogin"
             @click="openLogin = true"
-            class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded font-semibold"
+            class="bg-blue-400 hover:bg-blue-700 text-white px-4 py-2 rounded font-semibold"
           >
-              LOGIN
+              Track Order
           </button>
 
       <!-- LOGIN MODAL -->

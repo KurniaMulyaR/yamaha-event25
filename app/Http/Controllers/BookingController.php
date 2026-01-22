@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ListProduk;
+use App\Models\Varian;
 use App\Models\ListPesanan;
 use App\Models\DataUser;
 use App\Models\User;
@@ -44,8 +45,10 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         $produk = ListProduk::findOrFail($request->produk_id);
+        
+        $varian = Varian::findOrFail($request->varian_id);
 
-        return view('booking.index', compact('produk'));
+        return view('booking.index', compact('produk', 'varian'));
     }
 
     /**

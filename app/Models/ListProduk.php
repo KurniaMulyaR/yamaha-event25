@@ -18,8 +18,8 @@ class ListProduk extends Model
          'name','type','price','ttlunit','colour','img'
     ];
 
-    public function varian()
-    {
-        return $this->hasMany(Varian::class, 'produkid', 'id');
-    }
+    public function varians()
+{   
+    return $this->hasMany(Varian::class, 'produkid');
+}
 }
