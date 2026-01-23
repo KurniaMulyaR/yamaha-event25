@@ -70,7 +70,7 @@
                         x-show="active === item.key"
                         x-transition.opacity.duration.500ms
                         :src="activeVarian?.colour === 'Crystal Graphite'
-                ? '/img/tmx.png'
+                ? '/produk/tmx.png'
                 : item.image"
                         class="absolute max-h-[260px] sm:max-h-[360px] lg:max-h-[420px]
                             drop-shadow-2xl"
@@ -127,9 +127,9 @@
 
                     <button
                         class="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center"
-                        :style="`background-color:${activeVarian?.colour === 'Crystal Graphite'
-            ? '#8F8F8E'
-            : (activeVarian?.colour ?? '#333')}`"
+                        :style="`background-color:${activeVarian?.colour === '⁠Crystal Graphite'
+                                ? '#8F8F8E'
+                                : (activeVarian?.colour ?? '#333')}`"
                     ></button>
                 </div>
 
