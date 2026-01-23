@@ -9,7 +9,7 @@
         <img src="{{ asset('img/logo.png') }}" alt="Yamaha" class="h-12">
 
         <!-- Help Center Button -->
-        <div class="flex flex-col sm:flex-row items-center gap-2 bg-[#1E73BE] 
+        <div class="p-4 flex flex-col sm:flex-row items-center gap-2 bg-[#1E73BE]
             text-white px-5 py-3 rounded-2xl shadow-lg">
     
             <div class="font-semibold text-sm tracking-wide">

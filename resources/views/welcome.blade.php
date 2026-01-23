@@ -4,7 +4,7 @@
 
 @section('content')
 <main class="mx-auto items-center">
-    <div class="relative min-h-[96vh] bg-cover bg-center bg-black/70"
+    <div class="relative p-6 min-h-[96vh] bg-cover bg-center bg-black/70"
      style="background-image: url('{{ asset('img/bckground.jpg') }}')">
 
     <!-- <div class="absolute inset-0 bg-black/70"></div> -->
