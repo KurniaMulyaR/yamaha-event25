@@ -2,8 +2,8 @@
     x-data="{
         current: 0,
         slides: [
-            { title: 'Order Mulai', value: '25 Januari' },
-            { title: 'Waktu pembelian hanya', value: '25 MENIT' },
+            { title: 'Order Online Mulai', value: '25 Januari', subtitle: 'Mulai Pukul 19.00 WIB' },
+            { title: 'Waktu pembelian hanya', value: '25 MENIT', subtitle: 'Mulai Pukul 19.00 WIB' },
         ]
     }"
     class="w-full flex items-center justify-center py-5"
@@ -29,6 +29,7 @@
                 >
                     <p class="text-sm opacity-90" x-text="slide.title"></p>
                     <p class="text-3xl font-extrabold my-2" x-text="slide.value"></p>
+                    <p class="text-sm opacity-90" x-text="slide.subtitle"></p>
                 </div>
             </template>
         </div>

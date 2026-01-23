@@ -42,7 +42,7 @@ class HomeController extends Controller
                     'name'    => $v->name,
                     'jmlunit' => $v->jmlunit,
                     'colour'  => $v->colour,
-                    'price'  => $v->price,
+                    'price'  => 'Rp.' . number_format($v->price, 0, ',', '.'),
                 ];
             })->values(),
         ];

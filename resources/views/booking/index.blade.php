@@ -420,7 +420,7 @@ $(function () {
             $('#dealer').html('<option value="">Pilih Dealer</option>');
             data.forEach(item => {
                 $('#dealer').append(
-                    `<option value="${item.code}">${item.namedds}</option>`
+                    `<option value="${item.code}">${item.namedelear}</option>`
                 );
             });
         });

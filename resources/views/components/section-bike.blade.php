@@ -1,5 +1,5 @@
 @props(['produk'])
-<section id="booking" class="hidden">
+<section id="booking">
     <div class="w-full bg-black py-6">
         <div class="max-w-3xl mx-auto flex items-center justify-between text-white text-sm">
     
