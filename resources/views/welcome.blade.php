@@ -5,7 +5,7 @@
 @section('content')
 <main class="p-3 mx-auto items-center">
     <div class="relative min-h-screen bg-cover bg-center bg-black/70"
-     style="#">
+     style="background-image: url('{{ asset('img/bckground.jpg') }}')">
 
     <!-- <div class="absolute inset-0 bg-black/70"></div> -->
 
@@ -166,7 +166,7 @@
             </div>
         </div>
 
-        <a href="#" class="text-2xl mt-3 bg-blue-900 hover:bg-blue-700 transition text-white font-bold px-10 py-3 rounded-lg text-lg shadow-lg">
+        <a href="{{ route('motor') }}" class="text-2xl mt-3 bg-blue-900 hover:bg-blue-700 transition text-white font-bold px-10 py-3 rounded-lg text-lg shadow-lg">
             Booking Now
         </a>
     </div>
