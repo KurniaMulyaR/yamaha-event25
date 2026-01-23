@@ -99,55 +99,170 @@ class BookingController extends Controller
     public function pembayaran(Request $request)
     {
         
-        $password = Hash::make('MOTOR');
+        $passwordPlain = 'MOTOR';
 
-        $user = User::create([
-            'name' => $request->namalengkap,
-            'email' => $request->email,
-            'password' => $password,
-            'role' => 'user'
+        // $user = User::create([
+        //     'name' => $request->namalengkap,
+        //     'email' => $request->email,
+        //     'password' => Hash::make($passwordPlain),
+        //     'role' => 'user'
+        // ]);
+
+        // $dataUser = DataUser::create([
+        //     'userid' => $user->id,
+        //     'nama_pembeli' => $request->namalengkap,
+        //     'no_ktp_pembeli' => $request->noktp,
+        //     'tempat_lahir_pembeli' => $request->tempatlahir,
+        //     'tanggal_lahir_pembeli' => $request->tgllahir,
+        //     'alamat_pembeli' => $request->alamat,
+        //     'provinsi' => $request->provinsi,
+        //     'kota' => $request->kota,
+        //     'kecamatan' => $request->kecamatan,
+        //     'kelurahan' => $request->kelurahan,
+        //     'no_telepon_pembeli' => $request->nohp,
+        //     'no_handphone_pembeli' => 0,
+        //     'email_pembeli' => $user->email,
+        //     'dealer' => $request->dealer,
+        //     'metode_pembayaran' => $request->metodpem,
+        //     'stnk_nama_pemakai' => $request->namalengkap,
+        //     'stnk_no_ktp' => $request->noktp,
+        //     'stnk_tempat_lahir'=> $request->tempatlahir,
+        //     'stnk_tanggal_lahir'=> $request->tgllahir,
+        //     'stnk_alamat'=> $request->alamat,
+        //     'stnk_kota' => $request->kota,
+        //     'stnk_provinsi'=> $request->provinsi,
+        //     'stnk_kecamatan'=> $request->kecamatan,
+        //     'stnk_kelurahan'=> $request->kelurahan,
+        //     'stnk_no_telepon'=> $request->nohp,
+        //     'stnk_no_handphone'=> $request->nohp,
+        //     'stnk_email' => $user->email,
+        // ]);
+
+        // $pesanan = ListPesanan::create([
+        //     'userid' => $user->id,
+        //     'produkid' => $request->produk_id,
+        //     'varianid' => $request->varian_id,
+        //     'delearid' => $request->dealer,
+        //     'status' => 'PENDING',
+        //     'keterangan' => 'NULL'
+        // ]);
+
+        $produk = ListProduk::findOrFail($request->produk_id);
+
+        $produk = ListProduk::findOrFail(6);
+        $Datauser = DataUser::with(['user'])->where('userid', 32)->first();
+
+        $user = User::findOrFail($Datauser->userid);
+        
+        $passwordPlain = Str::random(10);
+
+         // Set your Merchant Server Key
+
+        Config::$serverKey = config('midtrans.server_key'); // SB-Mid-server-xxxx
+        Config::$isProduction = false; // 🔴 SANDBOX
+        Config::$isSanitized = true;
+        Config::$is3ds = true;
+
+
+        $orderId = 'ORDER-11-' . strtoupper(Str::random(5));
+
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $orderId,
+                'gross_amount' => $produk->price,
+            ),
+            'customer_details' => array(
+                'first_name' => $Datauser->nama_pembeli,
+                'email' => $Datauser->user->email,
+                'phone' => $Datauser->no_telepon_pembeli,
+            ),
+            'enabled_payments' => 'va'
+        );
+
+        $snapToken = Snap::getSnapToken($params);
+
+         try {
+            $paymentUrl = Snap::createTransaction($params)->redirect_url;
+
+            return redirect($paymentUrl);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+
+        $pesanan->update([
+            'orderid'   => $orderId,
+            'snaptoken' => $snapToken,
         ]);
 
-        $dataUser = DataUser::create([
-            'userid' => $user->id,
-            'nama_pembeli' => $request->namalengkap,
-            'no_ktp_pembeli' => $request->noktp,
-            'tempat_lahir_pembeli' => $request->tempatlahir,
-            'tanggal_lahir_pembeli' => $request->tgllahir,
-            'alamat_pembeli' => $request->alamat,
-            'provinsi' => $request->provinsi,
-            'kota' => $request->kota,
-            'kecamatan' => $request->kecamatan,
-            'kelurahan' => $request->kelurahan,
-            'no_telepon_pembeli' => $request->nohp,
-            'no_handphone_pembeli' => 0,
-            'email_pembeli' => $user->email,
-            'dealer' => $request->dealer,
-            'metode_pembayaran' => $request->metodpem,
-            'stnk_nama_pemakai' => $request->namalengkap,
-            'stnk_no_ktp' => $request->noktp,
-            'stnk_tempat_lahir'=> $request->tempatlahir,
-            'stnk_tanggal_lahir'=> $request->tgllahir,
-            'stnk_alamat'=> $request->alamat,
-            'stnk_kota' => $request->kota,
-            'stnk_provinsi'=> $request->provinsi,
-            'stnk_kecamatan'=> $request->kecamatan,
-            'stnk_kelurahan'=> $request->kelurahan,
-            'stnk_no_telepon'=> $request->nohp,
-            'stnk_no_handphone'=> $request->nohp,
-            'stnk_email' => $user->email,
+         // ===== INFONIP WHATSAPP =====
+        $client = new Client([
+            'base_uri' => config('services.infobip.base_url'),
+            'headers' => [
+                'Authorization' => 'App ' . config('services.infobip.api_key'),
+                'Content-Type'  => 'application/json',
+                'Accept'        => 'application/json',
+            ]
+        ]);
+        // dd($client);
+
+        $passwordPlain = 'MOTOR';
+
+        $message = <<<TEXT
+        ✅ Pembayaran Berhasil dengan Metode {$request->metodpem}.
+        
+        Order ID: {$orderId}
+
+        Akun Anda sudah aktif.
+
+        Email:
+        {$Datauser->user->email}
+
+        Password:
+        {$passwordPlain}
+
+        ⚠️ Demi keamanan, HARAP segera login dan ganti password Anda.
+        TEXT;
+
+        $phone = preg_replace('/[^0-9]/', '', $Datauser->no_telepon_pembeli);
+
+        if (str_starts_with($phone, '0')) {
+            $phone = '+62' . substr($phone, 1);
+        } elseif (str_starts_with($phone, '62')) {
+            $phone = '+' . $phone;
+        } elseif (str_starts_with($phone, '8')) {
+            $phone = '+62' . $phone;
+        }
+        // dd([
+        //     'base_url' => config('services.infobip.base_url'),
+        //     'full_url' => rtrim(config('services.infobip.base_url'), '/') . '/whatsapp/1/message/text',
+        // ]);
+        // dd(config('services.infobip.sender'), $phone);
+        try {
+            $response = $client->post('/whatsapp/1/message/text', [
+                'json' => [
+                    'from' => config('services.infobip.sender'),
+                    'to' => $phone,
+                    'content' => [
+                        'text' => $message
+                    ]
+                ]
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Infobip Error', [
+                'order_id' => $orderId,
+                'message' => $e->getMessage()
+            ]);
+        }
+
+        $user->password = Hash::make($passwordPlain);
+        $user->save();
+
+         // ===== END INFONIP WHATSAPP =====
+
+        return response()->json([
+            'snap_token' => $snapToken
         ]);
 
-        $pesanan = ListPesanan::create([
-            'userid' => $user->id,
-            'produkid' => $request->produk_id,
-            'varianid' => $request->varian_id,
-            'delearid' => $request->dealer,
-            'status' => 'PENDING',
-            'keterangan' => 'NULL'
-        ]);
-
-        return view('booking.pembayaran', compact('user', 'dataUser', 'pesanan'));
     }
 
         public function metpem(Request $request)

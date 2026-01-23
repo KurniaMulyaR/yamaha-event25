@@ -77,6 +77,7 @@
                                 <input id="noktp" type="text"
                                 maxlength="16"
                                 inputmode="numeric"
+                                required
                                 pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g,'')" name="noktp" placeholder="No KTP ..." class="w-full rounded-md bg-white/10 border border-white/20
                                           px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
                               </div>
@@ -106,14 +107,14 @@
                       <div class="col-span-full">
                           <label for="alamat" class="block text-sm/6 font-medium text-white">Alamat</label>
                           <div class="mt-2">
-                              <textarea id="alamat" name="alamat" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
+                              <textarea id="alamat" name="alamat" required rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
                           </div>
                       </div>
 
                       <div class="form-group">
                           <label for="provinsi" class="block text-sm/6 font-medium text-white">Provinsi</label>
                           <div class="mt-2 grid grid-cols-1">
-                            <select id="provinsi" name="provinsi" autocomplete="provinsi-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <select id="provinsi" name="provinsi" required autocomplete="provinsi-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                               <option>Pilih Provinsi</option>
                             </select>
                             <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
@@ -125,7 +126,7 @@
                         <div class="form-group">
                           <label for="kota" class="block text-sm/6 font-medium text-white">Kota / Kabupaten</label>
                           <div class="mt-2 grid grid-cols-1">
-                            <select id="kota" name="kota" autocomplete="kota-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <select id="kota" name="kota" autocomplete="kota-name" required class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                               <option>Pilih Kota</option>
                             </select>
                             <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
@@ -137,7 +138,7 @@
                         <div class="form-group">
                           <label for="kecamatan" class="block text-sm/6 font-medium text-white">Kecamatan</label>
                           <div class="mt-2 grid grid-cols-1">
-                            <select id="kecamatan" name="kecamatan" autocomplete="kecamatan-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <select id="kecamatan" name="kecamatan" required autocomplete="kecamatan-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                               <option>Pilih Kecamatan</option>
                             </select>
                             <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
@@ -149,7 +150,7 @@
                         <div class="form-group">
                           <label for="kelurahan" class="block text-sm/6 font-medium text-white">Kelurahan</label>
                           <div class="mt-2 grid grid-cols-1">
-                            <select id="kelurahan" name="kelurahan" autocomplete="kelurahan-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <select id="kelurahan" name="kelurahan" required autocomplete="kelurahan-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                               <option>Pilih Kelurahan</option>
                             </select>
                             <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
@@ -179,6 +180,7 @@
                                 placeholder="812xxxxxxx"
                                 maxlength="11"
                                 inputmode="numeric"
+                                required
                                 class="w-full bg-white px-4 py-2 focus:outline-none"
                                 oninput="this.value = this.value.replace(/[^0-9]/g,'')"
                               />
@@ -204,7 +206,7 @@
                     <div class="form-group">
                       <label for="dealer" class="block text-sm/6 font-medium text-white">Dealer</label>
                       <div class="mt-2 grid grid-cols-1">
-                        <select id="dealer" name="dealer" autocomplete="dealer-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                        <select id="dealer" name="dealer" required autocomplete="dealer-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                           <option>Pilih Dealer</option>
                         </select>
                         <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
@@ -228,21 +230,25 @@
       
                   <div class="mt-6 ml-4">
                       <label class="flex items-center text-sm text-white">
-                          <input type="checkbox" class="mr-2">
+                          <input type="checkbox" class="mr-2" require>
                           Apakah Data Identitas Pembeli Sama Dengan Identitas Pemilik?
                       </label>
                   </div>
                   
                   <div class="mt-6 ml-4">
                       <label class="flex items-center text-sm text-white">
-                          <input type="checkbox" class="mr-2">
+                          <input type="checkbox" class="mr-2" require>
                           Mengizinkan PT YIMM untuk menggunakan informasi di atas dan menghubungi Saya melalui email dan/atau telepon atau sarana komunikasi pribadi lainnya untuk kegiatan pelayanan kepada customer.
                       </label>
                   </div>
-    
-                  <button class="text-center m-4 bg-[#162861] text-white py-3 rounded-lg font-bold hover:opacity-90 transition" style="width: 95%">
-                      SUBMIT
-                  </button>
+
+                  <button
+                    type="button"
+                    id="openPrivacyModal"
+                    class="text-center m-4 bg-[#162861] text-white py-3 rounded-lg font-bold hover:opacity-90 transition"
+                    style="width: 95%">
+                    SUBMIT
+                </button>
                 </form>
             </div>
     
@@ -253,7 +259,7 @@
                     PRODUK YANG ANDA PILIH
                 </h3>
     
-                <img src="storage/{{ $produk->img }}" class="mx-auto h-40 object-contain">
+                <img src="storage/{{ $varian->colour === 'Crystal Graphite' ? asset('img/tmx.png') : $produk->img }}" class="mx-auto h-40 object-contain">
     
                 <h4 class="text-white font-bold mt-4 text-2xl">{{ $produk->name }}</h4>
                 <p class="text-gray-300 text-xl">{{ $varian->name }}</p>
@@ -349,6 +355,69 @@
 
         </div>
     </div>
+
+    <!-- Privacy Modal -->
+<div id="privacyModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60">
+    <div class="bg-white max-w-3xl w-full mx-4 rounded-xl shadow-lg overflow-hidden">
+
+        <!-- Header -->
+        <div class="px-6 py-4 border-b">
+            <h2 class="text-lg font-bold text-gray-900">
+                KEBIJAKAN PRIVASI
+            </h2>
+        </div>
+
+        <!-- Content -->
+        <div class="px-6 py-4 max-h-[60vh] overflow-y-auto text-sm text-gray-700 space-y-3">
+            <p>
+                PT Yamaha Indonesia Motor Manufacturing (“Kami”) akan mengumpulkan, melakukan pemrosesan
+                dan melindungi Data Pribadi pelanggan (“Anda”) yang diberikan maupun terekam otomatis.
+            </p>
+
+            <p>
+                Data Pribadi meliputi Nama Lengkap, Nomor Telepon, Nomor KTP, dan Alamat Surel.
+            </p>
+
+            <p>
+                Data digunakan untuk verifikasi identitas, pengelolaan produk dan layanan, pemasaran,
+                penelitian dan pengembangan, kepentingan hukum, serta komunikasi dengan Anda.
+            </p>
+
+            <p>
+                Data disimpan selama diperlukan dan dapat dibagikan kepada pihak terkait sesuai hukum.
+            </p>
+
+            <p>
+                Anda dapat menarik persetujuan atau memperbarui data dengan menghubungi:
+                <br><strong>021-24575555</strong> /
+                <strong>contact_center@yamaha-motor.co.id</strong>
+            </p>
+
+            <div class="pt-4 space-y-2 text-xs font-semibold text-gray-800">
+                <p>✓ Saya telah membaca dan memahami Kebijakan Privasi ini</p>
+                <p>✓ Saya memberikan data pribadi dengan sadar dan tanpa paksaan</p>
+                <p>✓ Saya menyetujui penggunaan data sesuai tujuan yang dijelaskan</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="px-6 py-4 border-t flex justify-end gap-3">
+            <button
+                id="cancelPrivacy"
+                class="px-4 py-2 text-sm rounded-md border hover:bg-gray-100">
+                Batal
+            </button>
+
+            <button
+                id="agreePrivacy"
+                class="px-5 py-2 text-sm rounded-md bg-[#162861] text-white hover:opacity-90">
+                Setuju & Lanjutkan
+            </button>
+        </div>
+
+    </div>
+</div>
+
     
 </section>
 @endsection
@@ -356,9 +425,44 @@
 @push('scripts')
 
 <script>
-    $('#tgllahir').flatpickr({
-        dateFormat: "d-m-Y",
-      });
+$(document).ready(function () {
+
+    // Buka popup
+    $('#openPrivacyModal').on('click', function () {
+        $('#privacyModal')
+            .removeClass('hidden')
+            .addClass('flex');
+    });
+
+    // Tutup popup (Batal)
+    $('#cancelPrivacy').on('click', function () {
+        $('#privacyModal')
+            .addClass('hidden')
+            .removeClass('flex');
+    });
+
+    // Setuju & Submit
+    $('#agreePrivacy').on('click', function () {
+        $('#privacyModal')
+            .addClass('hidden')
+            .removeClass('flex');
+
+        $('form').submit(); // 🔥 submit form
+    });
+
+});
+
+let today = new Date();
+let maxDate = new Date(
+    today.getFullYear() - 17,
+    today.getMonth(),
+    today.getDate()
+);
+
+$('#tgllahir').flatpickr({
+    dateFormat: "d-m-Y",
+    maxDate: maxDate // 🔥 minimal umur 17 tahun
+});
 $(function () {
 
     // LOAD PROVINSI

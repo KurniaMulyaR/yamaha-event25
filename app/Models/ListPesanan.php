@@ -15,7 +15,7 @@ class ListPesanan extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-         'userid','produkid','delearid','status','keterangan','varianid'
+         'userid','produkid','delearid','status','keterangan','varianid','orderid','snaptoken'
     ];
 
 
@@ -26,11 +26,16 @@ class ListPesanan extends Model
 
     public function produk()
     {
-        return $this->hasOne(ListProduk::class, 'produkid', 'id');
+        return $this->hasOne(ListProduk::class, 'id', 'produkid');
+    }
+
+    public function varian()
+    {
+        return $this->hasOne(Varian::class, 'id', 'varianid');
     }
 
     public function delear()
     {
-        return $this->hasOne(ListDelea::class, 'delearid', 'id');
+        return $this->hasOne(ListDelear::class, 'delearid', 'id');
     }
 }

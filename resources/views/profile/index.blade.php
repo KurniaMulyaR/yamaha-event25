@@ -28,50 +28,55 @@
                         <div class="w-20 h-20 rounded-full bg-white flex items-center justify-center text-black text-3xl font-bold">
                             👤
                         </div>
-                        <p class="mt-3 font-semibold">Fulan</p>
+                        <p class="mt-3 font-semibold">{{ $user->nama_pembeli}}</p>
                     </div>
         
                     <!-- Info -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6 text-sm">
                         <div>
                             <p class="text-gray-400">No KTP</p>
-                            <p>123456789123456</p>
+                            <p>{{ $user->no_ktp_pembeli }}</p>
                         </div>
                         <div>
                             <p class="text-gray-400">Tempat, Tanggal Lahir</p>
-                            <p>Jakarta, 18 Januari 2000</p>
+                            <p>{{ $user->tempat_lahir_pembeli . ' , ' . $user->tanggal_lahir_pembeli }}</p>
                         </div>
                         <div>
                             <p class="text-gray-400">Alamat</p>
-                            <p>Jl. Martadinata</p>
+                            <p>{{ $user->alamat_pembeli }}</p>
                         </div>
                         <div>
                             <p class="text-gray-400">Provinsi</p>
-                            <p>Jawa Barat</p>
+                            @php($provinsi = \App\Models\Provinces::where('code', $user->provinsi)->first())
+                            <p>{{ $provinsi->name }}</p>
                         </div>
                         <div>
                             <p class="text-gray-400">Kota / Kab</p>
-                            <p>Kota Bekasi</p>
+                            @php($kota = \App\Models\Cities::where('code', $user->kota)->first())
+                            <p>{{ $kota->name }}</p>
                         </div>
                         <div>
                             <p class="text-gray-400">Kecamatan</p>
-                            <p>Bekasi Barat</p>
+                            @php($kecamatan = \App\Models\District::where('code', $user->kecamatan)->first())
+                            <p>{{ $kecamatan->name }}</p>
                         </div>
                         <div>
                             <p class="text-gray-400">Kelurahan</p>
-                            <p>Bintara</p>
+                            @php($kelurahan = \App\Models\Village::where('code', $user->kelurahan)->first())
+                            <p>{{ $kelurahan->name }}</p>
                         </div>
                         <div>
                             <p class="text-gray-400">Nomor HP</p>
-                            <p>+6282127381234</p>
+                            <p>{{ $user->no_telepon_pembeli }}</p>
                         </div>
                         <div>
                             <p class="text-gray-400">E-mail</p>
-                            <p>fulan@gmail.com</p>
+                            <p>{{ $user->email_pembeli }}</p>
                         </div>
                         <div>
                             <p class="text-gray-400">Dealer</p>
-                            <p>Bekasi Barat</p>
+                            @php($dealer = \App\Models\ListDelear::where('code', $user->dealer)->first())
+                            <p>{{ $dealer->namedelear }}</p>
                         </div>
                     </div>
                 </div>
@@ -82,17 +87,18 @@
                         PRODUK YANG ANDA PILIH
                     </h2>
         
+                    @foreach($pesanan as $pesan)
                     <div class="flex flex-col md:flex-row gap-6">
                         <!-- Motor -->
-                        <img src="/img/xmax.png" class="w-full md:w-56 object-contain">
+                        <img src="{{ asset('storage/' . $pesan->produk->img) }}" class="w-full md:w-56 object-contain">
         
                         <!-- Detail -->
                         <div class="flex-1">
                             <div class="flex justify-between items-start">
                                 <h3 class="font-bold text-lg">
-                                    XMAX TECHMAX SPECIAL LIVERY
+                                    {{ $pesan->produk->name . ' - ' . $pesan->varian->name}}
                                 </h3>
-                                <span class="font-bold">Rp. X00.000.000</span>
+                                <span class="font-bold">{{ 'Rp.' . number_format($pesan->varian->price, 0,',','.') }}</span>
                             </div>
         
                             <!-- Progress -->
@@ -116,6 +122,7 @@
                             </textarea>
                         </div>
                     </div>
+                    @endforeach
                 </div>
         
             </div>

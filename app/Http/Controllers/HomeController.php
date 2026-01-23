@@ -55,4 +55,9 @@ class HomeController extends Controller
 
                 return view('motor', compact('produk'));
     }
+
+    public function generalprivacy()
+    {
+        return view('generalprivacy');
+    }
 }

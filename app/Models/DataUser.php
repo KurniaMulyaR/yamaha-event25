@@ -25,7 +25,7 @@ class DataUser extends Model
      */
     public function user()
     {
-        return $this->hasOne(User::class, 'userid', 'id');
+        return $this->hasOne(User::class, 'id', 'userid');
     }
     public function village()
     {

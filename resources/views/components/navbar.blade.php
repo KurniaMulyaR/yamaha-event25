@@ -15,17 +15,18 @@
       <!-- Menu Desktop -->
       <ul class="md:flex space-x-8 text-white z-20">
         <li>
-          <div x-data="{ openLogin: false }">
-            
-          <button
-            id="btnlogin"
-            @click="openLogin = true"
-            class="bg-blue-[#162861] hover:bg-blue-700 text-white px-4 py-2 rounded font-semibold"
-          >
-              Track Order
-          </button>
+          <div x-data="{ openLogin: false,openMenu: false }">
+            <!-- {{-- ================= BELUM LOGIN ================= --}} -->
+            @guest
+            <button
+                id="btnlogin"
+                @click="openLogin = true"
+                class="bg-[#162861] hover:bg-blue-700 text-white px-4 py-2 rounded font-semibold"
+            >
+                Track Order
+            </button>
 
-      <!-- LOGIN MODAL -->
+            <!-- LOGIN MODAL -->
             <div
                 x-show="openLogin"
                 x-transition
@@ -88,6 +89,50 @@
                     </form>
                 </div>
             </div>
+            @endguest
+
+
+            <!-- {{-- ================= SUDAH LOGIN ================= --}} -->
+            @auth
+            <div class="relative">
+                <button
+                    @click="openMenu = !openMenu"
+                    class="flex items-center gap-2 bg-[#162861] text-white px-4 py-2 rounded font-semibold"
+                >
+                    {{ Auth::user()->name }}
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+
+                <!-- DROPDOWN -->
+                <div
+                    x-show="openMenu"
+                    @click.outside="openMenu = false"
+                    x-transition
+                    class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg overflow-hidden z-50"
+                >
+                    <a
+                        href="{{ route('profile.index') }}"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                        Profile
+                    </a>
+
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button
+                            type="submit"
+                            class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                        >
+                            Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+            @endauth
         </li>
       </ul>
   

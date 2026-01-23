@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\DataUser;
+use App\Models\User;
+use App\Models\ListPesanan;
 
 class ProfileController extends Controller
 {
@@ -13,7 +16,11 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('profile.index');
+        $id = auth()->id();
+        $user = DataUser::with('user')->where('userid', $id)->first();
+        $pesanan = ListPesanan::with('produk','varian')->where('userid', $id)->get();
+
+        return view('profile.index', compact('user','pesanan'));
     }
 
     /**

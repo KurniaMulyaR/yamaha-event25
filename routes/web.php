@@ -23,10 +23,13 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/pilih-motor', [HomeController::class, 'motor'])->name('motor');
+Route::get('/general-privacy', [HomeController::class, 'generalprivacy'])->name('generalprivacy');
 
 Route::resource('booking', BookingController::class);
 Route::post('/pembayaran', [BookingController::class, 'pembayaran'])->name('pembayaran');
 Route::post('/metpem', [BookingController::class, 'metpem'])->name('metpem');
+
+Route::post('/midtrans/callback', [MidtransController::class, 'callback']);
 
 Route::get('/ajax/provinsi', [WilayahController::class, 'provinsi']);
 Route::get('/ajax/kota/{provinsi}', [WilayahController::class, 'kota']);

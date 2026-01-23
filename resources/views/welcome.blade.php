@@ -3,8 +3,8 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<main class="p-3 mx-auto items-center">
-    <div class="relative min-h-screen bg-cover bg-center bg-black/70"
+<main class="mx-auto items-center">
+    <div class="relative min-h-[96vh] bg-cover bg-center bg-black/70"
      style="background-image: url('{{ asset('img/bckground.jpg') }}')">
 
     <!-- <div class="absolute inset-0 bg-black/70"></div> -->
@@ -104,7 +104,7 @@
                             <ol class="list-decimal ml-5 space-y-1">
                                 <li>Ketersediaan unit bergantung pada stok dan alokasi dari pabrikan.</li>
                                 <li>Estimasi waktu pengiriman bersifat perkiraan dan dapat berubah.</li>
-                                <li>Keterlambatan pengiriman tidak dapat dijadikan alasan pembatalan order tanpa persetujuan dealer.</li>
+                                <li>Keterlambatan pengiriman tidak dapat dijadikan alasan pembatalan order tanpa persetujuan perusahaan.</li>
                             </ol>
                         </div>
 
@@ -114,7 +114,7 @@
                             <ol class="list-decimal ml-5 space-y-1">
                                 <li>Pembatalan order oleh konsumen harus diajukan secara tertulis.</li>
                                 <li>Uang muka (DP) yang telah dibayarkan mengikuti ketentuan pengembalian dana (refund) yang berlaku.</li>
-                                <li>Dealer berhak membatalkan order apabila konsumen tidak memenuhi kewajiban pembayaran atau administrasi.</li>
+                                <li>Perusahaan berhak membatalkan order apabila konsumen tidak memenuhi kewajiban pembayaran atau administrasi.</li>
                             </ol>
                         </div>
 
@@ -166,7 +166,7 @@
             </div>
         </div>
 
-        <a href="#" class="text-2xl mt-3 bg-blue-900 hover:bg-blue-700 transition text-white font-bold px-10 py-3 rounded-lg text-lg shadow-lg">
+        <a href="{{ route('motor') }}" class="text-2xl mt-3 bg-blue-900 hover:bg-blue-700 transition text-white font-bold px-10 py-3 rounded-lg text-lg shadow-lg">
             Booking Now
         </a>
     </div>
