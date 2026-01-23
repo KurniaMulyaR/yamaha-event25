@@ -30,11 +30,11 @@ class ChangeKtpAndTglLahirOnDataUserTable extends Migration
     public function down()
     {
         Schema::table('dataUser', function (Blueprint $table) {
-            $table->string('no_ktp_pembeli', 16);            
-            $table->string('stnk_no_ktp', 16);
+            // $table->string('no_ktp_pembeli', 16);            
+            // $table->string('stnk_no_ktp', 16);
 
-            $table->text('tanggal_lahir_pembeli');
-            $table->text('stnk_tanggal_lahir');
+            // $table->text('tanggal_lahir_pembeli');
+            // $table->text('stnk_tanggal_lahir');
         });
     }
 }
