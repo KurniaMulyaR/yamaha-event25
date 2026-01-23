@@ -1,5 +1,5 @@
 <footer class="bg-[linear-gradient(180deg,#1A1A1A_54%,#21222B_89%)]
-               shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
+               shadow-[0_4px_4px_rgba(0,0,0,0.25)] mt-4">
     
     <nav class="max-w-7xl mx-auto px-4 py-4
                 flex flex-col sm:flex-row
@@ -10,7 +10,7 @@
             <img 
                 src="{{ asset('img/logo.png') }}" 
                 alt="Yamaha"
-                class="h-8 w-auto"
+                class="h-12 w-auto"
             >
         </div>
 

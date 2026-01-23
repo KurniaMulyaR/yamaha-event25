@@ -4,7 +4,11 @@
 
 @section('content')
 <main class="p-3 mx-auto items-center">
-            
+    <div class="relative min-h-screen bg-cover bg-center"
+     style="">
+
+    <!-- <div class="absolute inset-0 bg-black/70"></div> -->
+
     <div class="mx-auto mt-6 text-center z-20" id="promoleft">
         <!-- Logo -->
       <!-- <div class="text-white mx-auto text-8xl ml-[9rem] font-bold"> -->
@@ -166,6 +170,7 @@
             Booking Now
         </a>
     </div>
+</div>
 </main>
 
 <x-section-bike :produk="$produk"/>
