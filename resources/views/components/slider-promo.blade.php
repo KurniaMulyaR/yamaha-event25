@@ -2,9 +2,8 @@
     x-data="{
         current: 0,
         slides: [
-            { title: 'Waktu Pembelian', value: '25 MENIT', subtitle: 'Mulai Pukul 19:00 WIB' },
-            { title: 'Flash Sale', value: '10 MENIT', subtitle: 'Mulai Pukul 20:00 WIB' },
-            { title: 'Promo Akhir', value: '5 MENIT', subtitle: 'Mulai Pukul 21:00 WIB' },
+            { title: 'Waktu Pembelian', value: 'Order Mulai', subtitle: '25 Januari' },
+            { title: 'Flash Sale', value: 'Waktu pembelian hanya', subtitle: '25 MENIT' },
         ]
     }"
     class="w-full flex items-center justify-center py-5 bg-black"

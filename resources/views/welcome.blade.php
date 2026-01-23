@@ -168,7 +168,7 @@
     </div>
 </main>
 
-<x-section-bike :produk="$produk"/>
+<!-- <x-section-bike :produk="$produk"/> -->
 @endsection
 
 @push('scripts')

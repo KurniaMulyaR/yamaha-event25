@@ -46,7 +46,7 @@ class ProdukController extends Controller
             $data = $produk->map(function ($produk) {
 
         $varianHtml = $produk->varians->map(function ($v) {
-            $pricev = number_format($v->price);
+            $pricev = $v->price;
             return "<span class='px-2 py-1 bg-gray-100 rounded text-xs mr-1'>
                         {$v->name} ({$v->jmlunit}) ({$pricev})
                     </span>";
