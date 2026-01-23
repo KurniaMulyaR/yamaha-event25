@@ -34,6 +34,7 @@ class HomeController extends Controller
                 ? asset('storage/' . $item->img)
                 : null,
 
+                
             // 🔥 VARIAN (PENTING BUAT EDIT)
             'varians' => $item->varians->map(function ($v) {
                 return [
@@ -41,7 +42,7 @@ class HomeController extends Controller
                     'name'    => $v->name,
                     'jmlunit' => $v->jmlunit,
                     'colour'  => $v->colour,
-                    'price'  => 'Rp.' . number_format($v->price, 0, ',', '.'),
+                    'price'  => $v->price,
                 ];
             })->values(),
         ];

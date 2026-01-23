@@ -162,13 +162,13 @@
             </div>
         </div>
 
-        <a href="#booking" class="text-2xl mt-3 bg-blue-900 hover:bg-blue-700 transition text-white font-bold px-10 py-3 rounded-lg text-lg shadow-lg">
+        <a href="#" class="text-2xl mt-3 bg-blue-900 hover:bg-blue-700 transition text-white font-bold px-10 py-3 rounded-lg text-lg shadow-lg">
             Booking Now
         </a>
     </div>
 </main>
 
-<!-- <x-section-bike :produk="$produk"/> -->
+<x-section-bike :produk="$produk"/>
 @endsection
 
 @push('scripts')
