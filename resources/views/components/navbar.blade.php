@@ -20,7 +20,7 @@
           <button
             id="btnlogin"
             @click="openLogin = true"
-            class="bg-blue-400 hover:bg-blue-700 text-white px-4 py-2 rounded font-semibold"
+            class="bg-blue-[#162861] hover:bg-blue-700 text-white px-4 py-2 rounded font-semibold"
           >
               Track Order
           </button>
