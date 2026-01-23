@@ -57,6 +57,7 @@
                   @csrf
 
                   <input id="produk_id" name="produk_id" value="{{ $produk->id }}" hidden />
+                  <input id="varian_id" name="varian_id" value="{{ $varian->id }}" hidden />
 
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
                       <div class="form-group">

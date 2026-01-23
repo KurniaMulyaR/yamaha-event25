@@ -25,6 +25,7 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 
 Route::resource('booking', BookingController::class);
 Route::post('/pembayaran', [BookingController::class, 'pembayaran'])->name('pembayaran');
+Route::post('/metpem', [BookingController::class, 'metpem'])->name('metpem');
 
 Route::get('/ajax/provinsi', [WilayahController::class, 'provinsi']);
 Route::get('/ajax/kota/{provinsi}', [WilayahController::class, 'kota']);

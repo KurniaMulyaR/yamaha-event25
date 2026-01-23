@@ -50,7 +50,6 @@
         
             <form method="POST" action="{{ route('metpem') }}">
                   @csrf
-                  <input id="produk_id" name="produk_id" value="{{ $produk->id }}" hidden />
                   <input id="user_id" name="user_id" value="{{ $user->id }}" hidden />
                   <input id="pesanan_id" name="pesanan_id" value="{{ $pesanan->id }}" hidden />
                 <!-- LEFT -->
@@ -79,16 +78,13 @@
                         PRODUK YANG ANDA PILIH
                     </h3>
         
-                    <img src="storage/{{ $produk->img }}" alt="XMAX"
-                        class="w-full object-contain mb-4">
+                    
         
                     <h2 class="text-center font-bold text-lg">
-                        {{ $produk->name }} {{ $produk->type }}
                     </h2>
         
                     <div class="mt-6 flex items-center justify-between bg-red-700/80 px-4 py-3 rounded-lg">
                         <span class="font-semibold">Booking Fee</span>
-                        <span class="font-bold">{{ 'Rp.' . number_format($produk->price, 0,',','.') }}</span>
                     </div>
                 </div>
             </form>
@@ -111,7 +107,7 @@
             console.log(metode_pembayaran);
 
             // Kirim data ke server untuk mendapatkan snap token
-            fetch('{{ route('metped') }}', {
+            fetch('{{ route('metpem') }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

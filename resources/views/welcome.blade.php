@@ -4,8 +4,8 @@
 
 @section('content')
 <main class="p-3 mx-auto items-center">
-    <div class="relative min-h-screen bg-cover bg-center"
-     style="">
+    <div class="relative min-h-screen bg-cover bg-center bg-black/70"
+     style="#">
 
     <!-- <div class="absolute inset-0 bg-black/70"></div> -->
 
@@ -172,8 +172,6 @@
     </div>
 </div>
 </main>
-
-<x-section-bike :produk="$produk"/>
 @endsection
 
 @push('scripts')

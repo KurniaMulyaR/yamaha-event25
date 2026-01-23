@@ -98,10 +98,11 @@ class BookingController extends Controller
 
     public function pembayaran(Request $request)
     {
+        
         $password = Hash::make('MOTOR');
 
         $user = User::create([
-            'name' => $request->name,
+            'name' => $request->namalengkap,
             'email' => $request->email,
             'password' => $password,
             'role' => 'user'
@@ -109,7 +110,7 @@ class BookingController extends Controller
 
         $dataUser = DataUser::create([
             'userid' => $user->id,
-            'nama_pembeli' => $request->name,
+            'nama_pembeli' => $request->namalengkap,
             'no_ktp_pembeli' => $request->noktp,
             'tempat_lahir_pembeli' => $request->tempatlahir,
             'tanggal_lahir_pembeli' => $request->tgllahir,
@@ -123,11 +124,12 @@ class BookingController extends Controller
             'email_pembeli' => $user->email,
             'dealer' => $request->dealer,
             'metode_pembayaran' => $request->metodpem,
-            'stnk_nama_pemakai' => $request->name,
+            'stnk_nama_pemakai' => $request->namalengkap,
             'stnk_no_ktp' => $request->noktp,
             'stnk_tempat_lahir'=> $request->tempatlahir,
             'stnk_tanggal_lahir'=> $request->tgllahir,
             'stnk_alamat'=> $request->alamat,
+            'stnk_kota' => $request->kota,
             'stnk_provinsi'=> $request->provinsi,
             'stnk_kecamatan'=> $request->kecamatan,
             'stnk_kelurahan'=> $request->kelurahan,
@@ -139,6 +141,7 @@ class BookingController extends Controller
         $pesanan = ListPesanan::create([
             'userid' => $user->id,
             'produkid' => $request->produk_id,
+            'varianid' => $request->varian_id,
             'delearid' => $request->dealer,
             'status' => 'PENDING',
             'keterangan' => 'NULL'
@@ -147,12 +150,9 @@ class BookingController extends Controller
         return view('booking.pembayaran', compact('user', 'dataUser', 'pesanan'));
     }
 
-        public function metped(Request $request)
+        public function metpem(Request $request)
     {
         $pesanan = ListPesanan::findOrFail($request->pesanan_id);
-
-        $pesanan->metode_pembayaran = $request->metodpem;
-        $pesanan->save();
 
         $produk = ListProduk::findOrFail($pesanan->produkid);
         $Datauser = DataUser::with(['user'])->where('userid', $pesanan->userid)->first();
