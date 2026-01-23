@@ -104,7 +104,7 @@
                             <ol class="list-decimal ml-5 space-y-1">
                                 <li>Ketersediaan unit bergantung pada stok dan alokasi dari pabrikan.</li>
                                 <li>Estimasi waktu pengiriman bersifat perkiraan dan dapat berubah.</li>
-                                <li>Keterlambatan pengiriman tidak dapat dijadikan alasan pembatalan order tanpa persetujuan perusahaan.</li>
+                                <li>Keterlambatan pengiriman tidak dapat dijadikan alasan pembatalan order tanpa persetujuan dealer.</li>
                             </ol>
                         </div>
 
@@ -114,7 +114,7 @@
                             <ol class="list-decimal ml-5 space-y-1">
                                 <li>Pembatalan order oleh konsumen harus diajukan secara tertulis.</li>
                                 <li>Uang muka (DP) yang telah dibayarkan mengikuti ketentuan pengembalian dana (refund) yang berlaku.</li>
-                                <li>Perusahaan berhak membatalkan order apabila konsumen tidak memenuhi kewajiban pembayaran atau administrasi.</li>
+                                <li>Dealer berhak membatalkan order apabila konsumen tidak memenuhi kewajiban pembayaran atau administrasi.</li>
                             </ol>
                         </div>
 
