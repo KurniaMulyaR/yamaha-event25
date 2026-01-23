@@ -57,8 +57,8 @@ class WilayahController extends Controller
     {
         return response()->json(
             ListDelear::where('district_code', $kota)
-                ->select('code', 'namedds')
-                ->orderBy('namedds')
+                ->select('code', 'namedelear')
+                ->orderBy('namedelear')
                 ->get()
         );
     }
