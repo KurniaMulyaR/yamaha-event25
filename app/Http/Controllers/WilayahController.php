@@ -55,11 +55,22 @@ class WilayahController extends Controller
     // DEALER
     public function dealer($kota)
     {
-        return response()->json(
-            ListDelear::where('district_code', $kota)
-                ->select('code', 'namedelear')
-                ->orderBy('namedelear')
-                ->get()
-        );
+        $city = City::where('province_code', $kota)
+            ->select('code', 'name')
+            ->orderBy('name')
+            ->firstOrFail();
+
+        $districts = District::where('city_code', $city->code)->get();
+
+        $deler = ListDelear::whereIn(
+                'district_code',
+                $districts->pluck('code')
+            )
+            ->select('code', 'namedelear')
+            ->orderBy('namedelear')
+            ->get();
+
+        return response()->json($deler);
+
     }
 }

@@ -384,6 +384,17 @@ $(function () {
                 );
             });
         });
+
+        $('#dealer').html('<option value="">Loading...</option>');
+
+        $.get(`/ajax/dealer/${code}`, function (data) {
+            $('#dealer').html('<option value="">Pilih Dealer</option>');
+            data.forEach(item => {
+                $('#dealer').append(
+                    `<option value="${item.code}">${item.namedelear}</option>`
+                );
+            });
+        });
     });
 
     // LOAD KECAMATAN
@@ -411,17 +422,6 @@ $(function () {
             data.forEach(item => {
                 $('#kelurahan').append(
                     `<option value="${item.code}">${item.name}</option>`
-                );
-            });
-        });
-
-        $('#dealer').html('<option value="">Loading...</option>');
-
-        $.get(`/ajax/dealer/${code}`, function (data) {
-            $('#dealer').html('<option value="">Pilih Dealer</option>');
-            data.forEach(item => {
-                $('#dealer').append(
-                    `<option value="${item.code}">${item.namedelear}</option>`
                 );
             });
         });
