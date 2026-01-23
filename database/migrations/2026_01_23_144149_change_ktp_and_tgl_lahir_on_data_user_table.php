@@ -13,7 +13,7 @@ class ChangeKtpAndTglLahirOnDataUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('datauser', function (Blueprint $table) {
+        Schema::table('dataUser', function (Blueprint $table) {
             $table->dropColumn('no_ktp_pembeli');            
             $table->dropColumn('stnk_no_ktp');
 
@@ -29,7 +29,7 @@ class ChangeKtpAndTglLahirOnDataUserTable extends Migration
      */
     public function down()
     {
-        Schema::table('datauser', function (Blueprint $table) {
+        Schema::table('dataUser', function (Blueprint $table) {
             // $table->string('no_ktp_pembeli', 16);            
             // $table->string('stnk_no_ktp', 16);
 
