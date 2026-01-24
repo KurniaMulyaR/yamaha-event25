@@ -36,6 +36,7 @@ class ListDealerImport implements ToModel, WithHeadingRow
             'code_kota'     => (int) $row['kot'],
             'kecamatan'     => $district->name,
             'district_id'   => $district->id,
+            'cansell' => '-',
         ]);
 
         // $list = ListDelear::where('code', $row['code'])->first();
