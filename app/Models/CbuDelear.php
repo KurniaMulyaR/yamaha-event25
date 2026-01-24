@@ -24,6 +24,6 @@ class CbuDelear extends Model
 
     public function provinsi()
     {
-        return $this->hasMany(Provinces::class, 'provinsi', 'code');
+        return $this->hasMany(Provinces::class, 'code', 'provinsi');
     }
 }
