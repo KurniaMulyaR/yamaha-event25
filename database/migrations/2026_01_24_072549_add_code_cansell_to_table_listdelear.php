@@ -13,7 +13,7 @@ class AddCodeCansellToTableListdelear extends Migration
      */
     public function up()
     {
-        Schema::table('listdelear', function (Blueprint $table) {
+        Schema::table('listDelear', function (Blueprint $table) {
             $table->text('cansell');
         });
     }
@@ -25,7 +25,7 @@ class AddCodeCansellToTableListdelear extends Migration
      */
     public function down()
     {
-        Schema::table('listdelear', function (Blueprint $table) {
+        Schema::table('listDelear', function (Blueprint $table) {
             $table->dropColumn('cansell');
         });
     }
