@@ -645,6 +645,7 @@ $('#tgllahir').flatpickr({
 $(function () {
 
     let id = {{ $varian->id }};
+    
     // LOAD PROVINSI
     $.get(`/ajax/provinsi/`, function (data) {
         data.forEach(item => {
@@ -672,6 +673,19 @@ $(function () {
                 );
             });
         });
+
+        @if($varian->produk->name === 'TMAX' ) 
+            $('#dealer').html('<option value="">Loading...</option>');
+            let codie = $(this).val() + '|' + id;
+            $.get(`/ajax/dealer/${codie}`, function (data) {
+                $('#dealer').html('<option value="">Pilih Dealer</option>');
+                data.forEach(item => {
+                    $('#dealer').append(
+                        `<option value="${item.code}">${item.namedelear}</option>`
+                    );
+                });
+            });
+        @endif
     });
     
     $('#stnk_provinsi').on('change', function () {
