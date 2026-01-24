@@ -2,9 +2,33 @@
 
 @section('title', 'Dashboard')
 
+@push('style')
+<style>
+    @media (min-width: 390px) {
+        .img-rep{
+            margin-bottom: 3rem ;
+            margin-top: 4rem;
+        }
+        .count-rep{
+            margin-bottom: 0.5rem ;
+        }
+        .promo-rep{
+            margin-top: 1rem ;
+            margin-bottom: 1.4rem ;
+        }
+        .ket-rep{
+            margin-top: 2rem ;
+        }
+        .bg-img-rep{
+            min-height: 91vh;
+        }
+    }
+</style>
+@endpush
+
 @section('content')
 <main class="mx-auto items-center">
-    <div class="relative p-6 min-h-[109vh] bg-cover bg-center bg-black/70"
+    <div class="relative p-6 min-h-[109vh] bg-img-rep bg-cover bg-center bg-black/70"
      style="background-image: url('{{ asset('img/bckground.jpg') }}')">
 
     <!-- <div class="absolute inset-0 bg-black/70"></div> -->
@@ -15,10 +39,10 @@
         <img 
             src="{{ asset('img/logo-gede.png') }}" 
             alt="Yamaha" 
-            class="w-auto mx-auto"
+            class="w-auto mx-auto img-rep"
         >
       <!-- </div> -->
-        <h1 id="countdown" class="text-red-600 font-bold text-6xl mt-4">
+        <h1 id="countdown" class="text-red-600 font-bold text-6xl mt-4 count-rep">
             00 : 00 : 00
         </h1>
 
@@ -26,7 +50,7 @@
             <h1 class="text-white text-3xl ml-8">JAM <span class="ml-6">MENIT</span><span class="ml-6">DETIK</span></h1>
         </div>
 
-        <x-slider-promo />
+        <x-slider-promo class="promo-rep"/>
 
         <div class="mb-6">
             <div x-data="{ openSyarat: false }">
@@ -34,7 +58,7 @@
             <button
                 id="syartbtn"
                 @click="openSyarat = true"
-                class="text-2xl mt-4 text-blue-800 hover:text-blue-600"
+                class="text-2xl text-blue-800 hover:text-blue-600 ket-rep"
             >
                 Syarat & Ketentuan Berlaku
             </button>
@@ -166,7 +190,7 @@
             </div>
         </div>
 
-        <a href="{{ route('motor') }}" class="text-2xl mt-3 bg-blue-900 hover:bg-blue-700 transition text-white font-bold px-10 py-3 rounded-lg text-lg shadow-lg">
+        <a href="#" class="text-2xl mt-3 bg-blue-900 hover:bg-blue-700 transition text-white font-bold px-10 py-3 rounded-lg text-lg shadow-lg">
             Booking Now
         </a>
     </div>
