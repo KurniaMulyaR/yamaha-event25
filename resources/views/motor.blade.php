@@ -69,8 +69,8 @@
                     <img
                         x-show="active === item.key"
                         x-transition.opacity.duration.500ms
-                        :src="activeVarian?.colour === 'Crystal Graphite'
-                ? 'https://maxi25.com/img/tmx.png'
+                        :src="activeVarian && activeVarian.colour === 'Crystal Graphite'
+                ? '{{ asset('img/tmx.png') }}'
                 : item.image"
                         class="absolute max-h-[260px] sm:max-h-[360px] lg:max-h-[420px]
                             drop-shadow-2xl"
