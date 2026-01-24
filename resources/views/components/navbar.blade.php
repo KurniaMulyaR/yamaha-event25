@@ -11,7 +11,7 @@
                 >
             </div>
         </a>
-        <a href="{{ route('motor') }}" class="text-black/40">
+        <a href="{{ route('motor') }}" class="text-black/40 text-sm">
             Booking Now
         </a>
   
