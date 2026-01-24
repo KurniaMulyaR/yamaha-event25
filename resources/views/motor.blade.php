@@ -70,7 +70,7 @@
                         x-show="active === item.key"
                         x-transition.opacity.duration.500ms
                         :src="activeVarian?.colour === 'Crystal Graphite'
-                ? '{{ asset('img/tmx.png') }}'
+                ? '{{ asset('img/logo.png') }}'
                 : item.image"
                         class="absolute max-h-[260px] sm:max-h-[360px] lg:max-h-[420px]
                             drop-shadow-2xl"
