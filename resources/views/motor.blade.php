@@ -42,22 +42,26 @@
 
     <div class="min-h-screen bg-[url('/img/bg-bike.png')] bg-cover bg-center bg-no-repeat" x-data="modelSlider()">
 
-        <div class="relative z-20 min-h-screen px-4 py-6
+        <div 
+        x-data="productViewer()"
+        x-init="init()"
+            class="relative z-20 min-h-screen px-4 py-6
                     flex flex-col lg:flex-row gap-6 items-center">
+
 
             <!-- LEFT PANEL -->
             <div class="w-full lg:w-1/4 order-2 lg:order-1">
                 <div class="bg-black/60 backdrop-blur-md rounded-xl p-4 text-white border border-white/20">
                     <h3 class="text-sm mb-3">PILIH MODEL</h3>
 
-                    <template x-for="item in models" :key="item.key">
+                    <template x-for="m in models" :key="m.key">
                         <button
-                            @click="setModel(item.key)"
-                            class="w-full py-2 my-1 rounded transition text-sm"
-                            :class="active === item.key
+                            @click="setModel(m)"
+                            class="w-full py-2 my-1 rounded text-sm transition"
+                            :class="activeModel?.key === m.key
                                 ? 'bg-red-600 text-white'
                                 : 'bg-white text-black hover:bg-gray-200'"
-                            x-text="item.title"
+                            x-text="m.title"
                         ></button>
                     </template>
                 </div>
@@ -65,13 +69,27 @@
 
             <!-- BIKE IMAGE -->
             <div class="w-full lg:flex-1 order-1 lg:order-2 flex justify-center relative min-h-[280px] sm:min-h-[360px]">
+
+                <!-- GAMBAR MODEL -->
                 <img
-                    x-show="activeVarian?.img || true"
-                    :src="activeVarian?.img ?? '/img/tmx.png'"
-                    class="absolute max-h-[260px] sm:max-h-[360px] lg:max-h-[420px] drop-shadow-2xl"
-                    alt=""
+                    x-show="mode === 'model'"
+                    x-transition.opacity.duration.500ms
+                    :src="activeModel?.image"
+                    :alt="activeModel?.title"
+                    class="absolute max-h-[260px] sm:max-h-[360px] lg:max-h-[420px] object-contain drop-shadow-2xl"
+                >
+
+                <!-- VARIANT IMAGE -->
+                <img
+                    x-show="mode === 'varian' && activeVarian?.img"
+                    x-transition.opacity.duration.500ms
+                    :src="activeVarian.img"
+                    :alt="activeVarian?.name"
+                    class="absolute max-h-[260px] sm:max-h-[360px] lg:max-h-[420px]
+                        object-contain drop-shadow-2xl"
                 >
             </div>
+
 
             <!-- RIGHT PANEL -->
             <div class="w-full lg:w-1/4 order-3">
@@ -84,14 +102,14 @@
                     <h3 class="text-xs mb-2">PILIH VARIANT</h3>
 
                     <div class="space-y-2">
-                        <template x-for="v in product.varians" :key="v.id">
+                        <template x-for="v in activeModel?.varians ?? []" :key="v.id">
                             <button
-                                @click="activeVarian = v"
-                                class="w-full py-2 rounded font-semibold text-sm transition"
-                                :class="activeVarian?.id === v.id 
-                                    ? 'bg-red-600 text-white' 
+                                @click="setVarian(v)"
+                                class="w-full py-2 rounded text-sm transition"
+                                :class="activeVarian?.id === v.id
+                                    ? 'bg-red-600 text-white'
                                     : 'bg-white text-black hover:bg-gray-200'"
-                                x-text="`${v.name}`"
+                                x-text="v.name"
                             ></button>
                         </template>
                     </div>
@@ -214,6 +232,31 @@ function modelSlider() {
     }
 }
 
+function productViewer() {
+    return {
+        models: @json($produk),
+
+        activeModel: null,
+        activeVarian: null,
+        mode: 'model', // model | varian
+
+        init() {
+            this.activeModel = this.models[0]
+            this.activeVarian = this.activeModel.varians[0] ?? null
+        },
+
+        setModel(model) {
+            this.activeModel = model
+            this.activeVarian = model.varians[0] ?? null
+            this.mode = 'model'
+        },
+
+        setVarian(varian) {
+            this.activeVarian = varian
+            this.mode = 'varian'
+        }
+    }
+}
 
 </script>
 @endpush

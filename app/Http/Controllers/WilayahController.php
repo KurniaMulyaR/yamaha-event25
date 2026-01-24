@@ -14,11 +14,22 @@ use App\Models\Varian;
 class WilayahController extends Controller
 {
      // PROVINSI
-    public function provinsi()
+    public function provinsi($id)
     {
-        return response()->json(
-            Province::select('code', 'name')->orderBy('name')->get()
-        );
+        $varian = Varian::with('produk')->findOrFail($id);
+
+         if (strtoupper($varian->produk->name) === 'TMAX') {
+            $del = CbuDelear::with('province')
+                ->orderBy('namedelear')
+                ->get();
+
+            $provinsi = $del->pluck('province')->unique('code')->values();
+            return response()->json($provinsi);
+         }else{
+            return response()->json(
+                Province::select('code', 'name')->orderBy('name')->get()
+            );
+         }
     }
 
     // KOTA / KAB

@@ -19,6 +19,11 @@ class CbuDelear extends Model
     
     public function district()
     {
-        return $this->hasMany(District::class, 'district_code', 'id');
+        return $this->hasMany(District::class, 'district_code', 'code');
+    }
+
+    public function provinsi()
+    {
+        return $this->hasMany(Province::class, 'provinsi', 'code');
     }
 }

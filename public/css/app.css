@@ -976,6 +976,9 @@ input:where([type='file']):focus {
 .max-h-\[60vh\] {
   max-height: 60vh;
 }
+.max-h-\[300px\] {
+  max-height: 300px;
+}
 .min-h-\[109vh\] {
   min-height: 109vh;
 }

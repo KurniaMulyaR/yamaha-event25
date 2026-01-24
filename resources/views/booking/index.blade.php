@@ -647,7 +647,7 @@ $(function () {
     let id = {{ $varian->id }};
     
     // LOAD PROVINSI
-    $.get(`/ajax/provinsi/`, function (data) {
+    $.get(`/ajax/provinsi/${id}`, function (data) {
         data.forEach(item => {
             $('#provinsi').append(
                 `<option value="${item.code}">${item.name}</option>`
