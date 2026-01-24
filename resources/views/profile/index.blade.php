@@ -90,7 +90,7 @@
                     @foreach($pesanan as $pesan)
                     <div class="flex flex-col md:flex-row gap-6">
                         <!-- Motor -->
-                        <img src="{{ asset('storage/' . $pesan->produk->img) }}" class="w-full md:w-56 object-contain">
+                        <img src="{{ asset('storage/' . $pesan->varian->img) }}" class="w-full md:w-56 object-contain">
         
                         <!-- Detail -->
                         <div class="flex-1">
@@ -98,7 +98,8 @@
                                 <h3 class="font-bold text-lg">
                                     {{ $pesan->produk->name . ' - ' . $pesan->varian->name}}
                                 </h3>
-                                <span class="font-bold">{{ 'Rp.' . number_format($pesan->varian->price, 0,',','.') }}</span>
+                                <span class="font-bold">DP : {{ 'Rp.' . number_format($pesan->varian->dp, 0,',','.') }}</span>
+                                <span class="font-bold">Harga : {{ 'Rp.' . number_format($pesan->varian->price, 0,',','.') }}</span>
                             </div>
         
                             <!-- Progress -->
