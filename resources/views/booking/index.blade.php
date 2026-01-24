@@ -719,6 +719,8 @@ $(function () {
             });
         });
 
+        
+        @if($varian->produk->name != 'TMAX' ) 
         $('#dealer').html('<option value="">Loading...</option>');
 
         $.get(`/ajax/dealer/${codie}`, function (data) {
@@ -729,6 +731,7 @@ $(function () {
                 );
             });
         });
+        @endif
     });
 
      $('#stnk_kota').on('change', function () {
