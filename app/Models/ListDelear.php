@@ -10,12 +10,12 @@ class ListDelear extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'listdelear';
+    protected $table = 'listDelear';
 
     protected $primaryKey = 'id';
 
     protected $fillable = [
-         'code','district_code','namedds','provinsi','kota','kecamatan','namedelear'
+         'code','district_code','namedds','provinsi','kota','kecamatan','namedelear','code_kota','cansell'
     ];
     
     public function district()

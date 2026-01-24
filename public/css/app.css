@@ -870,6 +870,9 @@ input:where([type='file']):focus {
 .mr-2 {
   margin-right: 0.5rem;
 }
+.mt-0 {
+  margin-top: 0px;
+}
 .mt-1 {
   margin-top: 0.25rem;
 }
@@ -887,9 +890,6 @@ input:where([type='file']):focus {
 }
 .mt-8 {
   margin-top: 2rem;
-}
-.mt-0 {
-  margin-top: 0px;
 }
 .block {
   display: block;
@@ -976,17 +976,14 @@ input:where([type='file']):focus {
 .max-h-\[60vh\] {
   max-height: 60vh;
 }
+.min-h-\[109vh\] {
+  min-height: 109vh;
+}
 .min-h-\[280px\] {
   min-height: 280px;
 }
-.min-h-\[96vh\] {
-  min-height: 96vh;
-}
 .min-h-screen {
   min-height: 100vh;
-}
-.min-h-\[109vh\] {
-  min-height: 109vh;
 }
 .w-10 {
   width: 2.5rem;
@@ -1035,6 +1032,9 @@ input:where([type='file']):focus {
 }
 .w-full {
   width: 100%;
+}
+.w-\[220px\] {
+  width: 220px;
 }
 .min-w-full {
   min-width: 100%;
@@ -1182,6 +1182,11 @@ input:where([type='file']):focus {
   margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
 }
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
 .space-y-6 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1191,11 +1196,6 @@ input:where([type='file']):focus {
   --tw-space-y-reverse: 0;
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
-}
-.space-y-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
@@ -1340,9 +1340,9 @@ input:where([type='file']):focus {
 .bg-black\/70 {
   background-color: rgb(0 0 0 / 0.7);
 }
-.bg-blue-200 {
+.bg-blue-400 {
   --tw-bg-opacity: 1;
-  background-color: rgb(191 219 254 / var(--tw-bg-opacity, 1));
+  background-color: rgb(96 165 250 / var(--tw-bg-opacity, 1));
 }
 .bg-blue-600 {
   --tw-bg-opacity: 1;
@@ -1442,16 +1442,8 @@ input:where([type='file']):focus {
   --tw-bg-opacity: 1;
   background-color: rgb(202 138 4 / var(--tw-bg-opacity, 1));
 }
-.bg-blue-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(96 165 250 / var(--tw-bg-opacity, 1));
-}
-.bg-red-50 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
-}
-.bg-red-600\/60 {
-  background-color: rgb(220 38 38 / 0.6);
+.bg-red-600\/40 {
+  background-color: rgb(220 38 38 / 0.4);
 }
 .bg-\[linear-gradient\(180deg\2c \#1A1A1A_54\%\2c \#21222B_89\%\)\] {
   background-image: linear-gradient(180deg,#1A1A1A 54%,#21222B 89%);
@@ -1583,6 +1575,10 @@ input:where([type='file']):focus {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
+.py-24 {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
 .pb-1 {
   padding-bottom: 0.25rem;
 }
@@ -1615,6 +1611,12 @@ input:where([type='file']):focus {
 }
 .pt-8 {
   padding-top: 2rem;
+}
+.pt-5 {
+  padding-top: 1.25rem;
+}
+.pb-2 {
+  padding-bottom: 0.5rem;
 }
 .text-left {
   text-align: left;
@@ -1665,6 +1667,10 @@ input:where([type='file']):focus {
   font-size: 0.75rem;
   line-height: 1rem;
 }
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
 .font-bold {
   font-weight: 700;
 }
@@ -1709,10 +1715,6 @@ input:where([type='file']):focus {
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity, 1));
 }
-.text-blue-700 {
-  --tw-text-opacity: 1;
-  color: rgb(29 78 216 / var(--tw-text-opacity, 1));
-}
 .text-blue-800 {
   --tw-text-opacity: 1;
   color: rgb(30 64 175 / var(--tw-text-opacity, 1));
@@ -1753,14 +1755,6 @@ input:where([type='file']):focus {
   --tw-text-opacity: 1;
   color: rgb(22 163 74 / var(--tw-text-opacity, 1));
 }
-.text-green-700 {
-  --tw-text-opacity: 1;
-  color: rgb(21 128 61 / var(--tw-text-opacity, 1));
-}
-.text-green-900 {
-  --tw-text-opacity: 1;
-  color: rgb(20 83 45 / var(--tw-text-opacity, 1));
-}
 .text-indigo-600 {
   --tw-text-opacity: 1;
   color: rgb(79 70 229 / var(--tw-text-opacity, 1));
@@ -1777,9 +1771,13 @@ input:where([type='file']):focus {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
-.text-yellow-800 {
+.text-blue-700 {
   --tw-text-opacity: 1;
-  color: rgb(133 77 14 / var(--tw-text-opacity, 1));
+  color: rgb(29 78 216 / var(--tw-text-opacity, 1));
+}
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity, 1));
 }
 .underline {
   text-decoration-line: underline;
@@ -2006,6 +2004,10 @@ input:where([type='file']):focus {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
+.hover\:text-blue-500:hover {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity, 1));
+}
 .hover\:underline:hover {
   text-decoration-line: underline;
 }
@@ -2138,6 +2140,10 @@ input:where([type='file']):focus {
     margin-left: 1.5rem;
   }
 
+  .sm\:mt-8 {
+    margin-top: 2rem;
+  }
+
   .sm\:flex {
     display: flex;
   }
@@ -2238,6 +2244,10 @@ input:where([type='file']):focus {
 }
 @media (min-width: 768px) {
 
+  .md\:mt-8 {
+    margin-top: 2rem;
+  }
+
   .md\:block {
     display: block;
   }
@@ -2250,6 +2260,10 @@ input:where([type='file']):focus {
     width: 14rem;
   }
 
+  .md\:w-\[260px\] {
+    width: 260px;
+  }
+
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2260,6 +2274,21 @@ input:where([type='file']):focus {
 
   .md\:bg-red-600\/60 {
     background-color: rgb(220 38 38 / 0.6);
+  }
+
+  .md\:bg-red-600 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
+  }
+
+  .md\:text-6xl {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+
+  .md\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
   }
 }
 @media (min-width: 1024px) {
@@ -2319,6 +2348,12 @@ input:where([type='file']):focus {
   .dark\:bg-gray-900 {
     --tw-bg-opacity: 1;
     background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1));
+  }
+}
+@media(min-width:390px) {
+
+  .\[\@media\(min-width\:390px\)\]\:mt-8 {
+    margin-top: 2rem;
   }
 }
 

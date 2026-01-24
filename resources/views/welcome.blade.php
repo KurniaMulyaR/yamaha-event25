@@ -50,7 +50,7 @@
             <h1 class="text-white text-3xl ml-8">JAM <span class="ml-6">MENIT</span><span class="ml-6">DETIK</span></h1>
         </div>
 
-        <x-slider-promo class="promo-rep"/>
+        <x-slider-promo/>
 
         <div class="mb-6">
             <div x-data="{ openSyarat: false }">

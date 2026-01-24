@@ -24,10 +24,10 @@ class DelearController extends Controller
         $query = ListDelear::query();
 
         // Search
-        if ($search = $request->input('search.value')) {
-            $query->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
-        }
+        // if ($search = $request->input('search.value')) {
+        //     $query->where('name', 'like', "%{$search}%")
+        //           ->orWhere('email', 'like', "%{$search}%");
+        // }
 
         $total = $query->count();
 
@@ -45,6 +45,7 @@ class DelearController extends Controller
                     'kota' => $delear->kota,
                     'kecamatan' => $delear->kecamatan,
                     'namedelear' => $delear->namedelear,
+                    'cansell' => $delear->cansell,
                     'created_at' => $delear->created_at->format('Y-m-d'),
                     'action' => view('admin.delear.partials', compact('delear'))->render()
                 ];

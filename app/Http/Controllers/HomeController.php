@@ -39,7 +39,6 @@ class HomeController extends Controller
                             ? asset('storage/' . $item->img)
                             : null,
 
-                            
                         // 🔥 VARIAN (PENTING BUAT EDIT)
                         'varians' => $item->varians->map(function ($v) {
                             return [
@@ -52,6 +51,7 @@ class HomeController extends Controller
                                 'img' => $v->img
                                         ? asset('storage/' . $v->img)
                                     : null,
+                                'defaultVarian' => 2,
                             ];
                         })->values(),
                     ];

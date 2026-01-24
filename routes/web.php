@@ -31,6 +31,9 @@ Route::post('/metpem', [BookingController::class, 'metpem'])->name('metpem');
 
 Route::post('/midtrans/callback', [MidtransController::class, 'callback']);
 
+Route::post('/check-email', [UserController::class, 'checkEmail'])
+    ->name('check.email');
+    
 Route::get('/ajax/provinsi', [WilayahController::class, 'provinsi']);
 Route::get('/ajax/kota/{provinsi}', [WilayahController::class, 'kota']);
 Route::get('/ajax/kecamatan/{kota}', [WilayahController::class, 'kecamatan']);

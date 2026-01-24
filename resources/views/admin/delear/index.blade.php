@@ -27,6 +27,7 @@
                             <th>Kota</th>
                             <th>Kecamatan</th>
                             <th>Name Delear</th>
+                            <th>Can Sell</th>
                             <th>Created</th>
                             <th class="px-4 py-2 text-center">Action</th>
                         </tr>
@@ -158,8 +159,26 @@
     <script>
         $(document).ready(function () {
             $('#delearTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        className: 'bg-green-600 text-white px-3 py-2 rounded'
+                    },
+                ],
                 processing: true,
                 serverSide: true,
+                scrollX: true,
+                scrollY: "500px",
+                order: [1,'desc'],
+                pageLength: 1200,
+                scrollCollapse: true,
+                responsive: false,
+                fixedColumns: true,
+                fixedHeader: {
+                    header: true,
+                    footer: true
+                },
                 ajax: '/admin/reportdelear',
                 columns: [
                     { data: 'id' },
@@ -170,9 +189,15 @@
                     { data: 'kota' },
                     { data: 'kecamatan' },
                     { data: 'namedelear' },
+                    { data: 'cansell' },
                     { data: 'created_at' },
                     { data: 'action', orderable: false, searchable: false }
-                ]
+                ],
+                previous: "<i class='mdi mdi-chevron-left'>",
+                next: "<i class='mdi mdi-chevron-right'>",
+                drawCallback: function drawCallback() {
+                    $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
+                },
             });
 
             $('#createDelearBtn').on('click', function () {

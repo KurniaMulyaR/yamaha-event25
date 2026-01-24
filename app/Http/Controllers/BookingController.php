@@ -98,65 +98,64 @@ class BookingController extends Controller
 
     public function pembayaran(Request $request)
     {
-        
         $passwordPlain = 'MOTOR';
 
-        // $user = User::create([
-        //     'name' => $request->namalengkap,
-        //     'email' => $request->email,
-        //     'password' => Hash::make($passwordPlain),
-        //     'role' => 'user'
-        // ]);
+        $user = User::create([
+            'name' => $request->namalengkap,
+            'email' => $request->email,
+            'password' => Hash::make($passwordPlain),
+            'role' => 'user'
+        ]);
 
-        // $dataUser = DataUser::create([
-        //     'userid' => $user->id,
-        //     'nama_pembeli' => $request->namalengkap,
-        //     'no_ktp_pembeli' => $request->noktp,
-        //     'tempat_lahir_pembeli' => $request->tempatlahir,
-        //     'tanggal_lahir_pembeli' => $request->tgllahir,
-        //     'alamat_pembeli' => $request->alamat,
-        //     'provinsi' => $request->provinsi,
-        //     'kota' => $request->kota,
-        //     'kecamatan' => $request->kecamatan,
-        //     'kelurahan' => $request->kelurahan,
-        //     'no_telepon_pembeli' => $request->nohp,
-        //     'no_handphone_pembeli' => 0,
-        //     'email_pembeli' => $user->email,
-        //     'dealer' => $request->dealer,
-        //     'metode_pembayaran' => $request->metodpem,
-        //     'stnk_nama_pemakai' => $request->namalengkap,
-        //     'stnk_no_ktp' => $request->noktp,
-        //     'stnk_tempat_lahir'=> $request->tempatlahir,
-        //     'stnk_tanggal_lahir'=> $request->tgllahir,
-        //     'stnk_alamat'=> $request->alamat,
-        //     'stnk_kota' => $request->kota,
-        //     'stnk_provinsi'=> $request->provinsi,
-        //     'stnk_kecamatan'=> $request->kecamatan,
-        //     'stnk_kelurahan'=> $request->kelurahan,
-        //     'stnk_no_telepon'=> $request->nohp,
-        //     'stnk_no_handphone'=> $request->nohp,
-        //     'stnk_email' => $user->email,
-        // ]);
+        $dataUser = DataUser::create([
+            'userid' => $user->id,
+            'nama_pembeli' => $request->namalengkap,
+            'no_ktp_pembeli' => $request->noktp,
+            'tempat_lahir_pembeli' => $request->tempatlahir,
+            'tanggal_lahir_pembeli' => $request->tgllahir,
+            'alamat_pembeli' => $request->alamat,
+            'provinsi' => $request->provinsi,
+            'kota' => $request->kota,
+            'kecamatan' => $request->kecamatan,
+            'kelurahan' => $request->kelurahan,
+            'no_telepon_pembeli' => $request->nohp,
+            'no_handphone_pembeli' => 0,
+            'email_pembeli' => $user->email,
+            'dealer' => $request->dealer,
+            'metode_pembayaran' => 'VA',
+            'stnk_nama_pemakai' => $request->stnk_nama_pemakai ?? $request->namalengkap,
+            'stnk_no_ktp' => $request->stnk_no_ktp ?? $request->noktp,
+            'stnk_tempat_lahir'=> $request->stnk_tempat_lahir ?? $request->tempatlahir,
+            'stnk_tanggal_lahir'=> $request->stnk_tanggal_lahir ?? $request->tgllahir,
+            'stnk_alamat'=> $request->stnk_alamat ?? $request->alamat,
+            'stnk_kota' => $request->stnk_kota ?? $request->kota,
+            'stnk_provinsi'=> $request->stnk_provinsi ?? $request->provinsi,
+            'stnk_kecamatan'=> $request->stnk_kecamatan ?? $request->kecamatan,
+            'stnk_kelurahan'=> $request->stnk_kelurahan ?? $request->kelurahan,
+            'stnk_no_telepon'=> $request->stnk_no_telepon ?? $request->nohp,
+            'stnk_no_handphone'=> $request->stnk_no_handphone ?? $request->nohp,
+            'stnk_email' => $user->email,
+        ]);
 
-        // $pesanan = ListPesanan::create([
-        //     'userid' => $user->id,
-        //     'produkid' => $request->produk_id,
-        //     'varianid' => $request->varian_id,
-        //     'delearid' => $request->dealer,
-        //     'status' => 'PENDING',
-        //     'keterangan' => 'NULL'
-        // ]);
+        $pesanan = ListPesanan::create([
+            'userid' => $user->id,
+            'produkid' => $request->produk_id,
+            'varianid' => $request->varian_id,
+            'delearid' => $request->dealer,
+            'status' => 'PENDING',
+            'keterangan' => 'NULL',
+            'orderid'   =>  '-',
+            'snaptoken' => '-',
+        ]);
 
+        $varian = Varian::findOrFail($request->varian_id);
         $produk = ListProduk::findOrFail($request->produk_id);
 
-        $produk = ListProduk::findOrFail(6);
-        $Datauser = DataUser::with(['user'])->where('userid', 32)->first();
+        $Datauser = DataUser::with(['user'])->where('userid', $dataUser->userid)->first();
 
         $user = User::findOrFail($Datauser->userid);
         
-        $passwordPlain = Str::random(10);
-
-         // Set your Merchant Server Key
+        // Set your Merchant Server Key
 
         Config::$serverKey = config('midtrans.server_key'); // SB-Mid-server-xxxx
         Config::$isProduction = false; // 🔴 SANDBOX
@@ -169,7 +168,7 @@ class BookingController extends Controller
         $params = array(
             'transaction_details' => array(
                 'order_id' => $orderId,
-                'gross_amount' => $produk->price,
+                'gross_amount' => '5000' ?? $varian->dp,
             ),
             'customer_details' => array(
                 'first_name' => $Datauser->nama_pembeli,
@@ -181,19 +180,15 @@ class BookingController extends Controller
 
         $snapToken = Snap::getSnapToken($params);
 
-         try {
-            $paymentUrl = Snap::createTransaction($params)->redirect_url;
-
-            return redirect($paymentUrl);
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-        }
-
+        
         $pesanan->update([
             'orderid'   => $orderId,
             'snaptoken' => $snapToken,
         ]);
 
+
+        $passwordPlain = Str::random(10);
+        
          // ===== INFONIP WHATSAPP =====
         $client = new Client([
             'base_uri' => config('services.infobip.base_url'),
@@ -258,6 +253,15 @@ class BookingController extends Controller
         $user->save();
 
          // ===== END INFONIP WHATSAPP =====
+
+         try {
+            $paymentUrl = Snap::createTransaction($params)->redirect_url;
+
+            return redirect($paymentUrl);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+
 
         return response()->json([
             'snap_token' => $snapToken

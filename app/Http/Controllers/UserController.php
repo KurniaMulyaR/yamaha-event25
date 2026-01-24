@@ -147,4 +147,11 @@ class UserController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    public function checkEmail(Request $request)
+    {
+        return response()->json([
+            'exists' => User::where('email', $request->email)->exists()
+        ]);
+    }
 }

@@ -8,6 +8,7 @@ use Laravolt\Indonesia\Models\City;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Village;
 use App\Models\ListDelear;
+use App\Models\Varian;
 
 class WilayahController extends Controller
 {
@@ -55,22 +56,33 @@ class WilayahController extends Controller
     // DEALER
     public function dealer($kota)
     {
-        $city = City::where('province_code', $kota)
-            ->select('code', 'name')
-            ->orderBy('name')
-            ->firstOrFail();
+        $id = explode('|', $kota); // misal "kodeKota|varianId"
 
-        $districts = District::where('city_code', $city->code)->get();
+        // Ambil varian
+        $varian = Varian::with('produk')->findOrFail($id[1]);
 
-        $deler = ListDelear::whereIn(
-                'district_code',
-                $districts->pluck('code')
-            )
-            ->select('code', 'namedelear')
+        // Ambil semua dealer di kota
+        $del = ListDelear::where('code_kota', $id[0])
+            ->select('code','namedelear','cansell')
             ->orderBy('namedelear')
             ->get();
 
-        return response()->json($deler);
+        // Filter sesuai varian
+        $deler = [];
 
+        foreach($del as $dilir) {
+            // Jika varian TMAX, tampilkan hanya dealer yang cansell = TMAX
+            if(strtoupper($varian->name) === 'TMAX') {
+                if(strtoupper($dilir->cansell) === 'TMAX') {
+                    $deler[] = $dilir;
+                }
+            } else {
+                // selain TMAX, tampilkan semua dealer
+                $deler[] = $dilir;
+            }
+        }
+
+        // Kembalikan JSON
+        return response()->json($deler);
     }
 }

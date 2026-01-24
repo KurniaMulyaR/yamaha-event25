@@ -6,7 +6,7 @@
             { title: 'Waktu pembelian hanya', value: '25 MENIT', subtitle: 'Mulai Pukul 19.00 WIB' },
         ]
     }"
-    class="w-full flex items-center justify-center pt-5 pb-2"
+    class="w-full flex items-center justify-center pt-5 pb-2 ket-rep"
 >
 
     <!-- LEFT -->
@@ -25,7 +25,7 @@
         >
             <template x-for="slide in slides">
                 <div
-                    class="min-w-full bg-red-600/40 md:bg-red-600 rounded-xl text-white text-center py-6 shadow-[0_8px_20px_rgba(0,0,0,0.4)]"
+                    class="min-w-full bg-red-600 rounded-xl text-white text-center py-6 shadow-[0_8px_20px_rgba(0,0,0,0.4)]"
                 >
                     <p class="text-sm opacity-90" x-text="slide.title"></p>
                     <p class="text-3xl font-extrabold my-2" x-text="slide.value"></p>

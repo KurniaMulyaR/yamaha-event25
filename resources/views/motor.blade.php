@@ -66,11 +66,9 @@
             <!-- BIKE IMAGE -->
             <div class="w-full lg:flex-1 order-1 lg:order-2 flex justify-center relative min-h-[280px] sm:min-h-[360px]">
                 <img
-                    x-show="activeVarian?.img"
-                    x-transition.opacity.duration.500ms
-                    :src="activeVarian.img"
-                    class="absolute max-h-[260px] sm:max-h-[360px] lg:max-h-[420px]
-                        drop-shadow-2xl"
+                    x-show="activeVarian?.img || true"
+                    :src="activeVarian?.img ?? '/img/tmx.png'"
+                    class="absolute max-h-[260px] sm:max-h-[360px] lg:max-h-[420px] drop-shadow-2xl"
                     alt=""
                 >
             </div>

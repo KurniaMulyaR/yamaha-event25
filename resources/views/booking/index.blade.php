@@ -200,6 +200,10 @@
                                     px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
                             required />
                           </div>
+
+                          <p id="email-error" class="text-sm text-red-500 mt-1 hidden">
+                                Email sudah terdaftar
+                            </p>
                         </div>
                     </div>
       
@@ -214,23 +218,132 @@
                         </svg>
                       </div>
                     </div>
-
-                    <div class="form-group">
-                      <label for="metodpem" class="block text-sm/6 font-medium text-white">Metode Pembayaran</label>
-                      <div class="mt-2 grid grid-cols-1">
-                        <select id="metodpem" name="metodpem" autocomplete="metodpem-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                          <option>VIRTUAL ACCOUNT</option>
-                        </select>
-                        <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
-                          <path d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
-                        </svg>
-                      </div>
-                    </div>
                   </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 mt-2" id="formIdentitas" style="display: none;">
+  
+                    <!-- Nama Pemakai -->
+                    <div>
+                        <label for="stnk_nama_pemakai" class="block text-sm font-medium text-white">Nama Pemakai</label>
+                        <div class="mt-2">
+                          <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                            <input id="stnk_nama_pemakai" name="stnk_nama_pemakai" type="text" placeholder="Nama Pemakai ..." required
+                            class="w-full rounded-md bg-white/10 border border-white/20
+                                        px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- No KTP -->
+                    <div>
+                        <label for="stnk_no_ktp" class="block text-sm font-medium text-white">No KTP</label>
+                        <div class="mt-2">
+                          <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                        <input id="stnk_no_ktp" maxlength="16"
+                                inputmode="numeric"
+                                pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g,'')" name="stnk_no_ktp" type="text" placeholder="No KTP ..." required
+                        class="w-full rounded-md bg-white/10 border border-white/20
+                                    px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                            </div>                    
+                        </div>
+                    </div>
+
+
+                    <!-- Tempat Lahir -->
+                    <div>
+                        <label for="stnk_tempat_lahir" class="block text-sm font-medium text-white">Tempat Lahir</label>
+                        <div class="mt-2">
+                          <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                        <input id="stnk_tempat_lahir" name="stnk_tempat_lahir" type="text" placeholder="Tempat Lahir ..." required
+                        class="w-full rounded-md bg-white/10 border border-white/20
+                                    px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                            </div>                    
+                        </div>
+                    </div>
+
+
+                    <!-- Tanggal Lahir -->
+                    <div>
+                        <label for="stnk_tanggal_lahir" class="block text-sm font-medium text-white">Tanggal Lahir</label>
+                        <div class="mt-2">
+                          <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                        <input id="stnk_tanggal_lahir" name="stnk_tanggal_lahir" type="date" required
+                        class="w-full rounded-md bg-white/10 border border-white/20
+                                    px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                            </div>                    
+                        </div>
+                    </div>
+
+
+                    <!-- Alamat -->
+                    <div>
+                        <label for="stnk_alamat" class="block text-sm font-medium text-white">Alamat</label>
+                        <div class="mt-2">
+                          <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                        <input id="stnk_alamat" name="stnk_alamat" type="text" placeholder="Alamat ..." required
+                        class="w-full rounded-md bg-white/10 border border-white/20
+                                    px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                            </div>                    
+                        </div>
+                    </div>
+
+
+                    <!-- Provinsi -->
+                    <div>
+                        <label for="stnk_provinsi" class="block text-sm font-medium text-white">Provinsi</label>
+                        <div class="mt-2">
+                          <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                        <input id="stnk_provinsi" name="stnk_provinsi" type="text" placeholder="Provinsi ..." required
+                        class="w-full rounded-md bg-white/10 border border-white/20
+                                    px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                            </div>                    
+                        </div>
+                    </div>
+
+
+                    <!-- Kota -->
+                    <div>
+                        <label for="stnk_kota" class="block text-sm font-medium text-white">Kota</label>
+                        <div class="mt-2">
+                          <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                        <input id="stnk_kota" name="stnk_kota" type="text" placeholder="Kota ..." required
+                        class="w-full rounded-md bg-white/10 border border-white/20
+                                    px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                            </div>                    
+                        </div>
+                    </div>
+
+
+                    <!-- Kecamatan -->
+                    <div>
+                        <label for="stnk_kecamatan" class="block text-sm font-medium text-white">Kecamatan</label>
+                        <div class="mt-2">
+                          <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                        <input id="stnk_kecamatan" name="stnk_kecamatan" type="text" placeholder="Kecamatan ..." required
+                        class="w-full rounded-md bg-white/10 border border-white/20
+                                    px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                            </div>                    
+                        </div>
+                    </div>
+
+
+                    <!-- Kelurahan -->
+                    <div>
+                        <label for="stnk_kelurahan" class="block text-sm font-medium text-white">Kelurahan</label>
+                        <div class="mt-2">
+                          <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                        <input id="stnk_kelurahan" name="stnk_kelurahan" type="text" placeholder="Kelurahan ..." required
+                        class="w-full rounded-md bg-white/10 border border-white/20
+                                    px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+
       
                   <div class="mt-6 ml-4">
                       <label class="flex items-center text-sm text-white">
-                          <input type="checkbox" class="mr-2" require>
+                          <input type="checkbox" class="mr-2" require id="identitas">
                           Apakah Data Identitas Pembeli Sama Dengan Identitas Pemilik?
                       </label>
                   </div>
@@ -259,14 +372,19 @@
                     PRODUK YANG ANDA PILIH
                 </h3>
     
-                <img src="storage/{{ $varian->colour === 'Crystal Graphite' ? asset('img/tmx.png') : $produk->img }}" class="mx-auto h-40 object-contain">
+                <img src="storage/{{ $varian->img }}" class="mx-auto h-40 object-contain">
     
                 <h4 class="text-white font-bold mt-4 text-2xl">{{ $produk->name }}</h4>
                 <p class="text-gray-300 text-xl">{{ $varian->name }}</p>
     
-                <p class="text-white font-bold mb-6 bg-[#CB3A31] border-b border-red-900 p-3 rounded-xl text-3xl mt-4">
-                    {{ 'Rp.' . number_format($varian->price, 0,',','.') }}
-                </p>
+                <div class="text-white font-bold text-left mb-6 bg-[#CB3A31] border-b border-red-900 p-3 rounded-xl text-xl mt-4">
+                    <p>
+                    Dp : {{ 'Rp.' . number_format($varian->dp, 0,',','.') }}
+                    </p>
+                    <p>
+                    Harga : {{ 'Rp.' . number_format($varian->price, 0,',','.') }}
+                    </p>
+                </div>
             </div>
 
             <!-- FAQ SECTION -->
@@ -452,6 +570,50 @@ $(document).ready(function () {
 
 });
 
+$(document).ready(function() {
+    $('#identitas').change(function() {
+        if ($(this).is(':checked')) {
+            $('#formIdentitas').slideDown(); // tampilkan form
+        } else {
+            $('#formIdentitas').slideUp();   // sembunyikan form
+        }
+    });
+
+    let typingTimer;
+    const delay = 500;
+
+    $('#email').on('keyup', function () {
+        clearTimeout(typingTimer);
+
+        const email = $(this).val();
+
+        if (email.length === 0) {
+            $('#email-error').addClass('hidden');
+            return;
+        }
+
+        typingTimer = setTimeout(function () {
+            $.ajax({
+                url: "{{ route('check.email') }}",
+                type: "POST",
+                data: {
+                    email: email,
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function (res) {
+                    if (res.exists) {
+                        $('#email-error').removeClass('hidden');
+                        $('#email').addClass('border-red-500');
+                    } else {
+                        $('#email-error').addClass('hidden');
+                        $('#email').removeClass('border-red-500');
+                    }
+                }
+            });
+        }, delay);
+    });
+});
+
 let today = new Date();
 let maxDate = new Date(
     today.getFullYear() - 17,
@@ -465,10 +627,14 @@ $('#tgllahir').flatpickr({
 });
 $(function () {
 
+    let id = {{ $varian->id }};
     // LOAD PROVINSI
-    $.get('/ajax/provinsi', function (data) {
+    $.get(`/ajax/provinsi/`, function (data) {
         data.forEach(item => {
             $('#provinsi').append(
+                `<option value="${item.code}">${item.name}</option>`
+            );
+            $('#stnk_provinsi').append(
                 `<option value="${item.code}">${item.name}</option>`
             );
         });
@@ -477,6 +643,7 @@ $(function () {
     // LOAD KOTA
     $('#provinsi').on('change', function () {
         let code = $(this).val();
+
         $('#kota').html('<option value="">Loading...</option>');
         $('#kecamatan').html('<option value="">Pilih Kecamatan</option>');
 
@@ -488,10 +655,42 @@ $(function () {
                 );
             });
         });
+    });
+    
+    $('#stnk_provinsi').on('change', function () {
+        let code = $(this).val();
+
+        $('#stnk_kota').html('<option value="">Loading...</option>');
+        $('#stnk_kecamatan').html('<option value="">Pilih Kecamatan</option>');
+
+        $.get(`/ajax/kota/${code}`, function (data) {
+            $('#stnk_kota').html('<option value="">Pilih Kota</option>');
+            data.forEach(item => {
+                $('#stnk_kota').append(
+                    `<option value="${item.code}">${item.name}</option>`
+                );
+            });
+        });
+    });
+
+    // LOAD KECAMATAN
+    $('#kota').on('change', function () {
+        let code = $(this).val();
+        let codie = $(this).val() + '|' + id;
+        $('#kecamatan').html('<option value="">Loading...</option>');
+
+        $.get(`/ajax/kecamatan/${code}`, function (data) {
+            $('#kecamatan').html('<option value="">Pilih Kecamatan</option>');
+            data.forEach(item => {
+                $('#kecamatan').append(
+                    `<option value="${item.code}">${item.name}</option>`
+                );
+            });
+        });
 
         $('#dealer').html('<option value="">Loading...</option>');
 
-        $.get(`/ajax/dealer/${code}`, function (data) {
+        $.get(`/ajax/dealer/${codie}`, function (data) {
             $('#dealer').html('<option value="">Pilih Dealer</option>');
             data.forEach(item => {
                 $('#dealer').append(
@@ -501,15 +700,14 @@ $(function () {
         });
     });
 
-    // LOAD KECAMATAN
-    $('#kota').on('change', function () {
+     $('#stnk_kota').on('change', function () {
         let code = $(this).val();
-        $('#kecamatan').html('<option value="">Loading...</option>');
+        $('#stnk_kecamatan').html('<option value="">Loading...</option>');
 
         $.get(`/ajax/kecamatan/${code}`, function (data) {
-            $('#kecamatan').html('<option value="">Pilih Kecamatan</option>');
+            $('#stnk_kecamatan').html('<option value="">Pilih Kecamatan</option>');
             data.forEach(item => {
-                $('#kecamatan').append(
+                $('#stnk_kecamatan').append(
                     `<option value="${item.code}">${item.name}</option>`
                 );
             });
@@ -525,6 +723,20 @@ $(function () {
             $('#kelurahan').html('<option value="">Pilih Kelurahan</option>');
             data.forEach(item => {
                 $('#kelurahan').append(
+                    `<option value="${item.code}">${item.name}</option>`
+                );
+            });
+        });
+    });
+
+    $('#stnk_kecamatan').on('change', function () {
+        let code = $(this).val();
+        $('#stnk_kelurahan').html('<option value="">Loading...</option>');
+
+        $.get(`/ajax/kelurahan/${code}`, function (data) {
+            $('#stnk_kelurahan').html('<option value="">Pilih Kelurahan</option>');
+            data.forEach(item => {
+                $('#stnk_kelurahan').append(
                     `<option value="${item.code}">${item.name}</option>`
                 );
             });
