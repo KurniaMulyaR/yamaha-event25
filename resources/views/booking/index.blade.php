@@ -59,7 +59,7 @@
                   <input id="produk_id" name="produk_id" value="{{ $produk->id }}" hidden />
                   <input id="varian_id" name="varian_id" value="{{ $varian->id }}" hidden />
 
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 bg-black/60">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 bg-black/60 rounded">
                       <div class="form-group">
                           <label for="namalengkap" class="block text-sm/6 font-medium text-white">Nama Lengkap</label>
                           <div class="mt-2">
@@ -341,14 +341,14 @@
                 </div>
 
       
-                  <div class="mt-6 ml-4 bg-black/60">
+                  <div class="mt-6 ml-4 p-6">
                       <label class="flex items-center text-sm text-white">
                           <input type="checkbox" class="mr-2" require id="identitas">
                           Apakah Data Identitas Pembeli Sama Dengan Identitas Pemilik?
                       </label>
                   </div>
                   
-                  <div class="mt-6 ml-4 bg-black/60">
+                  <div class="mt-6 ml-4 p-6">
                       <label class="flex items-center text-sm text-white">
                           <input type="checkbox" class="mr-2" require>
                           Mengizinkan PT YIMM untuk menggunakan informasi di atas dan menghubungi Saya melalui email dan/atau telepon atau sarana komunikasi pribadi lainnya untuk kegiatan pelayanan kepada customer.
