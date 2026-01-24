@@ -374,7 +374,7 @@
     
                 <img src="storage/{{ $varian->img }}" class="mx-auto h-40 object-contain">
     
-                <h4 class="text-white font-bold mt-4 text-2xl">{{ $produk->name }}</h4>
+                <h4 class="text-white font-bold mt-4 text-2xl">{{ $varian->produk->name }}</h4>
                 <p class="text-gray-300 text-xl">{{ $varian->name }}</p>
     
                 <div class="text-white font-bold text-left mb-6 bg-[#CB3A31] border-b border-red-900 p-3 rounded-xl text-xl mt-4">
