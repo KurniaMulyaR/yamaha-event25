@@ -10,7 +10,7 @@ class ListDelear extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'listDelear';
+    protected $table = 'listdelear';
 
     protected $primaryKey = 'id';
 

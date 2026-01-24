@@ -15,7 +15,7 @@ class Varian extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-         'name','produkid','jmlunit','colour','price'
+         'name','produkid','jmlunit','colour','price','img','dp'
     ];
 
     public function produk()

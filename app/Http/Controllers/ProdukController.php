@@ -207,23 +207,40 @@ class ProdukController extends Controller
         /* =======================
         UPSERT VARIAN
         ======================= */
-        if ($request->varian) {
-            foreach ($request->varian as $v) {
+        if ($request->has('varian')) {
+            foreach ($request->varian as $index => $v) {
+
+                $imgPath = $v['img'] ?? null;
+
+                // CEK FILE HARUS VIA REQUEST
+                if ($request->hasFile("varian.$index.img")) {
+
+                    // hapus gambar lama
+                    if (!empty($v['old_img']) && Storage::disk('public')->exists($v['old_img'])) {
+                        Storage::disk('public')->delete($v['old_img']);
+                    }
+
+                    // simpan gambar baru
+                    $imgPath = $request->file("varian.$index.img")
+                        ->store('produk', 'public');
+                }
+
                 $produk->varians()->updateOrCreate(
                     [
-                        'id' => $v['id'] ?? null, // kalau ada → update
+                        'id' => $v['id'] ?? null,
                     ],
                     [
                         'name'      => $v['name'],
                         'jmlunit'   => $v['jmlunit'],
                         'colour'    => $v['colour'],
-                        'price'    => $v['price'],
-                        'produk_id' => $produk->id,
+                        'price'     => $v['price'],
+                        'dp'        => $v['dp'],
+                        'produk_id'=> $produk->id,
+                        'img'       => $imgPath,
                     ]
                 );
             }
         }
-
 
         return response()->json(['success' => true]);
     }

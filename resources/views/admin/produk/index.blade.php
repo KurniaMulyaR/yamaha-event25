@@ -152,6 +152,27 @@
                     data-name="price"
                     required>
             </div>
+
+            <div class="mb-2">
+                <label class="text-xs font-semibold">DP</label>
+                <input type="number"
+                    class="w-full border rounded px-2 py-1"
+                    data-name="dp"
+                    required>
+            </div>
+
+            <div class="mb-2">
+                <label class="text-sm font-semibold">Img</label>
+
+                    <input type="file"
+                        accept="image/*"
+                        data-name="img"
+                        class="img-input w-full border rounded px-3 py-2 bg-white">
+
+                    <!-- Preview -->
+                    <img
+                        class="photo-preview mt-3 w-24 h-24 rounded object-cover hidden border">
+            </div>
         </div>
     </template>
 
@@ -273,6 +294,28 @@
                 data-name="colour"
                 required>
         </div>
+
+        <div class="mb-2">
+            <label class="text-xs font-semibold">DP</label>
+            <input type="number"
+                class="w-full border rounded px-2 py-1"
+                data-name="dp"
+                required>
+        </div>
+
+        <div class="mb-2">
+            <label class="text-sm font-semibold">Img</label>
+
+                <input type="file"
+                    id="create_imgv"
+                    name="imge"
+                    accept="image/*"
+                    class="w-full border rounded px-3 py-2 bg-white">
+
+                <!-- Preview -->
+                <img id="photoPreviewe"
+                    class="mt-3 w-24 h-24 rounded-full object-cover hidden border">
+        </div>
     </div>
 </template>
 
@@ -336,6 +379,20 @@
                 const reader = new FileReader();
                 reader.onload = e => {
                     $('#photoPreview')
+                        .attr('src', e.target.result)
+                        .removeClass('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        $('#create_imgv').on('change', function () {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    $('#photoPreviewe')
                         .attr('src', e.target.result)
                         .removeClass('hidden');
                 };
@@ -429,19 +486,57 @@
 
         function addEditVarian(data = null) {
             let $tpl = $($('#editVarianTemplate').html());
-            console.log($tpl);
+            let index = editVarianIndex;
 
+            // set name untuk semua field
             $tpl.find('[data-name]').each(function () {
                 let field = $(this).data('name');
-                $(this).attr('name', `varian[${editVarianIndex}][${field}]`);
-                if (data && data[field]) {
+
+                $(this).attr('name', `varian[${index}][${field}]`);
+
+                // ⚠️ FILE INPUT TIDAK BOLEH .val()
+                if (data && data[field] && $(this).attr('type') !== 'file') {
                     $(this).val(data[field]);
+                }
+            });
+
+            // 🔥 JIKA EDIT & ADA IMAGE LAMA
+            if (data && data.img) {
+                let $preview = $tpl.find('.photo-preview');
+                $preview
+                    .attr('src', data.img)
+                    .removeClass('hidden');
+
+                // simpan img lama (buat backend)
+                $('<input>')
+                    .attr({
+                        type: 'hidden',
+                        name: `varian[${index}][old_img]`,
+                        value: data.img.replace('/storage/', '')
+                    })
+                    .appendTo($tpl);
+            }
+
+            // 🔥 PREVIEW IMAGE BARU SAAT DIPILIH
+            $tpl.find('.img-input').on('change', function () {
+                let file = this.files[0];
+                let $preview = $(this).siblings('.photo-preview');
+
+                if (file) {
+                    let reader = new FileReader();
+                    reader.onload = e => {
+                        $preview
+                            .attr('src', e.target.result)
+                            .removeClass('hidden');
+                    };
+                    reader.readAsDataURL(file);
                 }
             });
 
             $('#editVarianWrapper').append($tpl);
             editVarianIndex++;
         }
+
 
         // ADD NEW EMPTY VARIAN
         $('#addEditVarian').on('click', function () {

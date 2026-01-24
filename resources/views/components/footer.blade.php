@@ -16,7 +16,7 @@
                 HELP CENTER
             </div>
 
-            <div class="flex items-center gap-2 text-sm font-semibold">
+            <div class="flex flex-col sm:flex-row gap-2 text-xs sm:text-sm font-semibold">
                 <!-- Phone -->
                 <div class="flex items-center gap-2 bg-white/15 px-3 py-1.5 rounded-full">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"

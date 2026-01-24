@@ -21,7 +21,7 @@ class UserController extends Controller
     public function getUser(Request $request)
     {
         $query = DataUser::query()
-                    ->with(['user','village.districts.cities.province','dealer']);
+                    ->with(['user','village.districts.cities.province','dealeri']);
 
         // Search
         if ($search = $request->input('search.value')) {
@@ -44,21 +44,21 @@ class UserController extends Controller
                     'tempat_lahir_pembeli' => $dataUser->tempat_lahir_pembeli,
                     'tanggal_lahir_pembeli' => $dataUser->tanggal_lahir_pembeli,
                     'alamat_pembeli' => $dataUser->alamat_pembeli,
-                    'provinsi' => $dataUser->districts->cities->province->name,
-                    'kota' => $dataUser->districts->cities->name,
-                    'kecamatan' => $dataUser->districts->name,
+                    'provinsi' => $dataUser->village->districts->cities->province->name,
+                    'kota' => $dataUser->village->districts->cities->name,
+                    'kecamatan' => $dataUser->village->districts->name,
                     'kelurahan' => $dataUser->name,
                     'no_telepon_pembeli' => $dataUser->no_telepon_pembeli,
                     'no_handphone_pembeli' => $dataUser->no_handphone_pembeli,
-                    'dealer' => $dataUser->dealer->namedelear,
+                    'dealer' => implode(',', $dataUser->dealeri->namedelear),
                     'metode_pembayaran' => $dataUser->metode_pembayaran,
                     'stnk_nama_pemakai' => $dataUser->stnk_nama_pemakai,
                     'stnk_no_ktp' => $dataUser->stnk_no_ktp,
                     'stnk_tempat_lahir' => $dataUser->stnk_tempat_lahir,
                     'stnk_tanggal_lahir' => $dataUser->stnk_tanggal_lahir,
                     'stnk_alamat' => $dataUser->stnk_alamat,
-                    'stnk_provinsi' => $dataUser->districts->cities->province->name,
-                    'stnk_kecamatan' => $dataUser->districts->name,
+                    'stnk_provinsi' => $dataUser->village->districts->cities->province->name,
+                    'stnk_kecamatan' => $dataUser->village->districts->name,
                     'stnk_kelurahan' => $dataUser->name,
                     'stnk_no_telepon' => $dataUser->stnk_no_telepon,
                     'stnk_no_handphone' => $dataUser->stnk_no_handphone,

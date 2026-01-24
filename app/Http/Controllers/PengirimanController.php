@@ -34,18 +34,26 @@ class PengirimanController extends Controller
             ->offset($request->start)
             ->limit($request->length)
             ->get()
-            ->map(function ($dataUser) {
+            ->map(function ($pesanan) {
+                $statusBadge = match ($pesanan->status) {
+                    'PENDING' => '<span class="px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-200 rounded-full">PENDING</span>',
+                    'LUNAS' => '<span class="px-2 py-1 text-xs font-semibold text-green-700 bg-green-200 rounded-full">LUNAS</span>',
+                    'PENGIRIMAN' => '<span class="px-2 py-1 text-xs font-semibold text-blue-700 bg-blue-200 rounded-full">PENGIRIMAN</span>',
+                    'TERKIRIM' => '<span class="px-2 py-1 text-xs font-semibold text-green-900 bg-green-400 rounded-full">TERKIRIM</span>',
+                    default => '<span class="px-2 py-1 text-xs font-semibold text-gray-700 bg-gray-200 rounded-full">-</span>',
+                };
+
                 return [
-                    'id' => $pesanan->user->id,
+                    'id' => $pesanan->datauser->user->id,
                     'name' => $pesanan->datauser->user->name,
                     'produk' => $pesanan->produk->name,
                     'delear' => $pesanan->delear->namedelear,
-                    'status' => $pesanan->status,
+                    'status' => $statusBadge,
                     'keterangan' => $pesanan->keterangan,
                     'created_at' => $pesanan->created_at->format('Y-m-d'),
                     'action' => view('admin.pesanan.partials', compact('pesanan'))->render()
                 ];
-            });;
+            });
 
         return response()->json([
             'draw' => intval($request->draw),
@@ -95,7 +103,7 @@ class PengirimanController extends Controller
      */
     public function edit($id)
     {
-        //
+        return ListPesanan::findOrFail($id);
     }
 
     /**
@@ -107,7 +115,14 @@ class PengirimanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $pesanan = ListPesanan::findOrFail($id);
+
+        $pesanan->update([
+            'status' => $request->status,
+            'keterangan' => $request->keterangan
+        ]);
+
+         return response()->json(['success' => true]);
     }
 
     /**

@@ -65,18 +65,14 @@
 
             <!-- BIKE IMAGE -->
             <div class="w-full lg:flex-1 order-1 lg:order-2 flex justify-center relative min-h-[280px] sm:min-h-[360px]">
-                <template x-for="item in models" :key="item.key">
-                    <img
-                        x-show="active === item.key"
-                        x-transition.opacity.duration.500ms
-                        :src="activeVarian && activeVarian.colour === 'Crystal Graphite'
-                ? '{{ asset('img/tmx.png') }}'
-                : item.image"
-                        class="absolute max-h-[260px] sm:max-h-[360px] lg:max-h-[420px]
-                            drop-shadow-2xl"
-                        alt=""
-                    >
-                </template>
+                <img
+                    x-show="activeVarian?.img"
+                    x-transition.opacity.duration.500ms
+                    :src="activeVarian.img"
+                    class="absolute max-h-[260px] sm:max-h-[360px] lg:max-h-[420px]
+                        drop-shadow-2xl"
+                    alt=""
+                >
             </div>
 
             <!-- RIGHT PANEL -->
@@ -135,8 +131,14 @@
 
                 <!-- PRICE & CTA -->
                 <div class="bg-black/60 backdrop-blur-md rounded-xl p-4 text-white border border-white/20 mt-2">
-                    <h3 class="text-lg font-bold mb-2"
-                        x-text="activeVarian?.price"></h3>
+                    <div class="space-y-4 my-2">
+                        <h3 class="text-lg font-bold">
+                            DP : <span class="font-semibold text-white" x-text="activeVarian?.dp"></span>
+                        </h3>
+                        <h3 class="text-lg font-bold">
+                            Harga : <span class="font-semibold text-white" x-text="activeVarian?.price"></span>
+                    </h3>
+                    </div>
 
                     <form method="POST" action="{{ route('booking.store') }}">
                         @csrf

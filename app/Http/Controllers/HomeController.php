@@ -48,6 +48,10 @@ class HomeController extends Controller
                                 'jmlunit' => $v->jmlunit,
                                 'colour'  => $v->colour,
                                 'price'  => 'Rp.' . number_format($v->price, 0, ',', '.'),
+                                'dp' => 'Rp.' . number_format($v->dp, 0, ',', '.'),
+                                'img' => $v->img
+                                        ? asset('storage/' . $v->img)
+                                    : null,
                             ];
                         })->values(),
                     ];

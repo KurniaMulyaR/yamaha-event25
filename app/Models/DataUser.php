@@ -31,8 +31,8 @@ class DataUser extends Model
     {
         return $this->BelongsTo(Village::class, 'kelurahan', 'code');
     }
-    public function dealer()
+    public function dealeri()
     {
-        return $this->hasMany(ListDelear::class, 'dealer', 'id');
+        return $this->hasMany(ListDelear::class, 'code', 'dealer');
     }
 }

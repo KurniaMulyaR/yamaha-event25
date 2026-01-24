@@ -27,22 +27,28 @@
     </div>
 
     <!-- MODAL EDIT -->
-    <div id="delearModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+    <div id="pengirimanModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
         <div class="bg-white rounded-lg w-full max-w-md p-6">
             <h2 class="text-lg font-bold mb-4" id="modalTitle"></h2>
 
             <form id="delearForm">
                 @csrf
-                <input type="hidden" id="delear_id">
+                <input type="hidden" id="pengiriman_id">
 
                 <div class="mb-4">
-                    <label class="text-sm font-semibold">Name</label>
-                    <input type="text" id="name" class="w-full border rounded px-3 py-2">
+                    <label class="text-sm font-semibold">Status</label>
+                    <select id="status" name="status" required autocomplete="status-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                        <option class="px-2 py-1 text-xs font-semibold text-black bg-yellow-200">PENDING</option>
+                        <option class="px-2 py-1 text-xs font-semibold text-black bg-green-200">LUNAS</option>
+                        <option class="px-2 py-1 text-xs font-semibold text-black bg-blue-400">PENGIRIMAN</option>
+                        <option class="px-2 py-1 text-xs font-semibold text-black bg-green-400">TERKIRIM</option>
+                    </select>
                 </div>
 
                 <div class="mb-4">
-                    <label class="text-sm font-semibold">Email</label>
-                    <input type="email" id="email" class="w-full border rounded px-3 py-2">
+                    <label class="text-sm font-semibold">Keterangan</label>
+                    <textarea id="keterangan" name="keterangan" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
+                          
                 </div>
 
                 <div class="flex justify-end gap-2">
@@ -55,31 +61,6 @@
             </form>
         </div>
     </div>
-
-    <!-- MODL IMPORT -->
-     <div id="importModal"
-        class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-
-        <div class="bg-white w-full max-w-md rounded-xl p-6">
-            <h2 class="text-lg font-bold mb-4">Import Dealer</h2>
-
-            <input type="file" id="importFile"
-                class="w-full border p-2 rounded mb-4">
-
-            <div class="flex justify-end gap-2">
-                <button id="closeImportModal"
-                    class="px-4 py-2 bg-gray-300 rounded">
-                    Cancel
-                </button>
-
-                <button id="submitImport"
-                    class="px-4 py-2 bg-blue-600 text-white rounded">
-                    Import
-                </button>
-            </div>
-        </div>
-    </div>
-
 
     <script>
         $(document).ready(function () {
@@ -148,30 +129,30 @@
         $(document).on('click', '.editBtn', function () {
             let id = $(this).data('id');
 
-            $.get(`/admin/delear/${id}/edit`, function (data) {
-                $('#delear_id').val(data.id);
-                $('#name').val(data.name);
-                $('#email').val(data.email);
+            $.get(`/admin/pengiriman/${id}/edit`, function (data) {
+                $('#pengiriman_id').val(data.id);
+                $('#status').val(data.status);
+                $('#keterangan').val(data.keterangan);
 
-                $('#delearModal').removeClass('hidden').addClass('flex');
+                $('#pengirimanModal').removeClass('hidden').addClass('flex');
             });
         });
 
         $('#delearForm').submit(function (e) {
             e.preventDefault();
 
-            let id = $('#user_id').val();
+            let id = $('#pengiriman_id').val();
 
             $.ajax({
-                url: `/admin/delear/${id}`,
+                url: `/admin/pengiriman/${id}`,
                 type: 'PUT',
                 data: {
                     _token: '{{ csrf_token() }}',
-                    name: $('#name').val(),
-                    email: $('#email').val()
+                    status: $('#status').val(),
+                    keterangan: $('#keterangan').val()
                 },
                 success: function () {
-                    $('#delearModal').addClass('hidden');
+                    $('#pengirimanModal').addClass('hidden');
                     $('#delearTable').DataTable().ajax.reload();
 
                     Swal.fire({
@@ -186,7 +167,7 @@
         });
 
         $('#closeModal').on('click', function () {
-            $('#delearModal').addClass('hidden').removeClass('flex');
+            $('#pengirimanModal').addClass('hidden').removeClass('flex');
         });
 
         function deleteUser(id) {
@@ -211,48 +192,6 @@
                 }
             });
         }
-
-        // OPEN MODAL
-        $('#openImportModal').on('click', function () {
-            $('#importModal').removeClass('hidden').addClass('flex');
-        });
-
-        // CLOSE MODAL
-        $('#closeImportModal').on('click', function () {
-            $('#importModal').addClass('hidden').removeClass('flex');
-        });
-
-        // SUBMIT IMPORT
-        $('#submitImport').on('click', function () {
-            let file = $('#importFile')[0].files[0];
-
-            if (!file) {
-                alert('Pilih file dulu!');
-                return;
-            }
-
-            let formData = new FormData();
-            formData.append('file', file);
-
-            $('#progressWrapper').removeClass('hidden');
-
-            $.ajax({
-                url: '/admin/dealer/import',
-                method: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (res) {
-                    pollProgress(res.batch_id);
-                },
-                error: function () {
-                    alert('Import gagal');
-                }
-            });
-        });
 
     </script>
 </x-app-layout>

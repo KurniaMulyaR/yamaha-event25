@@ -104,13 +104,16 @@
                             <!-- Progress -->
                             <div class="flex items-center gap-4 mt-4 text-sm">
                                 <span class="flex items-center gap-2">
-                                    <span class="w-3 h-3 bg-red-500 rounded-full"></span> Pembayaran
+                                    <span class="w-3 h-3 {{ in_array($pesan->status, ['PENDING','LUNAS','PENGIRIMAN','TERKIRIM']) ? 'bg-red-500' : 'bg-gray-400' }} rounded-full"></span> Pending
                                 </span>
                                 <span class="flex items-center gap-2">
-                                    <span class="w-3 h-3 bg-red-500 rounded-full"></span> Pengiriman
+                                    <span class="w-3 h-3 {{ in_array($pesan->status, ['LUNAS','PENGIRIMAN','TERKIRIM']) ? 'bg-red-500' : 'bg-gray-400' }} rounded-full"></span> Lunas
                                 </span>
                                 <span class="flex items-center gap-2">
-                                    <span class="w-3 h-3 bg-gray-400 rounded-full"></span> Diterima
+                                    <span class="w-3 h-3 {{ in_array($pesan->status, ['PENGIRIMAN','TERKIRIM']) ? 'bg-red-500' : 'bg-gray-400' }} rounded-full"></span> Pengiriman
+                                </span>
+                                <span class="flex items-center gap-2">
+                                    <span class="w-3 h-3 {{ $pesan->status == 'TERKIRIM' ? 'bg-red-500' : 'bg-gray-400' }} rounded-full"></span> Terkirim
                                 </span>
                             </div>
         
@@ -118,7 +121,8 @@
                             <textarea
                                 placeholder="Keterangan ..."
                                 class="mt-4 w-full rounded-lg bg-white/10 border border-white/20
-                                       text-white px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-red-500">
+                                       text-white px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-red-500"
+                                       value ="{{ $pesan->keterangan }}">
                             </textarea>
                         </div>
                     </div>

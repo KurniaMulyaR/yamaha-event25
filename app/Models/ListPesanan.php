@@ -21,7 +21,7 @@ class ListPesanan extends Model
 
     public function datauser()
     {
-        return $this->hasOne(DataUser::class, 'userid', 'id');
+        return $this->hasOne(DataUser::class, 'userid', 'userid');
     }
 
     public function produk()
@@ -36,6 +36,6 @@ class ListPesanan extends Model
 
     public function delear()
     {
-        return $this->hasOne(ListDelear::class, 'delearid', 'id');
+        return $this->hasOne(ListDelear::class, 'code', 'delearid');
     }
 }
