@@ -19,11 +19,11 @@ class WilayahController extends Controller
         $varian = Varian::with('produk')->findOrFail($id);
 
          if (strtoupper($varian->produk->name) === 'TMAX') {
-            $del = CbuDelear::with('province')
+            $del = CbuDelear::with('provinsi')
                 ->orderBy('namedelear')
                 ->get();
 
-            $provinsi = $del->pluck('province')->unique('code')->values();
+            $provinsi = $del->pluck('provinsi')->unique('code')->values();
             return response()->json($provinsi);
          }else{
             return response()->json(
