@@ -11,6 +11,9 @@
                 >
             </div>
         </a>
+        <a href="{{ route('motor') }}" class="text-black/40">
+            Booking Now
+        </a>
   
       <!-- Menu Desktop -->
       <ul class="md:flex space-x-8 text-white z-20">
