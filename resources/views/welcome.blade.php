@@ -174,7 +174,7 @@
                         <div class="mb-4">
                             <h3 class="font-semibold mb-1">10. Force Majeure</h3>
                             <p>
-                                Perusahaan tidak bertanggung jawab atas keterlambatan atau kegagalan pelaksanaan order akibat keadaan kahar (force majeure).
+                                Dealer tidak bertanggung jawab atas keterlambatan atau kegagalan pelaksanaan order akibat keadaan kahar (force majeure).
                             </p>
                         </div>
 
