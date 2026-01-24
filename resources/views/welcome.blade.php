@@ -114,7 +114,7 @@
                             <ol class="list-decimal ml-5 space-y-1">
                                 <li>Pembatalan order oleh konsumen harus diajukan secara tertulis.</li>
                                 <li>Uang muka (DP) yang telah dibayarkan mengikuti ketentuan pengembalian dana (refund) yang berlaku.</li>
-                                <li>Perusahaan berhak membatalkan order apabila konsumen tidak memenuhi kewajiban pembayaran atau administrasi.</li>
+                                <li>Dealer berhak membatalkan order apabila konsumen tidak memenuhi kewajiban pembayaran atau administrasi.</li>
                             </ol>
                         </div>
 

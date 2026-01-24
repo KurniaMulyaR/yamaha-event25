@@ -132,12 +132,12 @@
                 <!-- PRICE & CTA -->
                 <div class="bg-black/60 backdrop-blur-md rounded-xl p-4 text-white border border-white/20 mt-2">
                     <div class="space-y-4 my-2">
-                        <h3 class="text-lg font-bold">
+                        <p class="text-lg font-bold">
                             DP : <span class="font-semibold text-white" x-text="activeVarian?.dp"></span>
-                        </h3>
-                        <h3 class="text-lg font-bold">
+                        </p>
+                        <p class="text-lg font-bold mt-0">
                             Harga : <span class="font-semibold text-white" x-text="activeVarian?.price"></span>
-                    </h3>
+                        </p>
                     </div>
 
                     <form method="POST" action="{{ route('booking.store') }}">

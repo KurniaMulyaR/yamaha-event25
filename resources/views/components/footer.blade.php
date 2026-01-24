@@ -42,7 +42,7 @@
 
         <!-- Right -->
         <div class="flex flex-col sm:items-end items-center gap-2 text-center sm:text-right">
-            <a href="/general-privacy"
+            <a href="https://www.yamaha-motor.co.id/privacy-policy/general.html"
                class="text-gray-400 hover:text-white text-xs sm:text-sm transition">
                 General Privacy
             </a>
