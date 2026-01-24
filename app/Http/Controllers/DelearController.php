@@ -16,7 +16,6 @@ class DelearController extends Controller
      */
     public function index()
     {
-        ListDelear::truncate();
         return view('admin.delear.index');
     }
 
