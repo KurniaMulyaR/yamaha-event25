@@ -48,7 +48,7 @@
         <div class="relative z-10 max-w-7xl mx-auto px-6 py-16 grid lg:grid-cols-2 lg:grid-cols-3 gap-6">
     
             <!-- FORM KONSUMEN -->
-            <div class="lg:col-span-2 bg-black/60 rounded-xl">
+            <div class="lg:col-span-2 rounded-xl">
                 <h2 class="text-white font-bold text-lg mb-6 bg-[#CB3A31] border-b border-red-900 p-3 rounded-xl">
                     INFORMASI KONSUMEN
                 </h2>
@@ -59,7 +59,7 @@
                   <input id="produk_id" name="produk_id" value="{{ $produk->id }}" hidden />
                   <input id="varian_id" name="varian_id" value="{{ $varian->id }}" hidden />
 
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 bg-black/60">
                       <div class="form-group">
                           <label for="namalengkap" class="block text-sm/6 font-medium text-white">Nama Lengkap</label>
                           <div class="mt-2">
@@ -207,7 +207,7 @@
                         </div>
                     </div>
       
-                    <div class="form-group">
+                    <div class="form-group mb-4">
                       <label for="dealer" class="block text-sm/6 font-medium text-white">Dealer</label>
                       <div class="mt-2 grid grid-cols-1">
                         <select id="dealer" name="dealer" required autocomplete="dealer-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
@@ -220,14 +220,14 @@
                     </div>
                   </div>
 
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 mt-2" id="formIdentitas">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 mt-6 bg-black/60" id="formIdentitas">
   
-                    <!-- Nama Pemakai -->
-                    <div>
-                        <label for="stnk_nama_pemakai" class="block text-sm font-medium text-white">Nama Pemakai</label>
+                    <!-- Nama Pemilik -->
+                    <div class="mt-4">
+                        <label for="stnk_nama_pemakai" class="block text-sm font-medium text-white">Nama Pemilik</label>
                         <div class="mt-2">
                           <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                            <input id="stnk_nama_pemakai" name="stnk_nama_pemakai" type="text" placeholder="Nama Pemakai ..." required
+                            <input id="stnk_nama_pemakai" name="stnk_nama_pemakai" type="text" placeholder="Nama Pemilik ..." required
                             class="w-full rounded-md bg-white/10 border border-white/20
                                         px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
                             </div>
@@ -235,7 +235,7 @@
                     </div>
 
                     <!-- No KTP -->
-                    <div>
+                    <div class="mt-4">
                         <label for="stnk_no_ktp" class="block text-sm font-medium text-white">No KTP</label>
                         <div class="mt-2">
                           <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
@@ -328,7 +328,7 @@
 
 
                     <!-- Kelurahan -->
-                    <div>
+                    <div class="mb-4">
                         <label for="stnk_kelurahan" class="block text-sm font-medium text-white">Kelurahan</label>
                         <div class="mt-2">
                           <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
@@ -341,14 +341,14 @@
                 </div>
 
       
-                  <div class="mt-6 ml-4">
+                  <div class="mt-6 ml-4 bg-black/60">
                       <label class="flex items-center text-sm text-white">
                           <input type="checkbox" class="mr-2" require id="identitas">
                           Apakah Data Identitas Pembeli Sama Dengan Identitas Pemilik?
                       </label>
                   </div>
                   
-                  <div class="mt-6 ml-4">
+                  <div class="mt-6 ml-4 bg-black/60">
                       <label class="flex items-center text-sm text-white">
                           <input type="checkbox" class="mr-2" require>
                           Mengizinkan PT YIMM untuk menggunakan informasi di atas dan menghubungi Saya melalui email dan/atau telepon atau sarana komunikasi pribadi lainnya untuk kegiatan pelayanan kepada customer.

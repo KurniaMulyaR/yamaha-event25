@@ -23,8 +23,13 @@ class WilayahController extends Controller
                 ->orderBy('namedelear')
                 ->get();
 
-            $provinsi = $del->pluck('provinsi')->unique('code')->values();
-            return response()->json($provinsi);
+            $prov = [];
+            foreach($del as $dil){
+                $provinsi = Province::where('code', $dil->provinsi)->first();
+                $prov[] = $provinsi; 
+            }
+            
+            return response()->json($prov);
          }else{
             return response()->json(
                 Province::select('code', 'name')->orderBy('name')->get()
