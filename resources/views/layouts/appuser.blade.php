@@ -29,6 +29,7 @@
         </style>
     </head>
     <body class="bg-black">
+         @stack('style')
         <x-navbar />
 
         <main>
