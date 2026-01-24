@@ -53,7 +53,7 @@
                     INFORMASI KONSUMEN
                 </h2>
     
-                <form method="POST" action="{{ route('pembayaran') }}">
+                <form method="POST" action="{{ route('pembayaran') }}" id="myForm">
                   @csrf
 
                   <input id="produk_id" name="produk_id" value="{{ $produk->id }}" hidden />
@@ -65,7 +65,7 @@
                           <div class="mt-2">
                             <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
                               <input id="namalengkap" type="text" name="namalengkap" required placeholder="Nama Lengkap ..." class="w-full rounded-md bg-white/10 border border-white/20
-                                          px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                                          px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 input-field" />
                             </div>
                           </div>
                       </div>
@@ -79,7 +79,7 @@
                                 inputmode="numeric"
                                 required
                                 pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g,'')" name="noktp" placeholder="No KTP ..." class="w-full rounded-md bg-white/10 border border-white/20
-                                          px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                                          px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 input-field" />
                               </div>
                             </div>
                       </div>
@@ -89,7 +89,7 @@
                           <div class="mt-2">
                             <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
                               <input id="tempatlahir" type="text" name="tempatlahir" required placeholder="Tempat Lahir ..." class="w-full rounded-md bg-white/10 border border-white/20
-                                          px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                                          px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 input-field" />
                             </div>
                           </div>
                       </div>
@@ -99,7 +99,7 @@
                           <div class="mt-2">
                             <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
                               <input id="tgllahir" type="text" max="{{ now()->subYears(17)->format('Y-m-d') }}" name="tgllahir" required placeholder="Tanggal Lahir ..." class="w-full rounded-md bg-white/10 border border-white/20
-                                          px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                                          px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 input-field" />
                             </div>
                           </div>
                       </div>
@@ -107,7 +107,7 @@
                       <div class="col-span-full">
                           <label for="alamat" class="block text-sm/6 font-medium text-white">Alamat</label>
                           <div class="mt-2">
-                              <textarea id="alamat" name="alamat" required rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
+                              <textarea id="alamat" name="alamat" required rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 input-field"></textarea>
                           </div>
                       </div>
 
@@ -181,7 +181,7 @@
                                 maxlength="11"
                                 inputmode="numeric"
                                 required
-                                class="w-full bg-white px-4 py-2 focus:outline-none"
+                                class="w-full bg-white px-4 py-2 focus:outline-none input-field"
                                 oninput="this.value = this.value.replace(/[^0-9]/g,'')"
                               />
                             </div>
@@ -197,7 +197,7 @@
                             name="email"
                             placeholder="email@domain.com"
                             class="w-full rounded-md bg-white/10 border border-white/20
-                                    px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 input-field"
                             required />
                           </div>
 
@@ -220,7 +220,7 @@
                     </div>
                   </div>
 
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 mt-2" id="formIdentitas" style="display: none;">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 mt-2" id="formIdentitas">
   
                     <!-- Nama Pemakai -->
                     <div>
@@ -547,10 +547,27 @@ $(document).ready(function () {
 
     // Buka popup
     $('#openPrivacyModal').on('click', function () {
+    let allFilled = true;
+
+    // cek semua input yang wajib diisi
+    $('#myForm .input-field').each(function() {
+        if($(this).val().trim() === '') {
+            allFilled = false;
+            $(this).addClass('border-red-500'); // highlight
+        } else {
+            $(this).removeClass('border-red-500');
+        }
+    });
+
+    if(allFilled) {
+        // semua field terisi → tampilkan popup
         $('#privacyModal')
             .removeClass('hidden')
             .addClass('flex');
-    });
+    } else {
+        alert('Semua field wajib diisi sebelum lanjut!');
+    }
+});
 
     // Tutup popup (Batal)
     $('#cancelPrivacy').on('click', function () {
@@ -573,9 +590,9 @@ $(document).ready(function () {
 $(document).ready(function() {
     $('#identitas').change(function() {
         if ($(this).is(':checked')) {
-            $('#formIdentitas').slideDown(); // tampilkan form
+            $('#formIdentitas').slideUp(); // tampilkan form
         } else {
-            $('#formIdentitas').slideUp();   // sembunyikan form
+            $('#formIdentitas').slideDown();   // sembunyikan form
         }
     });
 

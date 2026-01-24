@@ -1445,6 +1445,15 @@ input:where([type='file']):focus {
 .bg-red-600\/40 {
   background-color: rgb(220 38 38 / 0.4);
 }
+.bg-red-600\/60 {
+  background-color: rgb(220 38 38 / 0.6);
+}
+.bg-red-600\/50 {
+  background-color: rgb(220 38 38 / 0.5);
+}
+.bg-white\/60 {
+  background-color: rgb(255 255 255 / 0.6);
+}
 .bg-\[linear-gradient\(180deg\2c \#1A1A1A_54\%\2c \#21222B_89\%\)\] {
   background-image: linear-gradient(180deg,#1A1A1A 54%,#21222B 89%);
 }
@@ -1617,6 +1626,9 @@ input:where([type='file']):focus {
 }
 .pb-2 {
   padding-bottom: 0.5rem;
+}
+.pt-3 {
+  padding-top: 0.75rem;
 }
 .text-left {
   text-align: left;

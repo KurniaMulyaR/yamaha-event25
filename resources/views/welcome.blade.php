@@ -4,7 +4,7 @@
 
 @push('style')
 <style>
-    @media (min-width: 390px) {
+    @media (max-width: 390px) {
         .img-rep{
             margin-bottom: 3rem ;
             margin-top: 4rem;

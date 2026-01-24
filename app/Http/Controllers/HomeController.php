@@ -52,6 +52,7 @@ class HomeController extends Controller
                                         ? asset('storage/' . $v->img)
                                     : null,
                                 'defaultVarian' => 2,
+                                
                             ];
                         })->values(),
                     ];

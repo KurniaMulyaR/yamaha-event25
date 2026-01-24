@@ -6,7 +6,7 @@
             { title: 'Waktu pembelian hanya', value: '25 MENIT', subtitle: 'Mulai Pukul 19.00 WIB' },
         ]
     }"
-    class="w-full flex items-center justify-center pt-5 pb-2 ket-rep"
+    class="w-full flex items-center justify-center pt-3 pb-1 ket-rep"
 >
 
     <!-- LEFT -->
@@ -18,18 +18,18 @@
     </button>
 
     <!-- SLIDER WRAPPER -->
-    <div class="mx-4 w-[320px] overflow-hidden">
+    <div class="mx-4 w-[320px] overflow-hidden mb-2">
         <div
             class="flex transition-transform duration-500 ease-in-out"
             :style="`transform: translateX(-${current * 100}%);`"
         >
             <template x-for="slide in slides">
                 <div
-                    class="min-w-full bg-red-600 rounded-xl text-white text-center py-6 shadow-[0_8px_20px_rgba(0,0,0,0.4)]"
+                    class="min-w-full bg-red-600/50 rounded-xl text-white text-center py-6 shadow-[0_8px_20px_rgba(0,0,0,0.4)]"
                 >
-                    <p class="text-sm opacity-90" x-text="slide.title"></p>
-                    <p class="text-3xl font-extrabold my-2" x-text="slide.value"></p>
-                    <p class="text-sm opacity-90" x-text="slide.subtitle"></p>
+                    <p class="text-xl opacity-90" x-text="slide.title"></p>
+                    <p class="text-5xl font-extrabold my-2" x-text="slide.value"></p>
+                    <p class="text-xl opacity-90" x-text="slide.subtitle"></p>
                 </div>
             </template>
         </div>
