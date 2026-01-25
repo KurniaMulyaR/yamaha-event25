@@ -23,11 +23,12 @@ class WilayahController extends Controller
                 ->orderBy('namedds')
                 ->get();
 
-            $prov = [];
+            $prv = [];
             foreach($del as $dil){
                 $provinsi = Province::where('code', $dil->provinsi)->first();
-                $prov[] = $provinsi; 
+                $prv[] = $provinsi; 
             }
+            $prov = collect($prv)->unique('code')->values(); 
             
             return response()->json($prov);
          }else{

@@ -218,6 +218,20 @@
                         </svg>
                       </div>
                     </div>
+
+                    <div class="form-group mb-4">
+                      <label for="dealer" class="block text-sm/6 font-medium text-white">Pilihkan Saya Rekomendasi</label>
+                      <div class="mt-2 grid grid-cols-1">
+                        <select id="dealer_pilihn" name="dealer_pilihn"  required autocomplete="dealer-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            @foreach($ListDeler as $deler)
+                                <option value="{{ $deler->code }}">{{ $deler->namedelear }}</option>
+                            @endforeach
+                        </select>
+                        <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
+                          <path d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+                        </svg>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 mt-6 bg-black/60" id="formIdentitas">
@@ -341,16 +355,16 @@
                 </div>
 
       
-                  <div class="mt-6 ml-4 p-6">
+                  <div class="mt-6 ml-4">
                       <label class="flex items-center text-sm text-white">
                           <input type="checkbox" class="mr-2" require id="identitas">
                           Apakah Data Identitas Pembeli Sama Dengan Identitas Pemilik?
                       </label>
                   </div>
                   
-                  <div class="mt-6 ml-4 p-6">
+                  <div class="mt-6 ml-4">
                       <label class="flex items-center text-sm text-white">
-                          <input type="checkbox" class="mr-2" require>
+                          <input type="checkbox" class="mr-2" id="relet" require>
                           Mengizinkan PT YIMM untuk menggunakan informasi di atas dan menghubungi Saya melalui email dan/atau telepon atau sarana komunikasi pribadi lainnya untuk kegiatan pelayanan kepada customer.
                       </label>
                   </div>
@@ -559,6 +573,14 @@ $(document).ready(function () {
         }
     });
 
+     let isChecked = $('#relet').is(':checked');
+
+    if (!isChecked) {
+        alert('Anda harus menyetujui Privacy Policy terlebih dahulu!');
+        return;
+    }
+
+
     if(allFilled) {
         // semua field terisi → tampilkan popup
         $('#privacyModal')
@@ -568,23 +590,6 @@ $(document).ready(function () {
         alert('Semua field wajib diisi sebelum lanjut!');
     }
 });
-
-    // Tutup popup (Batal)
-    $('#cancelPrivacy').on('click', function () {
-        $('#privacyModal')
-            .addClass('hidden')
-            .removeClass('flex');
-    });
-
-    // Setuju & Submit
-    $('#agreePrivacy').on('click', function () {
-        $('#privacyModal')
-            .addClass('hidden')
-            .removeClass('flex');
-
-        $('form').submit(); // 🔥 submit form
-    });
-
 });
 
 $(document).ready(function() {

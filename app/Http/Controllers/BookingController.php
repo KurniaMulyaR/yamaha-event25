@@ -53,7 +53,9 @@ class BookingController extends Controller
         
         $varian = Varian::findOrFail($request->varian_id);
 
-        return view('booking.index', compact('produk', 'varian'));
+        $ListDeler = ListDelear::all();
+
+        return view('booking.index', compact('produk', 'varian','ListDeler'));
     }
 
     /**
@@ -178,7 +180,7 @@ class BookingController extends Controller
         $params = array(
             'transaction_details' => array(
                 'order_id' => $orderId,
-                'gross_amount' => '5000' ?? $varian->dp,
+                'gross_amount' => $varian->dp,
             ),
             'customer_details' => array(
                 'first_name' => $Datauser->nama_pembeli,
