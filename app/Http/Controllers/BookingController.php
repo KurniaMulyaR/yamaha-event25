@@ -191,7 +191,7 @@ class BookingController extends Controller
         $params = array(
             'transaction_details' => array(
                 'order_id' => $orderId,
-                'gross_amount' => '5000' ?? $varian->dp,
+                'gross_amount' => $varian->dp,
             ),
             'customer_details' => array(
                 'first_name' => $Datauser->nama_pembeli,
