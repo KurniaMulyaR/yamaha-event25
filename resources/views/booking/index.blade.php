@@ -82,6 +82,9 @@
                                           px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 input-field" />
                               </div>
                             </div>
+                            <small id="ktpError" class="text-red-400 hidden">
+                                Nomor KTP tidak valid
+                            </small>
                       </div>
 
                       <div class="form-group">
@@ -247,6 +250,9 @@
                                     px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
                             </div>                    
                         </div>
+                        <small id="ktpErrortnk" class="text-red-400 hidden">
+                            Nomor KTP tidak valid
+                        </small>
                     </div>
 
 
@@ -546,7 +552,7 @@
 <script>
 $(document).ready(function () {
 
-$('#noktp').on('input blur', function () {
+    $('#noktp').on('input blur', function () {
         let nik = $(this).val();
         let errorEl = $('#ktpError');
 
@@ -571,7 +577,7 @@ $('#noktp').on('input blur', function () {
 
     $('#stnk_no_ktp').on('input blur', function () {
         let nik = $(this).val();
-        let errorEl = $('#ktpError');
+        let errorEl = $('#ktpErrortnk');
 
         // Reset
         errorEl.addClass('hidden');
@@ -591,37 +597,53 @@ $('#noktp').on('input blur', function () {
             $('#stnk_no_ktp').addClass('border-red-500');
         }
     });
-    
+
     // Buka popup
     $('#openPrivacyModal').on('click', function () {
-    let allFilled = true;
+        let allFilled = true;
 
-    // cek semua input yang wajib diisi
-    $('#myForm .input-field').each(function() {
-        if($(this).val().trim() === '') {
-            allFilled = false;
-            $(this).addClass('border-red-500'); // highlight
-        } else {
-            $(this).removeClass('border-red-500');
+        // cek semua input yang wajib diisi
+        $('#myForm .input-field').each(function() {
+            if($(this).val().trim() === '') {
+                allFilled = false;
+                $(this).addClass('border-red-500'); // highlight
+            } else {
+                $(this).removeClass('border-red-500');
+            }
+        });
+
+        let isChecked = $('#relet').is(':checked');
+
+            if (!isChecked) {
+                alert('Anda harus menyetujui Privacy Policy terlebih dahulu!');
+                return;
+            }
+            if(allFilled) {
+                // semua field terisi → tampilkan popup
+                $('#privacyModal')
+                    .removeClass('hidden')
+                    .addClass('flex');
+            } else {
+                alert('Semua field wajib diisi sebelum lanjut!');
+            }
+        });
+
+        let nik = $('#noktp').val();
+
+        if (nik.length !== 16) {
+            e.preventDefault();
+            $('#ktpError').text('NIK wajib 16 digit').removeClass('hidden');
+            return false;
+        }
+
+        let nike = $('#ktpErrortnk').val();
+
+        if (nike.length !== 16) {
+            e.preventDefault();
+            $('#ktpErrortnk').text('NIK wajib 16 digit').removeClass('hidden');
+            return false;
         }
     });
-
-     let isChecked = $('#relet').is(':checked');
-
-    if (!isChecked) {
-        alert('Anda harus menyetujui Privacy Policy terlebih dahulu!');
-        return;
-    }
-    if(allFilled) {
-        // semua field terisi → tampilkan popup
-        $('#privacyModal')
-            .removeClass('hidden')
-            .addClass('flex');
-    } else {
-        alert('Semua field wajib diisi sebelum lanjut!');
-    }
-});
-});
 
 // Tutup popup (Batal)
     $('#cancelPrivacy').on('click', function () {
@@ -753,6 +775,9 @@ $(function () {
                         `<option value="${item.code}">${item.namedelear}</option>`
                     );
                 });
+                $('#dealer').append(
+                    `<option value="0">Pilihkan Saya Dealer Rekomendasi</option>`
+                );
             });
         @endif
     });
@@ -799,6 +824,9 @@ $(function () {
                     `<option value="${item.code}">${item.namedelear}</option>`
                 );
             });
+            $('#dealer').append(
+                `<option value="0">Pilihkan Saya Dealer Rekomendasi</option>`
+            );
         });
         @endif
     });
