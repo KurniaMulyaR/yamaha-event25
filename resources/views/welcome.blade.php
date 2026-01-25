@@ -205,7 +205,7 @@
     const targetDate = new Date(
         new Date().getFullYear(), // tahun sekarang
         0,                        // Januari = 0
-        25,                       // tanggal
+        26,                       // tanggal
         19, 0, 0                  // JAM 19:00:00
     ).getTime();
 
