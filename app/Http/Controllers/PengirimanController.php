@@ -141,10 +141,16 @@ class PengirimanController extends Controller
             $passwordPlain = Str::random(10);
             $produk = ListProduk::findOrFail($pesanan->produkid);
             $varian = Varian::findOrFail($pesanan->varianid);
-            if($produk->name != ' TMAX'){
-                $dealer = ListDelear::where('code', $Datauser->dealer)->first();
-            }else {
-                $dealer = CbuDelear::where('code', $Datauser->dealer)->first();
+            if ($Datauser->dealer == 0) {
+                $delernm = 'Rekomendasi'
+            }else{
+                 if($produk->name != ' TMAX'){
+                    $dealer = ListDelear::where('code', $Datauser->dealer)->first();
+                    $delernm = $dealer->namedelear;
+                }else {
+                    $dealer = CbuDelear::where('code', $Datauser->dealer)->first();
+                    $delernm = $dealer->namedelear;
+                }
             }
 
             $phone = preg_replace('/[^0-9]/', '', $Datauser->no_telepon_pembeli);
@@ -169,7 +175,7 @@ class PengirimanController extends Controller
                             "templateName" => "5118_booking_online_fixed",
                             "templateData" => [
                                 "body" => [
-                                    "placeholders" => [$Datauser->nama_pembeli, $dealer->namedelear, $tipe]
+                                    "placeholders" => [$Datauser->nama_pembeli, $delernm, $tipe]
                                 ]
                             ],
                             "language" => "id"
@@ -190,7 +196,7 @@ class PengirimanController extends Controller
             $user->save();
             $data = [
                 'name' => $Datauser->nama_pembeli,
-                'delear' => $dealer->namedelear,
+                'delear' => $delernm,
                 'tipe' => $tipe,
                 'password' => $passwordPlain,
                 'email' => $user->email,

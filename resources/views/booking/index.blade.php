@@ -219,6 +219,7 @@
                         </svg>
                       </div>
                     </div>
+                  </div>
 
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 mt-6 bg-black/60" id="formIdentitas">
   
@@ -545,6 +546,52 @@
 <script>
 $(document).ready(function () {
 
+$('#noktp').on('input blur', function () {
+        let nik = $(this).val();
+        let errorEl = $('#ktpError');
+
+        // Reset
+        errorEl.addClass('hidden');
+        $(this).removeClass('border-red-500');
+
+        // 1️⃣ Panjang harus 16
+        if (nik.length !== 16) {
+            showError('NIK harus 16 digit');
+            return;
+        }
+
+    // ✅ Valid
+    $(this).addClass('border-green-500');
+
+        function showError(message) {
+            errorEl.text(message).removeClass('hidden');
+            $('#noktp').addClass('border-red-500');
+        }
+    });
+
+    $('#stnk_no_ktp').on('input blur', function () {
+        let nik = $(this).val();
+        let errorEl = $('#ktpError');
+
+        // Reset
+        errorEl.addClass('hidden');
+        $(this).removeClass('border-red-500');
+
+        // 1️⃣ Panjang harus 16
+        if (nik.length !== 16) {
+            showError('NIK harus 16 digit');
+            return;
+        }
+
+    // ✅ Valid
+    $(this).addClass('border-green-500');
+
+        function showError(message) {
+            errorEl.text(message).removeClass('hidden');
+            $('#stnk_no_ktp').addClass('border-red-500');
+        }
+    });
+    
     // Buka popup
     $('#openPrivacyModal').on('click', function () {
     let allFilled = true;

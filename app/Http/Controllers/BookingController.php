@@ -159,11 +159,16 @@ class BookingController extends Controller
         $produk = ListProduk::findOrFail($request->produk_id);
 
         $Datauser = DataUser::with(['user'])->where('userid', $dataUser->userid)->first();
-        if($produk->name != ' TMAX'){
-            $dealer = ListDelear::where('code', $Datauser->dealer)->first();
-        }else {
-            $dealer = CbuDelear::where('code', $Datauser->dealer)->first();
-        }
+            if ($Datauser->dealer == 0) {
+                $dealer = 'Rekomendasi';
+            }else{
+                 if($produk->name != ' TMAX'){
+                    $dealer = ListDelear::where('code', $Datauser->dealer)->first();
+                }else {
+                    $dealer = CbuDelear::where('code', $Datauser->dealer)->first();
+                }
+            }   
+       
 
         $user = User::findOrFail($Datauser->userid);
         
