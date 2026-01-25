@@ -105,11 +105,11 @@ class BookingController extends Controller
 
     public function pembayaran(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email|unique:email',
-        ], [
-            'email.unique' => 'Email sudah terdaftar'
-        ]);
+        // $request->validate([
+        //     'email' => 'required|email|unique:users,email',
+        // ], [
+        //     'email.unique' => 'Email sudah terdaftar'
+        // ]);
 
         $passwordPlain = 'MOTOR';
 
