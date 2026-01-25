@@ -64,10 +64,12 @@ class PengirimanController extends Controller
                         $deler = $pesanan->delear->namedelear;
                     }
 
+
                 return [
                     'id' => $pesanan->datauser->user->id,
+                    'orderid' => $pesanan->orderid,
                     'name' => $pesanan->datauser->user->name,
-                    'produk' => $pesanan->produk->name,
+                    'produk' => $pesanan->id,
                     'delear' => $deler,
                     'status' => $statusBadge,
                     'keterangan' => $pesanan->keterangan,
