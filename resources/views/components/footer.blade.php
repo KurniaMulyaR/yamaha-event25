@@ -48,7 +48,7 @@
             </a>
 
             <div class="text-white text-xs sm:text-sm leading-relaxed">
-                © 2025 PT Yamaha Indonesia Motor Manufacturing<br class="sm:hidden">
+                © 2026 PT Yamaha Indonesia Motor Manufacturing<br class="sm:hidden">
                 All Rights Reserved
             </div>
         </div>
