@@ -770,14 +770,15 @@ $(function () {
             let codie = $(this).val() + '|' + id;
             $.get(`/ajax/dealer/${codie}`, function (data) {
                 $('#dealer').html('<option value="">Pilih Dealer</option>');
+                
+                $('#dealer').append(
+                    `<option value="0">Pilihkan Saya Dealer Rekomendasi</option>`
+                );
                 data.forEach(item => {
                     $('#dealer').append(
                         `<option value="${item.code}">${item.namedelear}</option>`
                     );
                 });
-                $('#dealer').append(
-                    `<option value="0">Pilihkan Saya Dealer Rekomendasi</option>`
-                );
             });
         @endif
     });
@@ -819,6 +820,10 @@ $(function () {
 
         $.get(`/ajax/dealer/${codie}`, function (data) {
             $('#dealer').html('<option value="">Pilih Dealer</option>');
+            
+            $('#dealer').append(
+                `<option value="0">Pilihkan Saya Dealer Rekomendasi</option>`
+            );
             data.forEach(item => {
                 $('#dealer').append(
                     `<option value="${item.code}">${item.namedelear}</option>`
