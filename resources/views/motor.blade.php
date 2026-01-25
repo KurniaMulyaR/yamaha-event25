@@ -119,14 +119,24 @@
                 <div class="bg-black/60 backdrop-blur-md rounded-xl p-4 text-white border border-white/20 mt-2">
                     <div class="flex justify-between text-xs">
                         <span>Stok</span>
-                        <span x-text="activeVarian ? activeVarian.jmlunit + ' unit' : '-'"></span>
+                        <!-- <span x-text="activeVarian ? activeVarian.jmlunit + ' unit' : '-'"></span> -->
                     </div>
 
                     <div class="h-2 bg-white/20 rounded overflow-hidden mt-1">
-                        <div
+                        <span x-show="activeVarian && activeVarian.jmlunit > 0">
+                                <div
                             class="h-full bg-red-600 transition-all duration-500"
                             :style="`width:${stockPercent}%`"
                         ></div>
+                            </span>
+
+                        <span x-show="activeVarian && activeVarian.jmlunit <= 0">
+                            <div
+                                class="h-full bg-red-600 transition-all duration-500"
+                                style="width:100%"
+                            ></div>
+                        </span>
+                        
                     </div>
                 </div>
 
