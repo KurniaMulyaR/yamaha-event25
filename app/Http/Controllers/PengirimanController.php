@@ -76,6 +76,7 @@ class PengirimanController extends Controller
                     'id' => $pesanan->datauser->user->id,
                     'orderid' => $pesanan->orderid,
                     'name' => $pesanan->datauser->user->name,
+                    'nohp' => $pesanan->datauser->no_telepon_pembeli,
                     'produk' => $produk,
                     'varian' => $varian,
                     'delear' => $deler,

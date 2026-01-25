@@ -15,6 +15,7 @@
                             <th>Order ID</th>
                             <th>Nama</th>
                             <th>Produk</th>
+                            <th>No hp</th>
                             <th>Varian</th>
                             <th>Name Delear</th>
                             <th>Status</th>
@@ -95,6 +96,7 @@
                     { data: 'produk' },
                     { data: 'varian' },
                     { data: 'delear' },
+                    { data: 'nohp' },
                     { data: 'status' },
                     { data: 'keterangan' },
                     { data: 'created_at' },
