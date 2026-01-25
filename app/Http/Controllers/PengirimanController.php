@@ -57,11 +57,18 @@ class PengirimanController extends Controller
                     default => '<span class="px-2 py-1 text-xs font-semibold text-gray-700 bg-gray-200 rounded-full">-</span>',
                 };
 
+                if($pesanan->delearid == 0)
+                    {
+                        $deler = 'Rekomendasi';
+                    }else{
+                        $deler = $pesanan->delear->namedelear;
+                    }
+
                 return [
                     'id' => $pesanan->datauser->user->id,
                     'name' => $pesanan->datauser->user->name,
                     'produk' => $pesanan->produk->name,
-                    'delear' => $pesanan->delear->namedelear,
+                    'delear' => $deler,
                     'status' => $statusBadge,
                     'keterangan' => $pesanan->keterangan,
                     'created_at' => $pesanan->created_at->format('Y-m-d'),
