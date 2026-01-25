@@ -646,6 +646,11 @@ let maxDate = new Date(
 $('#tgllahir').flatpickr({
     dateFormat: "d-m-Y",
     maxDate: maxDate // 🔥 minimal umur 17 tahun
+});stnk_tanggal_lahir
+
+$('#stnk_tanggal_lahir').flatpickr({
+    dateFormat: "d-m-Y",
+    maxDate: maxDate // 🔥 minimal umur 17 tahun
 });
 $(function () {
 
