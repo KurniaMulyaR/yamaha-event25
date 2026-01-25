@@ -67,7 +67,12 @@ class PengirimanController extends Controller
                     $varian = Varian::with('produk')->findOrFail($pesanan->varianid);
                     $produk = $varian->produk->name;
                     $varian = $varian->name;
-                    $provinsi = Provinces::where('code',$pesanan->datauser->provinsi->code)->first() ?? '0';
+                    if($pesanan->datauser->provinsi != null){
+                        $provinsi = Provinces::where('code',$pesanan->datauser->provinsi->code)->first() ?? '0';
+
+                    }else{
+                        $provinsi = '-';
+                    }
                 }else{
                     $produk = $pesanan->produkid;
                     $varian = '-';
