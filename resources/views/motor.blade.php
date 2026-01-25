@@ -119,7 +119,7 @@
                 <div class="bg-black/60 backdrop-blur-md rounded-xl p-4 text-white border border-white/20 mt-2">
                     <div class="flex justify-between text-xs">
                         <span>Stok</span>
-                        <!-- <span x-text="activeVarian ? activeVarian.jmlunit + ' unit' : '-'"></span> -->
+                        <span x-text="activeVarian ? activeVarian.jmlunit + ' unit' : '-'"></span>
                     </div>
 
                     <div class="h-2 bg-white/20 rounded overflow-hidden mt-1">
@@ -167,13 +167,18 @@
                         <button
                             type="submit"
                             class="w-full py-2 rounded font-semibold transition"
-                            :class="activeVarian 
-                                ? 'bg-red-600 hover:bg-red-800 cursor-pointer' 
+                            :class="(activeVarian && activeVarian.jmlunit > 0)
+                                ? 'bg-red-600 hover:bg-red-800 cursor-pointer'
                                 : 'bg-gray-500 cursor-not-allowed opacity-60'"
-                            :disabled="!activeVarian"
+                            :disabled="!activeVarian || activeVarian.jmlunit <= 0"
                         >
-                            BUY NOW
-                        </button>
+                            <span x-show="activeVarian && activeVarian.jmlunit > 0">
+                                BUY NOW
+                            </span>
+
+                            <span x-show="activeVarian && activeVarian.jmlunit <= 0">
+                                STOK HABIS
+                            </span>
                     </form>
                 </div>
             </div>
