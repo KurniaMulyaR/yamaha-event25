@@ -71,7 +71,7 @@ class PengirimanController extends Controller
                 }else{
                     $produk = $pesanan->produkid;
                     $varian = '-';
-                    $provinsi = Provinces::where('code',$pesanan->datauser->provinsi)->first();
+                    $provinsi = '-';
                 }
 
                 return [
