@@ -220,17 +220,6 @@
                       </div>
                     </div>
 
-                    <div class="form-group mb-4">
-                      <label for="dealer" class="block text-sm/6 font-medium text-white">Pilihkan Saya Dealer Rekomendasi</label>
-                      <div class="mt-2 grid grid-cols-1">
-                        <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                        <input id="rekomend" type="text" name="rekomendasi" required placeholder="..." class="w-full rounded-md bg-white/10 border border-white/20
-                                          px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 input-field" />
-                            </div>
-                      </div>
-                    </div>
-                  </div>
-
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 mt-6 bg-black/60" id="formIdentitas">
   
                     <!-- Nama Pemilik -->
