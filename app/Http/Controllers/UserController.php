@@ -30,8 +30,7 @@ class UserController extends Controller
         }
 
         $total = $query->count();
-
-
+        
         $dataUsers = $query
             ->offset($request->start)
             ->limit($request->length)
@@ -45,7 +44,7 @@ class UserController extends Controller
                     'tempat_lahir_pembeli' => $dataUser->tempat_lahir_pembeli,
                     'tanggal_lahir_pembeli' => $dataUser->tanggal_lahir_pembeli,
                     'alamat_pembeli' => $dataUser->alamat_pembeli,
-                    'provinsi' => $dataUser->village->districts->cities->province->name,
+                    'provinsi' => '-',
                     'kota' => $dataUser->village->districts->cities->name,
                     'kecamatan' => $dataUser->village->districts->name,
                     'kelurahan' => $dataUser->name,
@@ -58,14 +57,15 @@ class UserController extends Controller
                     'stnk_tempat_lahir' => $dataUser->stnk_tempat_lahir,
                     'stnk_tanggal_lahir' => $dataUser->stnk_tanggal_lahir,
                     'stnk_alamat' => $dataUser->stnk_alamat,
-                    'stnk_provinsi' => $dataUser->village->districts->cities->province->name,
+                    'stnk_provinsi' => '-',
                     'stnk_kecamatan' => $dataUser->village->districts->name,
                     'stnk_kelurahan' => $dataUser->name,
                     'stnk_no_telepon' => $dataUser->stnk_no_telepon,
                     'stnk_no_handphone' => $dataUser->stnk_no_handphone,
                     'stnk_email' => $dataUser->user->email,
                     'created_at' => $dataUser->created_at->format('Y-m-d'),
-                    'action' => view('admin.user.partials', compact('dataUser'))->render()
+                    'action' => view('admin.user.partials', compact('dataUser'))->render(),
+                    'role' => $dataUser->user->role,
                 ];
             });;
 
@@ -116,7 +116,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return User::findOrFail($id);
+        $DataUser = DataUser::findOrFail($id);
+        $user = User::where('id',$DataUser->userid)->first();
+
+        return response()->json($user);
     }
 
     /**
@@ -130,7 +133,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $user->update($request->only('name', 'email'));
+        $user->update($request->only('name', 'email','role'));
 
         return response()->json(['success' => true]);
     }
@@ -143,8 +146,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
+        $DataUser = DataUser::findOrFail($id);
+        $user = User::where('id',$DataUser->userid)->first();
+
         $user->delete();
+        $DataUser->delete();
 
         return response()->json(['success' => true]);
     }

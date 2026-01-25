@@ -38,6 +38,7 @@
                             <th>STNK No Handphone</th>
                             <th>STNK Email</th>
                             <th>Dibuat</th>
+                            <th>Role</th>
                             <th class="px-4 py-2 text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -63,6 +64,14 @@
                 <div class="mb-4">
                     <label class="text-sm font-semibold">Email</label>
                     <input type="email" id="email" class="w-full border rounded px-3 py-2">
+                </div>
+
+                <div class="mb-4">
+                    <label class="text-sm font-semibold">Role</label>
+                    <select name="role">
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                    </select>
                 </div>
 
                 <div class="flex justify-end gap-2">
@@ -129,6 +138,7 @@
                     { data: 'stnk_no_telepon' },
                     { data: 'stnk_no_handphone' },
                     { data: 'stnk_email' },
+                    { data: 'role' },
 
                     { data: 'created_at' },
                     { data: 'action', orderable: false, searchable: false }
