@@ -18,8 +18,9 @@
                             <th>No hp</th>
                             <th>Varian</th>
                             <th>Name Delear</th>
+                            <th>Provinsi</th>
                             <th>Status</th>
-                            <th>Keterangan</th>
+                            <th>alamat pembeli</th>
                             <th>Created</th>
                             <th class="px-4 py-2 text-center">Action</th>
                         </tr>
@@ -97,8 +98,9 @@
                     { data: 'varian' },
                     { data: 'delear' },
                     { data: 'nohp' },
+                    { data: 'provinsi' },
                     { data: 'status' },
-                    { data: 'keterangan' },
+                    { data: 'alamat_pembeli' },
                     { data: 'created_at' },
                     { data: 'action', orderable: false, searchable: false }
                 ],

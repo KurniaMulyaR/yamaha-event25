@@ -67,6 +67,7 @@ class PengirimanController extends Controller
                     $varian = Varian::with('produk')->findOrFail($pesanan->varianid);
                     $produk = $varian->produk->name;
                     $varian = $varian->name;
+                    $provinsi = Provinces::where('code',$pesanan->datauser->provinsi)->first();
                 }else{
                     $produk = $pesanan->produkid;
                     $varian = '-';
@@ -81,8 +82,9 @@ class PengirimanController extends Controller
                     'varian' => $varian,
                     'delear' => $deler,
                     'status' => $statusBadge,
-                    'keterangan' => $pesanan->keterangan,
-                    'created_at' => $pesanan->created_at->format('Y-m-d'),
+                    'provinsi' => $provinsi,
+                    'alamat_pembeli' => $pesanan->alamat_pembeli,
+                    'created_at' => $pesanan->created_at->format('Y-m-d H:i:'),
                     'action' => view('admin.pesanan.partials', compact('pesanan'))->render()
                 ];
             });
