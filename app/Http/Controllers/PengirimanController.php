@@ -142,7 +142,7 @@ class PengirimanController extends Controller
             $produk = ListProduk::findOrFail($pesanan->produkid);
             $varian = Varian::findOrFail($pesanan->varianid);
             if ($Datauser->dealer == 0) {
-                $delernm = 'Rekomendasi'
+                $delernm = 'Rekomendasi';
             }else{
                  if($produk->name != ' TMAX'){
                     $dealer = ListDelear::where('code', $Datauser->dealer)->first();
