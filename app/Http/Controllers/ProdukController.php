@@ -133,16 +133,16 @@ class ProdukController extends Controller
             'img' => $photoPath
         ]);
 
-        if ($request->varian) {
-            foreach ($request->varian as $v) {
-                $produk->varians()->create([
-                    'name'    => $v['name'],
-                    'jmlunit' => $v['jmlunit'],
-                    'colour'  => $v['colour'],
-                    'price'  => $v['price'],
-                ]);
-            }
-        }
+        // if ($request->varian) {
+        //     foreach ($request->varian as $v) {
+        //         $produk->varians()->create([
+        //             'name'    => $v['name'],
+        //             'jmlunit' => $v['jmlunit'],
+        //             'colour'  => $v['colour'],
+        //             'price'  => $v['price'],
+        //         ]);
+        //     }
+        // }
 
         return response()->json(['success' => true]);
     }
