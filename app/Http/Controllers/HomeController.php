@@ -11,7 +11,6 @@ class HomeController extends Controller
 {
     public function home()
     {
-
         return view('welcome',  [
             'maxi' => urlencode(Crypt::encryptString('maxi')),
         ]);

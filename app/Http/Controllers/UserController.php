@@ -31,6 +31,7 @@ class UserController extends Controller
 
         $total = $query->count();
 
+
         $dataUsers = $query
             ->offset($request->start)
             ->limit($request->length)
@@ -50,7 +51,7 @@ class UserController extends Controller
                     'kelurahan' => $dataUser->name,
                     'no_telepon_pembeli' => $dataUser->no_telepon_pembeli,
                     'no_handphone_pembeli' => $dataUser->no_handphone_pembeli,
-                    'dealer' => implode(',', $dataUser->dealeri->namedelear),
+                    'dealer' => '-',
                     'metode_pembayaran' => $dataUser->metode_pembayaran,
                     'stnk_nama_pemakai' => $dataUser->stnk_nama_pemakai,
                     'stnk_no_ktp' => $dataUser->stnk_no_ktp,
@@ -63,8 +64,8 @@ class UserController extends Controller
                     'stnk_no_telepon' => $dataUser->stnk_no_telepon,
                     'stnk_no_handphone' => $dataUser->stnk_no_handphone,
                     'stnk_email' => $dataUser->user->email,
-                    'created_at' => $user->created_at->format('Y-m-d'),
-                    'action' => view('admin.user.partials', compact('user'))->render()
+                    'created_at' => $dataUser->created_at->format('Y-m-d'),
+                    'action' => view('admin.user.partials', compact('dataUser'))->render()
                 ];
             });;
 
