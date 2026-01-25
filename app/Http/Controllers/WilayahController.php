@@ -20,7 +20,7 @@ class WilayahController extends Controller
 
          if (strtoupper($varian->produk->name) === 'TMAX') {
             $del = CbuDelear::with('provinsi')
-                ->orderBy('namedelear')
+                ->orderBy('namedds')
                 ->get();
 
             $prov = [];

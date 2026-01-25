@@ -4,17 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ListProduk;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class HomeController extends Controller
 {
     public function home()
     {
-        return view('welcome');
+
+        return view('welcome',  [
+            'maxi' => urlencode(Crypt::encryptString('maxi')),
+        ]);
     }
 
-    public function motor()
+    public function motor($enc)
     {
-        $produk = ListProduk::with('varians')
+        try {
+            $motor = Crypt::decryptString(urldecode($enc));
+            
+        } catch (DecryptException $e) {
+            abort(404);
+        }
+        if($motor == 'maxi'){
+            $produk = ListProduk::with('varians')
                 ->select('id','name','type','price','ttlunit','colour','img')
                 ->orderBy('id')
                 ->get()
@@ -57,8 +69,12 @@ class HomeController extends Controller
                         })->values(),
                     ];
                 });
-
+                
                 return view('motor', compact('produk'));
+        }else{
+             abort(404);
+        }   
+
     }
 
     public function generalprivacy()

@@ -22,7 +22,7 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
-Route::get('/pilih-motor', [HomeController::class, 'motor'])->name('motor');
+Route::get('/pilih-motor/{enc}', [HomeController::class, 'motor'])->name('motor');
 Route::get('/general-privacy', [HomeController::class, 'generalprivacy'])->name('generalprivacy');
 
 Route::resource('booking', BookingController::class);
