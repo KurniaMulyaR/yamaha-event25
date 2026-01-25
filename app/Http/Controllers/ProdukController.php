@@ -124,7 +124,7 @@ class ProdukController extends Controller
             $photoPath = $request->file('img')->store('produk', 'public');
         }
 
-        ListProduk::create([
+        $produk = ListProduk::create([
             'name' => $request->name,
             'type' => $request->type,
             'price' => $request->price ?? 0,
