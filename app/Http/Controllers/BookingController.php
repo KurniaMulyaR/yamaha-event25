@@ -49,9 +49,9 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        $deler = ListDelear::findOrFail(2905);
-        $deler->code_kote = '3213';
-        $deler->save();
+        // $deler = ListDelear::findOrFail(2905);
+        // $deler->code_kote = '3213';
+        // $deler->save();
         $produk = ListProduk::findOrFail($request->produk_id);
         
         $varian = Varian::findOrFail($request->varian_id);
