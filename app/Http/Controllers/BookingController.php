@@ -129,7 +129,6 @@ class BookingController extends Controller
             'no_handphone_pembeli' => 0,
             'email_pembeli' => $user->email,
             'dealer' => $request->dealer,
-            'rekomendasi' => $request->rekomendasi,
             'metode_pembayaran' => 'VA',
             'stnk_nama_pemakai' => $request->stnk_nama_pemakai ?? $request->namalengkap,
             'stnk_no_ktp' => $request->stnk_no_ktp ?? $request->noktp,
