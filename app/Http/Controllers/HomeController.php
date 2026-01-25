@@ -18,6 +18,9 @@ class HomeController extends Controller
 
     public function motor($enc)
     {
+        return view('welcome',  [
+            'maxi' => urlencode(Crypt::encryptString('maxi')),
+        ]);
         try {
             $motor = Crypt::decryptString(urldecode($enc));
             

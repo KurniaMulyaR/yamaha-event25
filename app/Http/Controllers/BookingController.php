@@ -49,6 +49,9 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+        return view('welcome',  [
+            'maxi' => urlencode(Crypt::encryptString('maxi')),
+        ]);
         $produk = ListProduk::findOrFail($request->produk_id);
         
         $varian = Varian::findOrFail($request->varian_id);
@@ -105,6 +108,9 @@ class BookingController extends Controller
 
     public function pembayaran(Request $request)
     {
+        return view('welcome',  [
+            'maxi' => urlencode(Crypt::encryptString('maxi')),
+        ]);
         // $request->validate([
         //     'email' => 'required|email|unique:users,email',
         // ], [
