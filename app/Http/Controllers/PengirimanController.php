@@ -64,7 +64,8 @@ class PengirimanController extends Controller
                         $deler = $pesanan->delear->namedelear;
                     }
                 if ($pesanan->produk != null) {
-                    $produk = $pesanan->produk->name;
+                    $varian = Varian::findOrFail($pesanan->varianid);
+                    $produk = $varian->name;
                 }else{
                     $produk = $pesanan->produkid;
                 }
