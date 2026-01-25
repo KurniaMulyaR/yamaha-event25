@@ -4,6 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ListPesanan;
+use App\Models\ListProduk;
+use App\Models\Varian;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use App\Models\DataUser;
+use App\Models\User;
+use App\Models\CbuDelear;
+use App\Models\ListDelear;
+use Midtrans\Snap;
+use Midtrans\Config;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
+use App\Mail\TestMail;
+use Illuminate\Support\Facades\Mail;
 
 class PengirimanController extends Controller
 {
@@ -121,6 +135,88 @@ class PengirimanController extends Controller
             'status' => $request->status,
             'keterangan' => $request->keterangan
         ]);
+
+        if ($request->status == 'LUNAS') {
+            $Datauser = DataUser::with(['user'])->where('userid', $pesanan->userid)->first();
+            $passwordPlain = Str::random(10);
+            $produk = ListProduk::findOrFail($pesanan->produkid);
+            $varian = Varian::findOrFail($pesanan->varianid);
+            if($produk->name != ' TMAX'){
+                $dealer = ListDelear::where('code', $Datauser->dealer)->first();
+            }else {
+                $dealer = CbuDelear::where('code', $Datauser->dealer)->first();
+            }
+
+            $phone = preg_replace('/[^0-9]/', '', $Datauser->no_telepon_pembeli);
+
+            if (str_starts_with($phone, '0')) {
+                $phone = '+62' . substr($phone, 1);
+            } elseif (str_starts_with($phone, '62')) {
+                $phone = '+' . $phone;
+            } elseif (str_starts_with($phone, '8')) {
+                $phone = '+62' . $phone;
+            }
+
+            $tipe = $produk->name . ' ' . $varian->name;
+            // Data JSON sesuai struktur Infobip
+            $postData = [
+                "messages" => [
+                    [
+                        "from" => config('services.infobip.sender'),
+                        "to" => $phone,
+                        "messageId" => "876234998113297",
+                        "content" => [
+                            "templateName" => "5118_booking_online_fixed",
+                            "templateData" => [
+                                "body" => [
+                                    "placeholders" => [$Datauser->nama_pembeli, $dealer->namedelear, $tipe]
+                                ]
+                            ],
+                            "language" => "id"
+                        ],
+                        "callbackData" => "template-message",
+                        "urlOptions" => [
+                            "shortenUrl" => true,
+                            "trackClicks" => true,
+                            "trackingUrl" => "https://maxi25.com",
+                            "removeProtocol" => true
+                        ]
+                    ]
+                ]
+            ];
+            
+            $user = User::findOrFail($Datauser->userid);
+            $user->password = Hash::make($passwordPlain);
+            $user->save();
+            $data = [
+                'name' => $Datauser->nama_pembeli,
+                'delear' => $dealer->namedelear,
+                'tipe' => $tipe,
+                'password' => $passwordPlain,
+                'email' => $user->email,
+            ];
+
+            // Request POST ke Infobip API
+            $response = Http::withHeaders([
+                'Authorization' => 'App ' . config('services.infobip.api_key'),
+                'Content-Type' => 'application/json'
+            ])->post('https://api.infobip.com/whatsapp/1/message/template', $postData);
+
+            // Response dari Infobip
+            if ($response->successful()) {
+                Mail::to($user->email)->send(new TestMail($data));
+
+                return response()->json([
+                    'status' => 'success',
+                    'data' => $response->json()
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $response->body()
+                ], $response->status());
+            }
+        }
 
          return response()->json(['success' => true]);
     }

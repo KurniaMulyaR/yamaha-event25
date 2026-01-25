@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Test Email</title>
+    <title>Yamaha</title>
 </head>
 <body>
     <h1>Salam Semakin di Depan,</h1>

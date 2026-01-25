@@ -31,7 +31,7 @@
         <div class="bg-white rounded-lg w-full max-w-md p-6">
             <h2 class="text-lg font-bold mb-4" id="modalTitle"></h2>
 
-            <form id="delearForm">
+            <form id="kirimForm">
                 @csrf
                 <input type="hidden" id="pengiriman_id">
 
@@ -89,43 +89,6 @@
             });
         });
 
-        $('#createDelearForm').submit(function (e) {
-            e.preventDefault();
-
-            let formData = new FormData();
-            formData.append('_token', '{{ csrf_token() }}');
-            formData.append('code', $('#create_code').val());
-            formData.append('district_code', $('#create_district_code').val());
-            formData.append('namedds', $('#create_namedds').val());
-            formData.append('provinsi', $('#create_provinsi').val());
-            formData.append('kota', $('#create_kota').val());
-            formData.append('kecamatan', $('#create_kecamatan').val());
-            formData.append('namedelear', $('#create_namedelear').val());
-
-            $.ajax({
-                url: '/admin/delear',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function () {
-                    $('#createDelearModal').addClass('hidden');
-                    $('#createDelearForm')[0].reset();
-                    $('#photoPreview').addClass('hidden');
-
-                    $('#delearTable').DataTable().ajax.reload();
-
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Berhasil',
-                        text: 'Delear berhasil ditambahkan',
-                        timer: 1500,
-                        showConfirmButton: false
-                    });
-                }
-            });
-        });
-
         $(document).on('click', '.editBtn', function () {
             let id = $(this).data('id');
 
@@ -138,11 +101,25 @@
             });
         });
 
-        $('#delearForm').submit(function (e) {
+        $('#kirimForm').submit(function (e) {
             e.preventDefault();
 
             let id = $('#pengiriman_id').val();
 
+            // 1️⃣ Tutup popup langsung
+            $('#pengirimanModal').addClass('hidden');
+
+            // 2️⃣ Loading / proses kirim
+            Swal.fire({
+                title: 'Mengirim data...',
+                text: 'Mohon tunggu',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // 3️⃣ AJAX kirim data
             $.ajax({
                 url: `/admin/pengiriman/${id}`,
                 type: 'PUT',
@@ -152,19 +129,28 @@
                     keterangan: $('#keterangan').val()
                 },
                 success: function () {
-                    $('#pengirimanModal').addClass('hidden');
-                    $('#delearTable').DataTable().ajax.reload();
-
+                    // 4️⃣ Tutup loading → sukses
                     Swal.fire({
                         icon: 'success',
                         title: 'Berhasil',
-                        text: 'Delear berhasil diupdate',
+                        text: 'Dealer berhasil diupdate',
                         timer: 1500,
                         showConfirmButton: false
+                    });
+
+                    $('#delearTable').DataTable().ajax.reload();
+                },
+                error: function (xhr) {
+                    // 5️⃣ Jika error → tampilkan pesan
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: xhr.responseJSON?.message || 'Terjadi kesalahan'
                     });
                 }
             });
         });
+
 
         $('#closeModal').on('click', function () {
             $('#pengirimanModal').addClass('hidden').removeClass('flex');

@@ -158,6 +158,16 @@
 
             let id = $('#user_id').val();
 
+            // 2️⃣ Loading / proses kirim
+            Swal.fire({
+                title: 'Mengirim data...',
+                text: 'Mohon tunggu',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
             $.ajax({
                 url: `/admin/user/${id}`,
                 type: 'PUT',
@@ -176,6 +186,14 @@
                         text: 'User berhasil diupdate',
                         timer: 1500,
                         showConfirmButton: false
+                    });
+                },
+                error: function (xhr) {
+                    // 5️⃣ Jika error → tampilkan pesan
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: xhr.responseJSON?.message || 'Terjadi kesalahan'
                     });
                 }
             });

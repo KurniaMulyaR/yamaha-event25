@@ -30,7 +30,7 @@ class TestMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Test Email Laravel')
+        return $this->subject('Pembayaran Berhasil & akun Tracking Order Telah aktif')
                     ->view('email.test');
     }
 }
