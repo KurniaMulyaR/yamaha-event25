@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DelearController;
 use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MidtransController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,6 @@ Route::get('/general-privacy', [HomeController::class, 'generalprivacy'])->name(
 Route::resource('booking', BookingController::class);
 Route::post('/pembayaran', [BookingController::class, 'pembayaran'])->name('pembayaran');
 Route::post('/metpem', [BookingController::class, 'metpem'])->name('metpem');
-
 Route::post('/midtrans/callback', [MidtransController::class, 'callback']);
 
 Route::post('/check-email', [UserController::class, 'checkEmail'])
