@@ -106,6 +106,7 @@
                     header: true,
                     footer: true
                 },
+                pageLength: 1200,
                 processing: true,
                 serverSide: true,
                 ajax: '/admin/reportusers',

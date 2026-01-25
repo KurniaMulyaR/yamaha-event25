@@ -63,13 +63,17 @@ class PengirimanController extends Controller
                     }else{
                         $deler = $pesanan->delear->namedelear;
                     }
-
+                if ($pesanan->produk != null) {
+                    $produk = $pesanan->produk->name;
+                }else{
+                    $produk = $pesanan->produkid;
+                }
 
                 return [
                     'id' => $pesanan->datauser->user->id,
                     'orderid' => $pesanan->orderid,
                     'name' => $pesanan->datauser->user->name,
-                    'produk' => $pesanan->id,
+                    'produk' => $produk,
                     'delear' => $deler,
                     'status' => $statusBadge,
                     'keterangan' => $pesanan->keterangan,
