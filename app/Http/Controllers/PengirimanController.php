@@ -69,6 +69,7 @@ class PengirimanController extends Controller
                     $varian = $varian->name;
                 }else{
                     $produk = $pesanan->produkid;
+                    $varian = '-';
                 }
 
                 return [
