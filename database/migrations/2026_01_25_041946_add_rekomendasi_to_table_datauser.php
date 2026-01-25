@@ -13,7 +13,7 @@ class AddRekomendasiToTableDatauser extends Migration
      */
     public function up()
     {
-        Schema::table('datauser', function (Blueprint $table) {
+        Schema::table('dataUser', function (Blueprint $table) {
             $table->text('rekomendasi');
         });
     }
@@ -25,7 +25,7 @@ class AddRekomendasiToTableDatauser extends Migration
      */
     public function down()
     {
-        Schema::table('datauser', function (Blueprint $table) {
+        Schema::table('dataUser', function (Blueprint $table) {
             $table->dropColumn('rekomendasi');
         });
     }
