@@ -28,10 +28,10 @@
 
 @section('content')
 
-
+<!-- 
 <a href="{{ url('/pilih-motor/' .  $maxi) }}" class="text-sm mt-3 text-black/100">
     Now
-</a>
+</a> -->
 <main class="mx-auto items-center">
     <div class="relative p-6 min-h-[109vh] bg-img-rep bg-cover bg-center bg-black/70"
      style="background-image: url('{{ asset('img/bckground.jpg') }}')">
