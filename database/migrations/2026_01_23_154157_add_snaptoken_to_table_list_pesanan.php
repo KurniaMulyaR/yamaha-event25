@@ -14,8 +14,8 @@ class AddSnaptokenToTableListPesanan extends Migration
     public function up()
     {
         Schema::table('list_pesanan', function (Blueprint $table) {
-            // $table->text('snaptoken');
-            // $table->text('orderid');
+            $table->text('snaptoken');
+            $table->text('orderid');
         });
     }
 
@@ -27,8 +27,8 @@ class AddSnaptokenToTableListPesanan extends Migration
     public function down()
     {
         Schema::table('list_pesanan', function (Blueprint $table) {
-            // $table->dropColumn('snaptoken');
-            // $table->dropColumn('orderid');
+            $table->dropColumn('snaptoken');
+            $table->dropColumn('orderid');
         });
     }
 }
