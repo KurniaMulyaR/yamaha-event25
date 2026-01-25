@@ -341,16 +341,16 @@
                 </div>
 
       
-                  <div class="mt-6 ml-4">
+                  <div class="mt-6 ml-4 p-6">
                       <label class="flex items-center text-sm text-white">
                           <input type="checkbox" class="mr-2" require id="identitas">
                           Apakah Data Identitas Pembeli Sama Dengan Identitas Pemilik?
                       </label>
                   </div>
                   
-                  <div class="mt-6 ml-4">
+                  <div class="mt-6 ml-4 p-6">
                       <label class="flex items-center text-sm text-white">
-                          <input type="checkbox" class="mr-2" id="agreePrivacy" require>
+                          <input type="checkbox" class="mr-2" require>
                           Mengizinkan PT YIMM untuk menggunakan informasi di atas dan menghubungi Saya melalui email dan/atau telepon atau sarana komunikasi pribadi lainnya untuk kegiatan pelayanan kepada customer.
                       </label>
                   </div>
@@ -558,14 +558,6 @@ $(document).ready(function () {
             $(this).removeClass('border-red-500');
         }
     });
-
-     let isChecked = $('#agreePrivacy').is(':checked');
-
-        if (!isChecked) {
-            alert('Anda harus menyetujui Privacy Policy terlebih dahulu!');
-            return;
-        }
-
 
     if(allFilled) {
         // semua field terisi → tampilkan popup
