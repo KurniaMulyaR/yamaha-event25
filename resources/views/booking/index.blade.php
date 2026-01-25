@@ -222,15 +222,10 @@
                     <div class="form-group mb-4">
                       <label for="dealer" class="block text-sm/6 font-medium text-white">Pilihkan Saya Dealer Rekomendasi</label>
                       <div class="mt-2 grid grid-cols-1">
-                        <select id="dealer_pilihn" name="dealer_pilihn"  required autocomplete="dealer-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                <option>Pilih Dealer</option>
-                            @foreach($ListDeler as $deler)
-                                <option value="{{ $deler->code }}">{{ $deler->namedelear }}</option>
-                            @endforeach
-                        </select>
-                        <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
-                          <path d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
-                        </svg>
+                        <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                        <input id="rekomend" type="text" name="rekomendasi" required placeholder="..." class="w-full rounded-md bg-white/10 border border-white/20
+                                          px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 input-field" />
+                            </div>
                       </div>
                     </div>
                   </div>
@@ -244,7 +239,7 @@
                           <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
                             <input id="stnk_nama_pemakai" name="stnk_nama_pemakai" type="text" placeholder="Nama Pemilik ..." required
                             class="w-full rounded-md bg-white/10 border border-white/20
-                                        px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                                        px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 input-field">
                             </div>
                         </div>
                     </div>
@@ -257,7 +252,7 @@
                         <input id="stnk_no_ktp" maxlength="16"
                                 inputmode="numeric"
                                 pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g,'')" name="stnk_no_ktp" type="text" placeholder="No KTP ..." required
-                        class="w-full rounded-md bg-white/10 border border-white/20
+                        class="w-full rounded-md bg-white/10 border border-white/20 input-field
                                     px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
                             </div>                    
                         </div>
@@ -270,7 +265,7 @@
                         <div class="mt-2">
                           <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
                         <input id="stnk_tempat_lahir" name="stnk_tempat_lahir" type="text" placeholder="Tempat Lahir ..." required
-                        class="w-full rounded-md bg-white/10 border border-white/20
+                        class="w-full rounded-md bg-white/10 border border-white/20 input-field
                                     px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
                             </div>                    
                         </div>
@@ -281,9 +276,9 @@
                     <div>
                         <label for="stnk_tanggal_lahir" class="block text-sm font-medium text-white">Tanggal Lahir</label>
                         <div class="mt-2">
-                          <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                          <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600 ">
                         <input id="stnk_tanggal_lahir" name="stnk_tanggal_lahir" type="date" required
-                        class="w-full rounded-md bg-white/10 border border-white/20
+                        class="w-full rounded-md bg-white/10 border border-white/20 input-field
                                     px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
                             </div>                    
                         </div>
@@ -296,7 +291,7 @@
                         <div class="mt-2">
                           <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
                         <input id="stnk_alamat" name="stnk_alamat" type="text" placeholder="Alamat ..." required
-                        class="w-full rounded-md bg-white/10 border border-white/20
+                        class="w-full rounded-md bg-white/10 border border-white/20 input-field
                                     px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
                             </div>                    
                         </div>
@@ -580,8 +575,6 @@ $(document).ready(function () {
         alert('Anda harus menyetujui Privacy Policy terlebih dahulu!');
         return;
     }
-
-
     if(allFilled) {
         // semua field terisi → tampilkan popup
         $('#privacyModal')
@@ -613,8 +606,20 @@ $(document).ready(function() {
     $('#identitas').change(function() {
         if ($(this).is(':checked')) {
             $('#formIdentitas').slideUp(); // tampilkan form
+            $('#stnk_nama_pemakai').removeClass('input-field');            
+            $('#stnk_no_ktp').removeClass('input-field');
+            $('#stnk_tempat_lahir').removeClass('input-field');
+            $('#stnk_tanggal_lahir').removeClass('input-field');
+            $('#stnk_alamat').removeClass('input-field');
+
         } else {
             $('#formIdentitas').slideDown();   // sembunyikan form
+            $('#stnk_nama_pemakai').addClass('input-field');            
+            $('#stnk_no_ktp').addClass('input-field');
+            $('#stnk_tempat_lahir').addClass('input-field');
+            $('#stnk_tanggal_lahir').addClass('input-field');
+            $('#stnk_alamat').addClass('input-field');
+
         }
     });
 

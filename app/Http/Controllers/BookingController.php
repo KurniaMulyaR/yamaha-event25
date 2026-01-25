@@ -129,6 +129,7 @@ class BookingController extends Controller
             'no_handphone_pembeli' => 0,
             'email_pembeli' => $user->email,
             'dealer' => $request->dealer,
+            'rekomendasi' => $request->rekomendasi,
             'metode_pembayaran' => 'VA',
             'stnk_nama_pemakai' => $request->stnk_nama_pemakai ?? $request->namalengkap,
             'stnk_no_ktp' => $request->stnk_no_ktp ?? $request->noktp,
@@ -170,7 +171,7 @@ class BookingController extends Controller
         // Set your Merchant Server Key
 
         Config::$serverKey = config('midtrans.server_key'); // SB-Mid-server-xxxx
-        Config::$isProduction = false; // 🔴 SANDBOX
+        Config::$isProduction = config('midtrans.is_production');
         Config::$isSanitized = true;
         Config::$is3ds = true;
 
@@ -180,7 +181,7 @@ class BookingController extends Controller
         $params = array(
             'transaction_details' => array(
                 'order_id' => $orderId,
-                'gross_amount' => $varian->dp,
+                'gross_amount' => '5000' ?? $varian->dp,
             ),
             'customer_details' => array(
                 'first_name' => $Datauser->nama_pembeli,
