@@ -7,12 +7,17 @@ use App\Models\ListProduk;
 use App\Models\Varian;
 use App\Models\ListPesanan;
 use App\Models\DataUser;
+use App\Models\CbuDelear;
+use App\Models\ListDelear;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Midtrans\Snap;
 use Midtrans\Config;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
+use App\Mail\TestMail;
+use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
 {
@@ -23,7 +28,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        return view('booking.index');
+        return redirect('/');
     }
 
     /**
@@ -152,6 +157,11 @@ class BookingController extends Controller
         $produk = ListProduk::findOrFail($request->produk_id);
 
         $Datauser = DataUser::with(['user'])->where('userid', $dataUser->userid)->first();
+        if($produk->name != ' TMAX'){
+            $dealer = ListDelear::where('code', $Datauser->dealer)->first();
+        }else {
+            $dealer = CbuDelear::where('code', $Datauser->dealer)->first();
+        }
 
         $user = User::findOrFail($Datauser->userid);
         
@@ -186,88 +196,99 @@ class BookingController extends Controller
             'snaptoken' => $snapToken,
         ]);
 
+        $paymentUrl = Snap::createTransaction($params)->redirect_url;
+        return redirect($paymentUrl);
 
-        $passwordPlain = Str::random(10);
+        // $passwordPlain = Str::random(10);
+
+        // $phone = preg_replace('/[^0-9]/', '', $Datauser->no_telepon_pembeli);
+
+        // if (str_starts_with($phone, '0')) {
+        //     $phone = '+62' . substr($phone, 1);
+        // } elseif (str_starts_with($phone, '62')) {
+        //     $phone = '+' . $phone;
+        // } elseif (str_starts_with($phone, '8')) {
+        //     $phone = '+62' . $phone;
+        // }
+
+        // $tipe = $produk->name . ' ' . $varian->name;
+        // // Data JSON sesuai struktur Infobip
+        // $postData = [
+        //     "messages" => [
+        //         [
+        //             "from" => config('services.infobip.sender'),
+        //             "to" => $phone,
+        //             "messageId" => "876234998113297",
+        //             "content" => [
+        //                 "templateName" => "5118_booking_online_fixed",
+        //                 "templateData" => [
+        //                     "body" => [
+        //                         "placeholders" => [$Datauser->nama_pembeli, $dealer->namedelear, $tipe]
+        //                     ]
+        //                 ],
+        //                 "language" => "id"
+        //             ],
+        //             "callbackData" => "template-message",
+        //             "urlOptions" => [
+        //                 "shortenUrl" => true,
+        //                 "trackClicks" => true,
+        //                 "trackingUrl" => "https://maxi25.com",
+        //                 "removeProtocol" => true
+        //             ]
+        //         ]
+        //     ]
+        // ];
         
-         // ===== INFONIP WHATSAPP =====
-        $client = new Client([
-            'base_uri' => config('services.infobip.base_url'),
-            'headers' => [
-                'Authorization' => 'App ' . config('services.infobip.api_key'),
-                'Content-Type'  => 'application/json',
-                'Accept'        => 'application/json',
-            ]
-        ]);
-        // dd($client);
 
-        $passwordPlain = 'MOTOR';
+        // $user->password = Hash::make($passwordPlain);
+        // $user->save();
+        // $data = [
+        //     'name' => $Datauser->nama_pembeli,
+        //     'delear' => $dealer->namedelear,
+        //     'tipe' => $tipe,
+        //     'password' => $passwordPlain,
+        //     'email' => $user->email,
+        // ];
 
-        $message = <<<TEXT
-        ✅ Pembayaran Berhasil dengan Metode {$request->metodpem}.
-        
-        Order ID: {$orderId}
+        // // Request POST ke Infobip API
+        // $response = Http::withHeaders([
+        //     'Authorization' => 'App ' . config('services.infobip.api_key'),
+        //     'Content-Type' => 'application/json'
+        // ])->post('https://api.infobip.com/whatsapp/1/message/template', $postData);
 
-        Akun Anda sudah aktif.
+        // // Response dari Infobip
+        // if ($response->successful()) {
+        //      Mail::to($user->email)->send(new TestMail($data));
 
-        Email:
-        {$Datauser->user->email}
-
-        Password:
-        {$passwordPlain}
-
-        ⚠️ Demi keamanan, HARAP segera login dan ganti password Anda.
-        TEXT;
-
-        $phone = preg_replace('/[^0-9]/', '', $Datauser->no_telepon_pembeli);
-
-        if (str_starts_with($phone, '0')) {
-            $phone = '+62' . substr($phone, 1);
-        } elseif (str_starts_with($phone, '62')) {
-            $phone = '+' . $phone;
-        } elseif (str_starts_with($phone, '8')) {
-            $phone = '+62' . $phone;
-        }
-        // dd([
-        //     'base_url' => config('services.infobip.base_url'),
-        //     'full_url' => rtrim(config('services.infobip.base_url'), '/') . '/whatsapp/1/message/text',
-        // ]);
-        // dd(config('services.infobip.sender'), $phone);
-        try {
-            $response = $client->post('/whatsapp/1/message/text', [
-                'json' => [
-                    'from' => config('services.infobip.sender'),
-                    'to' => $phone,
-                    'content' => [
-                        'text' => $message
-                    ]
-                ]
-            ]);
-        } catch (\Exception $e) {
-            \Log::error('Infobip Error', [
-                'order_id' => $orderId,
-                'message' => $e->getMessage()
-            ]);
-        }
-
-        $user->password = Hash::make($passwordPlain);
-        $user->save();
+        //     return response()->json([
+        //         'status' => 'success',
+        //         'payment_url' => $paymentUrl,
+        //         'data' => $response->json()
+        //     ]);
+        // } else {
+        //     return response()->json([
+        //         'status' => 'error',
+        //         'message' => $response->body()
+        //     ], $response->status());
+        // }
+    }
 
          // ===== END INFONIP WHATSAPP =====
 
-         try {
-            $paymentUrl = Snap::createTransaction($params)->redirect_url;
+    //     try {
+    //         $paymentUrl = Snap::createTransaction($params)->redirect_url;
 
-            return redirect($paymentUrl);
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-        }
+    //         return redirect($paymentUrl);
+    //     } catch (\Exception $e) {
+    //         echo $e->getMessage();
+    //     }
 
 
-        return response()->json([
-            'snap_token' => $snapToken
-        ]);
+    //     return response()->json([
+    //         'snap_token' => $snapToken
+    //     ]);
 
-    }
+    // }
 
         public function metpem(Request $request)
     {
