@@ -220,9 +220,10 @@
                     </div>
 
                     <div class="form-group mb-4">
-                      <label for="dealer" class="block text-sm/6 font-medium text-white">Pilihkan Saya Rekomendasi</label>
+                      <label for="dealer" class="block text-sm/6 font-medium text-white">Pilihkan Saya Dealer Rekomendasi</label>
                       <div class="mt-2 grid grid-cols-1">
                         <select id="dealer_pilihn" name="dealer_pilihn"  required autocomplete="dealer-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                                <option>Pilih Dealer</option>
                             @foreach($ListDeler as $deler)
                                 <option value="{{ $deler->code }}">{{ $deler->namedelear }}</option>
                             @endforeach
@@ -591,6 +592,22 @@ $(document).ready(function () {
     }
 });
 });
+
+// Tutup popup (Batal)
+    $('#cancelPrivacy').on('click', function () {
+        $('#privacyModal')
+            .addClass('hidden')
+            .removeClass('flex');
+    });
+
+    // Setuju & Submit
+    $('#agreePrivacy').on('click', function () {
+        $('#privacyModal')
+            .addClass('hidden')
+            .removeClass('flex');
+
+        $('form').submit(); // 🔥 submit form
+    });
 
 $(document).ready(function() {
     $('#identitas').change(function() {
