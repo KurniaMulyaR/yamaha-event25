@@ -127,7 +127,7 @@ class ProdukController extends Controller
         ListProduk::create([
             'name' => $request->name,
             'type' => $request->type,
-            'price' => $request->price,
+            'price' => $request->price ?? 0,
             'ttlunit' => $request->ttlunit,
             'colour' => $request->colour,
             'img' => $photoPath
