@@ -29,7 +29,7 @@
 @section('content')
 
 
-<a href="{{ url('/pilih-motor/' .  $maxi) }}" class="text-sm mt-3 text-black/60">
+<a href="{{ url('/pilih-motor/' .  $maxi) }}" class="text-sm mt-3 text-black/100">
     Now
 </a>
 <main class="mx-auto items-center">
