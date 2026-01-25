@@ -89,7 +89,7 @@ class PengirimanController extends Controller
                     'delear' => $deler,
                     'status' => $statusBadge,
                     'provinsi' => $provinsi,
-                    'alamat_pembeli' => $pesanan->alamat_pembeli,
+                    'alamat_pembeli' => $pesanan->datauser->alamat_pembeli,
                     'created_at' => $pesanan->created_at->format('Y-m-d H:i:'),
                     'action' => view('admin.pesanan.partials', compact('pesanan'))->render()
                 ];
