@@ -12,6 +12,7 @@
                     <thead class="bg-gray-100">
                         <tr>
                             <th>ID</th>
+                            <th>Order ID</th>
                             <th>Nama</th>
                             <th>Produk</th>
                             <th>Name Delear</th>
@@ -71,6 +72,7 @@
                 columns: [
                     { data: 'id' },
                     { data: 'name' },
+                    { data: 'orderid' },
                     { data: 'produk' },
                     { data: 'delear' },
                     { data: 'status' },
