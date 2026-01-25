@@ -27,9 +27,6 @@
 @endpush
 
 @section('content')
-
-
-
 <main class="mx-auto items-center">
     <div class="relative p-6 min-h-[109vh] bg-img-rep bg-cover bg-center bg-black/70"
      style="background-image: url('{{ asset('img/bckground.jpg') }}')">
@@ -192,7 +189,7 @@
                 </div>
             </div>
         </div>
-        <a href="#" class="text-2xl mt-3 bg-blue-900 hover:bg-blue-700 transition text-white font-bold px-10 py-3 rounded-lg text-lg shadow-lg">
+        <a href="{{ url('/pilih-motor/' .  $maxi) }}" class="text-2xl mt-3 bg-blue-900 hover:bg-blue-700 transition text-white font-bold px-10 py-3 rounded-lg text-lg shadow-lg">
             Booking Now
         </a>
     </div>
