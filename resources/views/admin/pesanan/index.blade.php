@@ -15,6 +15,7 @@
                             <th>Order ID</th>
                             <th>Nama</th>
                             <th>Produk</th>
+                            <th>Varian</th>
                             <th>Name Delear</th>
                             <th>Status</th>
                             <th>Keterangan</th>
@@ -92,6 +93,7 @@
                     { data: 'name' },
                     { data: 'orderid' },
                     { data: 'produk' },
+                    { data: 'varian' },
                     { data: 'delear' },
                     { data: 'status' },
                     { data: 'keterangan' },
