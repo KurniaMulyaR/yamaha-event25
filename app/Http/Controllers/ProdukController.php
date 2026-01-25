@@ -108,7 +108,6 @@ class ProdukController extends Controller
         $request->validate([
             'name'     => 'required|string|max:255',
             'type'     => 'required|string|max:255',
-            'price'    => 'required|string|max:255',
             'ttlunit'  => 'required|string|max:255',
             'colour'   => 'required|string|max:255',
             'img'      => 'required|image|mimes:jpg,jpeg,png|max:2048',
