@@ -61,7 +61,7 @@ class PengirimanController extends Controller
                     {
                         $deler = 'Rekomendasi';
                     }else{
-                        $deler = $pesanan->delear->namedelear;
+                        $deler = $pesanan->delear->namedelear ?? $pesanan->delearid;
                     }
                 if ($pesanan->produk != null) {
                     $varian = Varian::with('produk')->findOrFail($pesanan->varianid);
