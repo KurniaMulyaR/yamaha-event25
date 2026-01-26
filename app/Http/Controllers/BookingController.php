@@ -49,12 +49,18 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        // return view('welcome',  [
-        //     'maxi' => urlencode(Crypt::encryptString('maxi')),
-        // ]);
+        return view('welcome',  [
+            'maxi' => urlencode(Crypt::encryptString('maxi')),
+        ]);
         $produk = ListProduk::findOrFail($request->produk_id);
         
         $varian = Varian::findOrFail($request->varian_id);
+        $pesanan = ListPesanan::where('varianid', $varian->id)->count();
+
+        if ($varian->jmlunit == $pesanan) {
+            return redirect()->back()
+                ->with('error', 'Unit untuk varian ini sudah habis'); 
+        }
 
         $ListDeler = ListDelear::all();
 
@@ -108,14 +114,24 @@ class BookingController extends Controller
 
     public function pembayaran(Request $request)
     {
-        // return view('welcome',  [
-        //     'maxi' => urlencode(Crypt::encryptString('maxi')),
-        // ]);
-        // $request->validate([
-        //     'email' => 'required|email|unique:users,email',
-        // ], [
-        //     'email.unique' => 'Email sudah terdaftar'
-        // ]);
+        return view('welcome',  [
+            'maxi' => urlencode(Crypt::encryptString('maxi')),
+        ]);
+
+        // dd('tet');
+        $request->validate([
+            'email' => 'required|email|unique:users,email',
+        ], [
+            'email.unique' => 'Email sudah terdaftar'
+        ]);
+        
+        $varian = Varian::find($request->varian_id);
+        $pesanan = ListPesanan::where('varianid', $varian->id)->count();
+
+        if ($varian->jmlunit == $pesanan) {
+            return redirect()->back()
+                ->with('error', 'Unit untuk varian ini sudah habis'); 
+        }
 
         $passwordPlain = 'MOTOR';
 
@@ -167,8 +183,7 @@ class BookingController extends Controller
             'snaptoken' => '-',
         ]);
 
-        $varian = Varian::findOrFail($request->varian_id);
-        $produk = ListProduk::findOrFail($request->produk_id);
+        $produk = ListProduk::find($request->produk_id);
 
         $Datauser = DataUser::with(['user'])->where('userid', $dataUser->userid)->first();
             if ($Datauser->dealer == 0) {
