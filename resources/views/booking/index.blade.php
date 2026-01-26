@@ -56,6 +56,9 @@
                 <form method="POST" action="{{ route('pembayaran') }}" id="myForm">
                   @csrf
 
+                  @error('email')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
                   <input id="produk_id" name="produk_id" value="{{ $produk->id }}" hidden />
                   <input id="varian_id" name="varian_id" value="{{ $varian->id }}" hidden />
 
@@ -767,22 +770,6 @@ $(function () {
             });
         });
 
-        @if($varian->produk->name === 'TMAX' ) 
-            $('#dealer').html('<option value="">Loading...</option>');
-            let codie = $(this).val() + '|' + id;
-            $.get(`/ajax/dealer/${codie}`, function (data) {
-                $('#dealer').html('<option value="">Pilih Dealer</option>');
-                
-                $('#dealer').append(
-                    `<option value="0">Pilihkan Saya Dealer Rekomendasi</option>`
-                );
-                data.forEach(item => {
-                    $('#dealer').append(
-                        `<option value="${item.code}">${item.namedelear}</option>`
-                    );
-                });
-            });
-        @endif
     });
     
     $('#stnk_provinsi').on('change', function () {
@@ -815,27 +802,6 @@ $(function () {
                 );
             });
         });
-
-        
-        @if($varian->produk->name != 'TMAX' ) 
-        $('#dealer').html('<option value="">Loading...</option>');
-
-        $.get(`/ajax/dealer/${codie}`, function (data) {
-            $('#dealer').html('<option value="">Pilih Dealer</option>');
-            
-            $('#dealer').append(
-                `<option value="0">Pilihkan Saya Dealer Rekomendasi</option>`
-            );
-            data.forEach(item => {
-                $('#dealer').append(
-                    `<option value="${item.code}">${item.namedelear}</option>`
-                );
-            });
-            $('#dealer').append(
-                `<option value="0">Pilihkan Saya Dealer Rekomendasi</option>`
-            );
-        });
-        @endif
     });
 
      $('#stnk_kota').on('change', function () {
@@ -879,6 +845,24 @@ $(function () {
                 );
             });
         });
+    });
+
+    $('#dealer').html('<option value="">Loading...</option>');
+
+    $.get(`/ajax/dealer`, function (data) {
+        $('#dealer').html('<option value="">Pilih Dealer</option>');
+        
+        $('#dealer').append(
+            `<option value="0">Pilihkan Saya Dealer Rekomendasi</option>`
+        );
+        data.forEach(item => {
+            $('#dealer').append(
+                `<option value="${item.code}">${item.namedelear}</option>`
+            );
+        });
+        $('#dealer').append(
+            `<option value="0">Pilihkan Saya Dealer Rekomendasi</option>`
+        );
     });
 
 });

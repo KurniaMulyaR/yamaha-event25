@@ -38,7 +38,7 @@ Route::get('/ajax/provinsi/{id}', [WilayahController::class, 'provinsi']);
 Route::get('/ajax/kota/{provinsi}', [WilayahController::class, 'kota']);
 Route::get('/ajax/kecamatan/{kota}', [WilayahController::class, 'kecamatan']);
 Route::get('/ajax/kelurahan/{kecamatan}', [WilayahController::class, 'kelurahan']);
-Route::get('/ajax/dealer/{kecamatan}', [WilayahController::class, 'dealer']);
+Route::get('/ajax/dealer', [WilayahController::class, 'dealer']);
 
 Route::middleware(['auth','role:user'])->group(function () {
     Route::resource('profile', ProfileController::class);

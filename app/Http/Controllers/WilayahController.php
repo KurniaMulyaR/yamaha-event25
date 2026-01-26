@@ -72,35 +72,35 @@ class WilayahController extends Controller
     }
 
     // DEALER
-    public function dealer($kota)
+    public function dealer()
     {
-        $id = explode('|', $kota); // misal "kodeKota|varianId"
+        // $id = explode('|', $kota); // misal "kodeKota|varianId"
 
-        // Ambil varian
-        $varian = Varian::with('produk')->findOrFail($id[1]);
+        // // Ambil varian
+        // $varian = Varian::with('produk')->findOrFail($id[1]);
 
-        if (strtoupper($varian->produk->name) === 'TMAX') {
-            // Ambil semua dealer di kota
-            $del = CbuDelear::where('provinsi', $id[0])
-                ->select('code','namedelear','cansell')
-                ->orderBy('namedelear')
-                ->get();
-        }else{
+        // if (strtoupper($varian->produk->name) === 'TMAX') {
+        //     // Ambil semua dealer di kota
+        //     $del = CbuDelear::where('provinsi', $id[0])
+        //         ->select('code','namedelear','cansell')
+        //         ->orderBy('namedelear')
+        //         ->get();
+        // }else{
             // Ambil semua dealer di kota
             $del = ListDelear::select('code','namedelear','cansell')
                 ->orderBy('namedelear')
                 ->get();
-        }
+        // }
         
 
-        // Filter sesuai varian
-        $deler = [];
+        // // Filter sesuai varian
+        // $deler = [];
 
-        foreach($del as $dilir) {
-            $deler[] = $dilir;  
-        }
+        // foreach($del as $dilir) {
+        //     $deler[] = $dilir;  
+        // }
 
         // Kembalikan JSON
-        return response()->json($deler);
+        return response()->json($del);
     }
 }
