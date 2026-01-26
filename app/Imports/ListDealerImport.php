@@ -76,7 +76,6 @@ class ListDealerImport implements ToModel, WithHeadingRow
             $passwordPlain = Str::random(10);
             $produk = ListProduk::findOrFail($pesanan->produkid);
             $varian = Varian::findOrFail($pesanan->varianid);
-            $produk = ListProduk::find($pesanan->produkid);
 
             if (!$produk) {
                 // log & skip baris ini
