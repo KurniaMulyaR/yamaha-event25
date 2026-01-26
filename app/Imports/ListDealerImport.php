@@ -76,6 +76,12 @@ class ListDealerImport implements ToModel, WithHeadingRow
             $passwordPlain = Str::random(10);
             $produk = ListProduk::findOrFail($pesanan->produkid);
             $varian = Varian::findOrFail($pesanan->varianid);
+            $produk = ListProduk::find($pesanan->produkid);
+
+            if (!$produk) {
+                // log & skip baris ini
+                return null;
+            }
 
             if ($Datauser->dealer == 0) {
                 $delernm = 'Rekomendasi';
