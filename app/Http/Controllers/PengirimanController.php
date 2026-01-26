@@ -74,6 +74,7 @@ class PengirimanController extends Controller
                         $provinsi = $pesanan->datauser->provinsi ?? '0';
                         $kec = $pesanan->datauser->kecamatan ?? '0';
                         $kel = $pesanan->datauser->kelurahan ?? '0';
+                        $kot = $pesanan->datauser->kota ?? '0';
                     // }
                 }else{
                     $produk = $pesanan->produkid;
@@ -81,6 +82,7 @@ class PengirimanController extends Controller
                     $provinsi = '-';
                     $kec = '-';
                     $kel = '-';
+                    $kot = '-';
                 }
 
                 return [
