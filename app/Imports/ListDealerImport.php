@@ -64,6 +64,7 @@ class ListDealerImport implements ToModel, WithHeadingRow
         //     Log::warning("Dealer code {$row['code']} tidak ditemukan");
         // }
 
+        dd($row);
         $pesanan = ListPesanan::where('orderid',$row['orderid'])->first();
 
         $pesanan->update([
@@ -87,6 +88,21 @@ class ListDealerImport implements ToModel, WithHeadingRow
                 ]);
                 return null;
             }
+
+            ListDelear::updateOrCreate(
+                ['code' => $row['code']],
+                [
+                    'code' => $row['code'],
+                    'district_code',
+                    'namedds' => $row[''],
+                    'provinsi',
+                    'kota',
+                    'kecamatan',
+                    'namedelear',
+                    'code_kota',
+                    'cansell'
+                ]
+            );
 
             // if ($Datauser->dealer == 0) {
             //     $delernm = 'Rekomendasi';
