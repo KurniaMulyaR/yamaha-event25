@@ -34,6 +34,10 @@
     <div class="relative p-6 min-h-[109vh] bg-img-rep bg-cover bg-center bg-black/70"
      style="background-image: url('{{ asset('img/bckground.jpg') }}')">
 
+     <!-- @error('email')
+        <small class="text-danger">{{ $message }}</small>
+    @enderror
+     -->
     <!-- <div class="absolute inset-0 bg-black/70"></div> -->
 
     <div class="mx-auto mt-6 text-center z-20" id="promoleft">
