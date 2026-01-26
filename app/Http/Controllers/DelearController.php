@@ -117,6 +117,7 @@ class DelearController extends Controller
             'file' => 'required|mimes:xlsx,csv'
         ]);
 
+        ListDelear::truncate();
         Excel::import(new ListDealerImport, $request->file('file'));
 
         return back()->with('success', 'Dealer berhasil diimport');
