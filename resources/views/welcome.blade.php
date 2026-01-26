@@ -27,17 +27,10 @@
 @endpush
 
 @section('content')
-<!-- <a href="{{ route('motor', $maxi) }}" class="bg-black">
-    Booking Now
-</a> -->
 <main class="mx-auto items-center">
     <div class="relative p-6 min-h-[109vh] bg-img-rep bg-cover bg-center bg-black/70"
      style="background-image: url('{{ asset('img/bckground.jpg') }}')">
 
-     <!-- @error('email')
-        <small class="text-danger">{{ $message }}</small>
-    @enderror
-     -->
     <!-- <div class="absolute inset-0 bg-black/70"></div> -->
 
     <div class="mx-auto mt-6 text-center z-20" id="promoleft">
@@ -192,6 +185,11 @@
                                 Syarat dan Ketentuan ini tunduk dan ditafsirkan berdasarkan hukum yang berlaku di Republik Indonesia.
                             </p>
                         </div>
+
+                        
+                        <!-- <a href="{{ route('motor', $maxi) }}" class="bg-black">
+                            Booking Now
+                        </a> -->
                     </div>
                 </div>
             </div>
@@ -215,7 +213,7 @@
     const targetDate = new Date(
         new Date().getFullYear(), // tahun sekarang
         0,                        // Januari = 0
-        26,                       // tanggal
+        27,                       // tanggal
         19, 0, 0                  // JAM 19:00:00
     ).getTime();
 
