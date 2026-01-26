@@ -78,7 +78,9 @@ class ListDealerImport implements ToModel, WithHeadingRow
             $varian = Varian::findOrFail($pesanan->varianid);
 
             if (!$produk) {
-                // log & skip baris ini
+                Log::warning('Produk tidak ditemukan', [
+                    'produkid' => $pesanan->produkid
+                ]);
                 return null;
             }
 
