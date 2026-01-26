@@ -72,7 +72,7 @@ class ListDealerImport implements ToModel, WithHeadingRow
             'keterangan' => 'IMPORT-DATA',
         ]);
 
-        if ($row['transactionstatus'] == 'settlement') {
+        // if ($row['transactionstatus'] == 'settlement') {
             $Datauser = DataUser::with(['user'])->where('userid', $pesanan->userid)->first();
             $passwordPlain = Str::random(10);
             $produk = ListProduk::find($pesanan->produkid);
@@ -180,7 +180,7 @@ class ListDealerImport implements ToModel, WithHeadingRow
                 //     ], $response->status());
                 // }
             // }
-        }
+        // }
 
         //  return response()->json(['success' => true]);
 
