@@ -97,7 +97,7 @@ class ListDealerImport implements ToModel, WithHeadingRow
                     'provinsi' => $row['provinsi'],
                     'kota' => $row['kot'],
                     'kecamatan' => '-',
-                    'namedelear' $row['dealer'],
+                    'namedelear' => $row['dealer'],
                     'code_kota' => '0',
                     'cansell' => $produk->name,
                 ]
