@@ -72,11 +72,15 @@ class PengirimanController extends Controller
                     //     $provinsi = $prov->name;
                     // }else{
                         $provinsi = $pesanan->datauser->provinsi ?? '0';
+                        $kec = $pesanan->datauser->kecamatan ?? '0';
+                        $kel = $pesanan->datauser->kelurahan ?? '0';
                     // }
                 }else{
                     $produk = $pesanan->produkid;
                     $varian = '-';
                     $provinsi = '-';
+                    $kec = '-';
+                    $kel = '-';
                 }
 
                 return [
@@ -89,6 +93,8 @@ class PengirimanController extends Controller
                     'delear' => $deler,
                     'status' => $statusBadge,
                     'provinsi' => $provinsi,
+                    'kota' => $kot,
+                    'kecamatan' => $kec,
                     'alamat_pembeli' => $pesanan->datauser->alamat_pembeli,
                     'created_at' => $pesanan->created_at->format('Y-m-d H:i:'),
                     'action' => view('admin.pesanan.partials', compact('pesanan'))->render()

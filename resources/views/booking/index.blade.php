@@ -117,7 +117,7 @@
                       <div class="form-group">
                           <label for="provinsi" class="block text-sm/6 font-medium text-white">Provinsi</label>
                           <div class="mt-2 grid grid-cols-1">
-                            <select id="provinsi" name="provinsi" required autocomplete="provinsi-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <select id="provinsi" name="provinsi" required autocomplete="provinsi-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 js-example-basic-single">
                               <option>Pilih Provinsi</option>
                             </select>
                             <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
@@ -129,7 +129,7 @@
                         <div class="form-group">
                           <label for="kota" class="block text-sm/6 font-medium text-white">Kota / Kabupaten</label>
                           <div class="mt-2 grid grid-cols-1">
-                            <select id="kota" name="kota" autocomplete="kota-name" required class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <select id="kota" name="kota" autocomplete="kota-name" required class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 js-example-basic-single">
                               <option>Pilih Kota</option>
                             </select>
                             <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
@@ -141,7 +141,7 @@
                         <div class="form-group">
                           <label for="kecamatan" class="block text-sm/6 font-medium text-white">Kecamatan</label>
                           <div class="mt-2 grid grid-cols-1">
-                            <select id="kecamatan" name="kecamatan" required autocomplete="kecamatan-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <select id="kecamatan" name="kecamatan" required autocomplete="kecamatan-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 js-example-basic-single">
                               <option>Pilih Kecamatan</option>
                             </select>
                             <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
@@ -153,7 +153,7 @@
                         <div class="form-group">
                           <label for="kelurahan" class="block text-sm/6 font-medium text-white">Kelurahan</label>
                           <div class="mt-2 grid grid-cols-1">
-                            <select id="kelurahan" name="kelurahan" required autocomplete="kelurahan-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <select id="kelurahan" name="kelurahan" required autocomplete="kelurahan-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 js-example-basic-single">
                               <option>Pilih Kelurahan</option>
                             </select>
                             <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true" class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
@@ -213,7 +213,7 @@
                     <div class="form-group mb-4">
                       <label for="dealer" class="block text-sm/6 font-medium text-white">Dealer</label>
                       <div class="mt-2 grid grid-cols-1">
-                        <select id="dealer" name="dealer" required autocomplete="dealer-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                        <select id="dealer" name="dealer" required autocomplete="dealer-name" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 js-example-basic-single">
                           <option>Pilih Dealer</option>
                           <option value="0">Pilihkan Saya Dealer Rekomendasi</option>
                         </select>
@@ -734,6 +734,8 @@ $('#stnk_tanggal_lahir').flatpickr({
     maxDate: maxDate // 🔥 minimal umur 17 tahun
 });
 $(function () {
+
+    $('.js-example-basic-single').select2();
 
     let id = {{ $varian->id }};
     
