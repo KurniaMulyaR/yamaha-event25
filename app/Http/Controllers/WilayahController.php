@@ -87,8 +87,7 @@ class WilayahController extends Controller
                 ->get();
         }else{
             // Ambil semua dealer di kota
-            $del = ListDelear::where('code_kota', $id[0])
-                ->select('code','namedelear','cansell')
+            $del = ListDelear::select('code','namedelear','cansell')
                 ->orderBy('namedelear')
                 ->get();
         }
