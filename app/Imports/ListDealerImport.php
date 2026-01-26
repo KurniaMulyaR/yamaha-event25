@@ -67,14 +67,14 @@ class ListDealerImport implements ToModel, WithHeadingRow
         $pesanan = ListPesanan::where('orderid',$row['orderid'])->first();
 
         $pesanan->update([
-            'delearid' => $pesanan->delearid,
+            'delearid' => $row['code'],
             'status' => 'LUNAS',
             'keterangan' => 'IMPORT-DATA',
         ]);
 
         // if ($row['transactionstatus'] == 'settlement') {
             $Datauser = DataUser::with(['user'])->where('userid', $pesanan->userid)->first();
-            $Datauser->dealer = $pesanan->delearid;
+            $Datauser->dealer = $row['code'];
             $Datauser->save();
 
             $passwordPlain = Str::random(10);
