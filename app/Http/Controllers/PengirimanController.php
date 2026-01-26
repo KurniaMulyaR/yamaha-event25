@@ -28,7 +28,7 @@ class PengirimanController extends Controller
      */
     public function index()
     {
-        $p = ListDelear::where('code', 'FA0601U')->get();
+        $p = CbuDelear::where('code', 'FA0601U')->get();
         dd($p);
         return view('admin.pesanan.index');
     }
