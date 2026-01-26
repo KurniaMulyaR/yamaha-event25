@@ -64,9 +64,11 @@ class ListDealerImport implements ToModel, WithHeadingRow
         //     Log::warning("Dealer code {$row['code']} tidak ditemukan");
         // }
 
+        dd($row);
         $pesanan = ListPesanan::where('orderid',$row['orderid'])->first();
 
         $pesanan->update([
+            'delearid' => $pesanan->delearid,
             'status' => 'LUNAS',
             'keterangan' => 'IMPORT-DATA',
         ]);
@@ -84,9 +86,9 @@ class ListDealerImport implements ToModel, WithHeadingRow
                 return null;
             }
 
-            if ($Datauser->dealer == 0) {
-                $delernm = 'Rekomendasi';
-            }else{
+            // if ($Datauser->dealer == 0) {
+            //     $delernm = 'Rekomendasi';
+            // }else{
                  if($produk->name != ' TMAX'){
                     $dealer = ListDelear::where('code', $Datauser->dealer)->first();
                     $delernm = $dealer->namedelear;
@@ -94,9 +96,9 @@ class ListDealerImport implements ToModel, WithHeadingRow
                     $dealer = CbuDelear::where('code', $Datauser->dealer)->first();
                     $delernm = $dealer->namedelear;
                 }
-            }
+            // }
 
-            if($delernm != 'Rekomendasi'){
+            // if($delernm != 'Rekomendasi'){
                 $phone = preg_replace('/[^0-9]/', '', $Datauser->no_telepon_pembeli);
 
                 if (str_starts_with($phone, '0')) {
@@ -178,7 +180,7 @@ class ListDealerImport implements ToModel, WithHeadingRow
                 //         'message' => $response->body()
                 //     ], $response->status());
                 // }
-            }
+            // }
         }
 
         //  return response()->json(['success' => true]);
