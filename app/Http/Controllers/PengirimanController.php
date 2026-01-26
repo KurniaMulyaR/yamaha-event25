@@ -84,20 +84,20 @@ class PengirimanController extends Controller
                 }
 
                 return [
-                    'id' => $pesanan->datauser->user->id,
-                    'orderid' => $pesanan->orderid,
-                    'name' => $pesanan->datauser->user->name,
-                    'nohp' => $pesanan->datauser->no_telepon_pembeli,
-                    'produk' => $produk,
+                    // 'id' => $pesanan->datauser->user->id,
+                    // 'orderid' => $pesanan->orderid,
+                    // 'name' => $pesanan->datauser->user->name,
+                    // 'nohp' => $pesanan->datauser->no_telepon_pembeli,
+                    // 'produk' => $produk,
                     'varian' => $varian,
-                    'delear' => $deler,
-                    'status' => $statusBadge,
-                    'provinsi' => $provinsi,
-                    'kota' => $kot,
-                    'kecamatan' => $kec,
-                    'alamat_pembeli' => $pesanan->datauser->alamat_pembeli,
-                    'created_at' => $pesanan->created_at->format('Y-m-d H:i:'),
-                    'action' => view('admin.pesanan.partials', compact('pesanan'))->render()
+                    // 'delear' => $deler,
+                    // 'status' => $statusBadge,
+                    // 'provinsi' => $provinsi,
+                    // 'kota' => $kot,
+                    // 'kecamatan' => $kec,
+                    // 'alamat_pembeli' => $pesanan->datauser->alamat_pembeli,
+                    // 'created_at' => $pesanan->created_at->format('Y-m-d H:i:'),
+                    // 'action' => view('admin.pesanan.partials', compact('pesanan'))->render()
                 ];
             });
 
