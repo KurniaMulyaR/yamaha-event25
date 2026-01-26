@@ -844,10 +844,7 @@ $(function () {
         $('#dealer').html('<option value="">Pilih Dealer</option>');
         
         $('#dealer').append(
-            `<option value="0">Pilihkan Saya Dealer Rekomendasi</option>`
-            `<option value="01">SUMBER MAS MOTOR PASAR MINGGU</option>`
-            `<option value="02">DIRGANTARA SAMANHUDI</option>`
-        );
+            `<option value="0">Pilihkan Saya Dealer Rekomendasi</option><option value="01">SUMBER MAS MOTOR PASAR MINGGU</option><option value="02">DIRGANTARA SAMANHUDI</option>`);        
         data.forEach(item => {
             $('#dealer').append(
                 `<option value="${item.code}">${item.namedelear}</option>`
