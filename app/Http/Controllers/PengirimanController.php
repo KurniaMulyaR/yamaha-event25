@@ -28,8 +28,6 @@ class PengirimanController extends Controller
      */
     public function index()
     {
-        $li = ListPesanan::where(''); 
-        echo $li;
         return view('admin.pesanan.index');
     }
 
