@@ -23,7 +23,7 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
 
             PesananNotifikasi::where('status', 'pending')
-                ->limit(50)
+                ->limit(30)
                 ->get()
                 ->each(function ($notif) {
                     SendScheduledNotificationJob::dispatch($notif);
