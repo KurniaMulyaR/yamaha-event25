@@ -74,8 +74,8 @@ class ListDealerImport implements ToModel, WithHeadingRow
         if ($row['transactionstatus'] == 'settlement') {
             $Datauser = DataUser::with(['user'])->where('userid', $pesanan->userid)->first();
             $passwordPlain = Str::random(10);
-            $produk = ListProduk::findOrFail($pesanan->produkid);
-            $varian = Varian::findOrFail($pesanan->varianid);
+            $produk = ListProduk::find($pesanan->produkid);
+            $varian = Varian::find($pesanan->varianid);
 
             if (!$produk) {
                 Log::warning('Produk tidak ditemukan', [
