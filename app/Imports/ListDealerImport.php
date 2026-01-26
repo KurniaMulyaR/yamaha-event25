@@ -139,10 +139,10 @@ class ListDealerImport implements ToModel, WithHeadingRow
                     'email' => $user->email,
                 ];
 
-                SendInfobipWhatsAppJob::dispatch($postData)
-                    ->delay(now()->addMinutes(2));
-                Mail::to($user->email)
-                    ->later(now()->addMinutes(2), new TestMail($data));
+                // SendInfobipWhatsAppJob::dispatch($postData)
+                //     ->delay(now()->addMinutes(2));
+                // Mail::to($user->email)
+                //     ->later(now()->addMinutes(2), new TestMail($data));
 
                 Notifikasi::create([
                     'userid' => $Datauser->userid,
