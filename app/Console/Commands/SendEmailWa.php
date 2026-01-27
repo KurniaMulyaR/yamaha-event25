@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-use App\Models\PesananNotifikasi;
+use App\Models\Notifikasi;
 
 class SendEmailWa extends Command
 {
@@ -39,8 +39,8 @@ class SendEmailWa extends Command
      */
     public function handle()
     {
-        $notif = PesananNotifikasi::where('status', 'pending')
-                ->limit(30)
+        $notif = Notifikasi::where('status', 'pending')
+                ->limit(1)
                 ->get();
         foreach($notif as $not){
             Http::withHeaders([
