@@ -68,6 +68,8 @@ class SendEmailWa extends Command
                 );
             }
 
+            Log::info($post_data);
+
             /* =========================
              * SEND EMAIL
              * ========================= */
