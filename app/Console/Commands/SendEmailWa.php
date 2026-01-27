@@ -6,6 +6,8 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use App\Models\Notifikasi;
 use Carbon\Carbon;
+use App\Mail\TestMail;
+use Illuminate\Support\Facades\Mail;
 
 class SendEmailWa extends Command
 {
