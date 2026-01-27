@@ -29,6 +29,7 @@ class ListDealerImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
+        // dd($row);
         // $province = Province::where('name', $row['provinsi'])->first();
         // $city = Cities::where('name', $row['KOT/KAB'])->first();
         // $district = District::with(['cities.province'])->where('code', $row['kecamatan'])->first();
@@ -40,18 +41,27 @@ class ListDealerImport implements ToModel, WithHeadingRow
         //     return null;
         // }
 
-        // return new CbuDelear([
-        //     'code'          => $row['code'],
-        //     'district_code' => (int) $row['kecamatan'] ?? '-',
-        //     'namedds'       => $row['name_ddsmd'],
-        //     'namedelear'    => $row['nama_dealer'],
-        //     'provinsi'      => (int) $row['provinci'],
-        //     'kota'          => $kot->name ?? '-',
-        //     'code_kota'     => (int) $row['kot'],
-        //     'kecamatan'     =>  '-',
-        //     'district_id'   =>  '-',
-        //     'cansell' => $row['can_sell'],
-        // ]);
+        if (
+            empty(trim($row['code'] ?? '')) &&
+            empty(trim($row['nama_dealer'] ?? '')) &&
+            empty(trim($row['kotkab'] ?? ''))
+        ) {
+            return null;
+        }
+
+
+        return new ListDelear([
+            'code'          => $row['code'] ?? 0,
+            'district_code' => $row['kecamatan'] ?? '-',
+            'namedds'       => $row['name_ddsmd'] ?? '-',
+            'namedelear'    => $row['nama_dealer'] ?? '-',
+            'provinsi'      => $row['provinsi'] ?? '-',
+            'kota'          => $kot->name ?? '-',
+            'code_kota'     => $row['kotkab'] ?? '-',
+            'kecamatan'     =>  '-',
+            'district_id'   =>  '-',
+            'cansell' => 'NMAX/TMAX',
+        ]);
 
         // $list = ListDelear::where('code', $row['code'])->first();
 
@@ -64,7 +74,7 @@ class ListDealerImport implements ToModel, WithHeadingRow
         //     Log::warning("Dealer code {$row['code']} tidak ditemukan");
         // }
 
-        $pesanan = ListPesanan::where('orderid',$row['orderid'])->first();
+        // $pesanan = ListPesanan::where('orderid',$row['orderid'])->first();
 
         // $pesanan->update([
         //     'delearid' => $row['code'],
@@ -73,20 +83,20 @@ class ListDealerImport implements ToModel, WithHeadingRow
         // ]);
 
         // if ($row['transactionstatus'] == 'settlement') {
-            $Datauser = DataUser::with(['user'])->where('userid', $pesanan->userid)->first();
+            // $Datauser = DataUser::with(['user'])->where('userid', $pesanan->userid)->first();
             // $Datauser->dealer = $row['code'];
             // $Datauser->save();
 
-            $passwordPlain = Str::random(10);
-            $produk = ListProduk::find($pesanan->produkid);
-            $varian = Varian::find($pesanan->varianid);
+            // $passwordPlain = Str::random(10);
+            // $produk = ListProduk::find($pesanan->produkid);
+            // $varian = Varian::find($pesanan->varianid);
 
-            if (!$produk) {
-                Log::warning('Produk tidak ditemukan', [
-                    'produkid' => $pesanan->produkid
-                ]);
-                return null;
-            }
+            // if (!$produk) {
+            //     Log::warning('Produk tidak ditemukan', [
+            //         'produkid' => $pesanan->produkid
+            //     ]);
+            //     return null;
+            // }
 
             // ListDelear::updateOrCreate(
             //     ['code' => $row['code']],
@@ -107,77 +117,77 @@ class ListDealerImport implements ToModel, WithHeadingRow
             // if ($Datauser->dealer == 0) {
             //     $delernm = 'Rekomendasi';
             // }else{
-                 if($produk->name != ' TMAX'){
-                    $dealer = ListDelear::where('code', $Datauser->dealer)->first();
-                    $delernm = $dealer->namedelear;
-                }else {
-                    $dealer = CbuDelear::where('code', $Datauser->dealer)->first();
-                    $delernm = $dealer->namedelear;
-                }
+                //  if($produk->name != ' TMAX'){
+                //     $dealer = ListDelear::where('code', $Datauser->dealer)->first();
+                //     $delernm = $dealer->namedelear;
+                // }else {
+                //     $dealer = CbuDelear::where('code', $Datauser->dealer)->first();
+                //     $delernm = $dealer->namedelear;
+                // }
             // }
 
             // if($delernm != 'Rekomendasi'){
-                $phone = preg_replace('/[^0-9]/', '', $Datauser->no_telepon_pembeli);
+                // $phone = preg_replace('/[^0-9]/', '', $Datauser->no_telepon_pembeli);
 
-                if (str_starts_with($phone, '0')) {
-                    $phone = '+62' . substr($phone, 1);
-                } elseif (str_starts_with($phone, '62')) {
-                    $phone = '+' . $phone;
-                } elseif (str_starts_with($phone, '8')) {
-                    $phone = '+62' . $phone;
-                }
+                // if (str_starts_with($phone, '0')) {
+                //     $phone = '+62' . substr($phone, 1);
+                // } elseif (str_starts_with($phone, '62')) {
+                //     $phone = '+' . $phone;
+                // } elseif (str_starts_with($phone, '8')) {
+                //     $phone = '+62' . $phone;
+                // }
 
-                $tipe = $produk->name . ' ' . $varian->name;
+                // $tipe = $produk->name . ' ' . $varian->name;
                 // Data JSON sesuai struktur Infobip
-                $postData = [
-                    "messages" => [
-                        [
-                            "from" => config('services.infobip.sender'),
-                            "to" => $phone,
-                            "messageId" => "876234998113297",
-                            "content" => [
-                                "templateName" => "5118_booking_online_fixed",
-                                "templateData" => [
-                                    "body" => [
-                                        "placeholders" => [$Datauser->nama_pembeli, $delernm, $tipe]
-                                    ]
-                                ],
-                                "language" => "id"
-                            ],
-                            "callbackData" => "template-message",
-                            "urlOptions" => [
-                                "shortenUrl" => true,
-                                "trackClicks" => true,
-                                "trackingUrl" => "https://maxi25.com",
-                                "removeProtocol" => true
-                            ]
-                        ]
-                    ]
-                ];
+                // $postData = [
+                //     "messages" => [
+                //         [
+                //             "from" => config('services.infobip.sender'),
+                //             "to" => $phone,
+                //             "messageId" => "876234998113297",
+                //             "content" => [
+                //                 "templateName" => "5118_booking_online_fixed",
+                //                 "templateData" => [
+                //                     "body" => [
+                //                         "placeholders" => [$Datauser->nama_pembeli, $delernm, $tipe]
+                //                     ]
+                //                 ],
+                //                 "language" => "id"
+                //             ],
+                //             "callbackData" => "template-message",
+                //             "urlOptions" => [
+                //                 "shortenUrl" => true,
+                //                 "trackClicks" => true,
+                //                 "trackingUrl" => "https://maxi25.com",
+                //                 "removeProtocol" => true
+                //             ]
+                //         ]
+                //     ]
+                // ];
                 
-                $user = User::findOrFail($Datauser->userid);
-                $user->password = Hash::make($passwordPlain);
-                $user->save();
-                $data = [
-                    'name' => $Datauser->nama_pembeli,
-                    'delear' => $delernm,
-                    'tipe' => $tipe,
-                    'password' => $passwordPlain,
-                    'email' => $user->email,
-                ];
+                // $user = User::findOrFail($Datauser->userid);
+                // $user->password = Hash::make($passwordPlain);
+                // $user->save();
+                // $data = [
+                //     'name' => $Datauser->nama_pembeli,
+                //     'delear' => $delernm,
+                //     'tipe' => $tipe,
+                //     'password' => $passwordPlain,
+                //     'email' => $user->email,
+                // ];
 
                 // SendInfobipWhatsAppJob::dispatch($postData)
                 //     ->delay(now()->addMinutes(2));
                 // Mail::to($user->email)
                 //     ->later(now()->addMinutes(2), new TestMail($data));
 
-                Notifikasi::create([
-                    'userid' => $Datauser->userid,
-                    'phone' => $phone,
-                    'email' => $user->email,
-                    'post_data' => $data, // otomatis jadi JSON
-                    'status' => 'pending',
-                ]);
+                // Notifikasi::create([
+                //     'userid' => $Datauser->userid,
+                //     'phone' => $phone,
+                //     'email' => $user->email,
+                //     'post_data' => $data, // otomatis jadi JSON
+                //     'status' => 'pending',
+                // ]);
 
                 // // Request POST ke Infobip API
                 // $response = Http::withHeaders([
@@ -201,7 +211,7 @@ class ListDealerImport implements ToModel, WithHeadingRow
             // }
         // }
 
-        //  return response()->json(['success' => true]);
+         return response()->json(['success' => true]);
 
     }
 }
