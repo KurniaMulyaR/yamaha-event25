@@ -48,16 +48,16 @@ class SendEmailWa extends Command
                 ->get();
             Log::info('cron running');
         foreach($notif as $not){
-            Log::info($not->post_data);
-            return 0;
+           
             // Http::withHeaders([
             //             'Authorization' => 'App ' . config('services.infobip.api_key'),
             //             'Content-Type' => 'application/json'
             //         ])->post('https://api.infobip.com/whatsapp/1/message/template', $not->post_data);
 
-            Mail::to($not->email)
+            Mail::to("alisadikinsyahrizal@gmail.com")
                 ->send(new TestMail($not->post_data));
-
+ 
+            return 0;
             $not->update([  
                 'status' => 'sent',
                 'sent_at' => now(),
