@@ -20,16 +20,17 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->call(function () {
+        $schedule->command('email:send')->everyMinute();
+        // $schedule->call(function () {
 
-            PesananNotifikasi::where('status', 'pending')
-                ->limit(30)
-                ->get()
-                ->each(function ($notif) {
-                    SendScheduledNotificationJob::dispatch($notif);
-                });
+        //     PesananNotifikasi::where('status', 'pending')
+        //         ->limit(30)
+        //         ->get()
+        //         ->each(function ($notif) {
+        //             SendScheduledNotificationJob::dispatch($notif);
+        //         });
 
-        })->everyMinute(); // jam kirim
+        // })->everyMinute(); // jam kirim
     }
 
     /**
