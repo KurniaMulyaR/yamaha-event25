@@ -123,7 +123,7 @@
                     </div>
 
                     <div class="h-2 bg-white/20 rounded overflow-hidden mt-1">
-                        <span x-show="activeVarian && activeVarian.jmlunit = 87">
+                        <span x-show="activeVarian && activeVarian.jmlunit === 87">
                                 <div
                             class="h-full bg-red-600 transition-all duration-500"
                             style="width:92%"
