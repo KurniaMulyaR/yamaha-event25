@@ -114,7 +114,7 @@ class ListDealerImport implements ToModel, WithHeadingRow
             // );
 
             
-            if ($Datauser->dealer == 0) {
+            if ($Datauser->dealer == 0 && $Datauser->dealer == 01) {
                 $delernm = 'Rekomendasi';
             }else{
                  if($produk->name != ' TMAX'){
