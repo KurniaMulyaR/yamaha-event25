@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use App\Models\Notifikasi;
+use Carbon\Carbon;
 
 class SendEmailWa extends Command
 {
@@ -47,6 +48,10 @@ class SendEmailWa extends Command
                         'Authorization' => 'App ' . config('services.infobip.api_key'),
                         'Content-Type' => 'application/json'
                     ])->post('https://api.infobip.com/whatsapp/1/message/template', $not->post_data);
+
+                    $notif->sent_at = Carbon::now();
+                    $notif->status = 'sent';
+                    $notif->save();
         }
     }
 }
