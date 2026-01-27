@@ -66,16 +66,16 @@ class ListDealerImport implements ToModel, WithHeadingRow
 
         $pesanan = ListPesanan::where('orderid',$row['orderid'])->first();
 
-        $pesanan->update([
-            'delearid' => $row['code'],
-            'status' => 'LUNAS',
-            'keterangan' => 'IMPORT-DATA',
-        ]);
+        // $pesanan->update([
+        //     'delearid' => $row['code'],
+        //     'status' => 'LUNAS',
+        //     'keterangan' => 'IMPORT-DATA',
+        // ]);
 
         // if ($row['transactionstatus'] == 'settlement') {
             $Datauser = DataUser::with(['user'])->where('userid', $pesanan->userid)->first();
-            $Datauser->dealer = $row['code'];
-            $Datauser->save();
+            // $Datauser->dealer = $row['code'];
+            // $Datauser->save();
 
             $passwordPlain = Str::random(10);
             $produk = ListProduk::find($pesanan->produkid);
@@ -88,21 +88,22 @@ class ListDealerImport implements ToModel, WithHeadingRow
                 return null;
             }
 
-            ListDelear::updateOrCreate(
-                ['code' => $row['code']],
-                [
-                    'code' => $row['code'],
-                    'district_code' => '0',
-                    'namedds' => $row['ddsmd'],
-                    'provinsi' => $row['provinsi'],
-                    'kota' => $row['kot'],
-                    'kecamatan' => '-',
-                    'namedelear' => $row['dealer'],
-                    'code_kota' => '0',
-                    'cansell' => $produk->name,
-                ]
-            );
+            // ListDelear::updateOrCreate(
+            //     ['code' => $row['code']],
+            //     [
+            //         'code' => $row['code'],
+            //         'district_code' => '0',
+            //         'namedds' => $row['ddsmd'],
+            //         'provinsi' => $row['provinsi'],
+            //         'kota' => $row['kot'],
+            //         'kecamatan' => '-',
+            //         'namedelear' => $row['dealer'],
+            //         'code_kota' => '0',
+            //         'cansell' => $produk->name,
+            //     ]
+            // );
 
+            
             // if ($Datauser->dealer == 0) {
             //     $delernm = 'Rekomendasi';
             // }else{
@@ -174,7 +175,7 @@ class ListDealerImport implements ToModel, WithHeadingRow
                     'userid' => $Datauser->userid,
                     'phone' => $phone,
                     'email' => $user->email,
-                    'post_data' => $postData, // otomatis jadi JSON
+                    'post_data' => $data, // otomatis jadi JSON
                     'status' => 'pending',
                 ]);
 
