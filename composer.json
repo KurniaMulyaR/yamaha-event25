@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "doctrine/dbal": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
@@ -13,7 +14,8 @@
         "laravel/tinker": "^2.5",
         "laravolt/indonesia": "0.38",
         "maatwebsite/excel": "^3.1",
-        "midtrans/midtrans-php": "^2.6"
+        "midtrans/midtrans-php": "^2.6",
+        "rap2hpoutre/laravel-log-viewer": "2.2.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

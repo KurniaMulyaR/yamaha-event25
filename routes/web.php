@@ -40,6 +40,9 @@ Route::get('/ajax/kecamatan/{kota}', [WilayahController::class, 'kecamatan']);
 Route::get('/ajax/kelurahan/{kecamatan}', [WilayahController::class, 'kelurahan']);
 Route::get('/ajax/dealer', [WilayahController::class, 'dealer']);
 
+//log-viewers
+Route::get('log-viewers', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+
 Route::middleware(['auth','role:user'])->group(function () {
     Route::resource('profile', ProfileController::class);
 });
