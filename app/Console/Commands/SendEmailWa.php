@@ -46,6 +46,7 @@ class SendEmailWa extends Command
         $notif = Notifikasi::where('status', 'pending')
                 ->limit(1)
                 ->get();
+            Log::info('cron running');
         foreach($notif as $not){
             // Http::withHeaders([
             //             'Authorization' => 'App ' . config('services.infobip.api_key'),
@@ -60,7 +61,6 @@ class SendEmailWa extends Command
                 'sent_at' => now(),
             ]);
 
-            Log::info('cron running');
         }
     }
 }
