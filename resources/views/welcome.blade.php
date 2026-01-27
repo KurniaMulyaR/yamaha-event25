@@ -27,9 +27,9 @@
 @endpush
 
 @section('content')
-<a href="{{ route('motor', $maxi) }}" class="bg-black">
+<!-- <a href="{{ route('motor', $maxi) }}" class="bg-black">
     Booking Now
-</a>
+</a> -->
 <main class="mx-auto items-center">
     <div class="relative p-6 min-h-[109vh] bg-img-rep bg-cover bg-center bg-black/70"
      style="background-image: url('{{ asset('img/bckground.jpg') }}')">
@@ -192,12 +192,15 @@
                 </div>
             </div>
         </div>
-        <!-- <a href="{{ route('motor', $maxi) }}" class="text-2xl mt-3 bg-blue-900 hover:bg-blue-700 transition text-white font-bold px-10 py-3 rounded-lg text-lg shadow-lg">
-            Booking Now
-        </a> -->
-        <a href="#" class="text-2xl mt-3 bg-blue-900 hover:bg-blue-700 transition text-white font-bold px-10 py-3 rounded-lg text-lg shadow-lg">
+        <!-- @if($tombol->status == '1') -->
+        <a href="{{ route('motor', $maxi) }}" class="text-2xl mt-3 bg-blue-900 hover:bg-blue-700 transition text-white font-bold px-10 py-3 rounded-lg text-lg shadow-lg">
             Booking Now
         </a>
+        <!-- @else -->
+        <!-- <a href="#" class="text-2xl mt-3 bg-blue-900 hover:bg-blue-700 transition text-white font-bold px-10 py-3 rounded-lg text-lg shadow-lg">
+            Booking Now
+        </a>
+        @endif -->
     </div>
 </div>
 </main>
