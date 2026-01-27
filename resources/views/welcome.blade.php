@@ -31,10 +31,26 @@
     <div class="relative p-6 min-h-[109vh] bg-img-rep bg-cover bg-center bg-black/70"
      style="background-image: url('{{ asset('img/bckground.jpg') }}')">
 
-    <div class="absolute inset-0 bg-black/70 mx-auto mt-8" style="width: 90rem; height: 45rem">
-        <h1 class="text-white text-[54px] mx-auto text-center mt-[20rem]">Order Online Max Special Livery Sudah Resmi Kami Tutup.</h1>
-        <h1 class="text-white text-[42px] mx-auto text-center">Kami Ucapkan Terima Kasih Kepada Konsumen Yang Telah Berpartisi.</h1>
+    <div class="absolute inset-0 bg-black/70 flex items-center justify-center px-4">
+    <div class="text-center max-w-4xl">
+        <h1 class="text-white font-bold
+                   text-2xl
+                   sm:text-3xl
+                   md:text-4xl
+                   lg:text-[48px]">
+            Order Online Max Special Livery Sudah Resmi Kami Tutup.
+        </h1>
+
+        <h2 class="text-white mt-4
+                   text-base
+                   sm:text-lg
+                   md:text-2xl
+                   lg:text-[38px]">
+            Kami Ucapkan Terima Kasih Kepada Konsumen Yang Telah Berpartisipasi.
+        </h2>
     </div>
+</div>
+
 
     <div class="mx-auto mt-6 text-center z-20" id="promoleft">
         <!-- Logo -->
