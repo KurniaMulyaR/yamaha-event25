@@ -119,7 +119,7 @@ class ListDealerImport implements ToModel, WithHeadingRow
             }else{
                  if($produk->name != ' TMAX'){
                     $dealer = ListDelear::where('code', $Datauser->dealer)->first();
-                    $delernm = $dealer->namedelear;
+                    $delernm = $dealer->namedelear ?? 'Rekomendasi';
                 }else {
                     $dealer = CbuDelear::where('code', $Datauser->dealer)->first();
                     $delernm = $dealer->namedelear;
