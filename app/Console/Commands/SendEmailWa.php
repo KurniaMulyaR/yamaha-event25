@@ -48,6 +48,8 @@ class SendEmailWa extends Command
                 ->get();
             Log::info('cron running');
         foreach($notif as $not){
+            Log::info($not->post_data);
+            return 0;
             // Http::withHeaders([
             //             'Authorization' => 'App ' . config('services.infobip.api_key'),
             //             'Content-Type' => 'application/json'
