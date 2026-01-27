@@ -20,7 +20,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('email:send')->everyMinute();
+        //$schedule->command('email:send')->everyMinute();
         // $schedule->call(function () {
 
         //     PesananNotifikasi::where('status', 'pending')
