@@ -49,9 +49,15 @@ class SendEmailWa extends Command
                         'Content-Type' => 'application/json'
                     ])->post('https://api.infobip.com/whatsapp/1/message/template', $not->post_data);
 
-                    $notif->sent_at = Carbon::now();
-                    $notif->status = 'sent';
-                    $notif->save();
+            Mail::to($this->notif->email)
+                ->send(new TestMail(json_decode($this->notif->post_data, true)));
+
+            $this->notif->update([
+                'status' => 'sent',
+                'sent_at' => now(),
+            ]);
+
+            Log::info('cron running');
         }
     }
 }
