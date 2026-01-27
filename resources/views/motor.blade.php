@@ -123,10 +123,10 @@
                     </div>
 
                     <div class="h-2 bg-white/20 rounded overflow-hidden mt-1">
-                        <span x-show="activeVarian && activeVarian.jmlunit > 0">
+                        <span x-show="activeVarian && activeVarian.jmlunit = 87">
                                 <div
                             class="h-full bg-red-600 transition-all duration-500"
-                            :style="`width:${stockPercent}%`"
+                            style="width:92%"
                         ></div>
                             </span>
 

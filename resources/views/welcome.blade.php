@@ -27,6 +27,9 @@
 @endpush
 
 @section('content')
+<a href="{{ route('motor', $maxi) }}" class="bg-black">
+    Booking Now
+</a>
 <main class="mx-auto items-center">
     <div class="relative p-6 min-h-[109vh] bg-img-rep bg-cover bg-center bg-black/70"
      style="background-image: url('{{ asset('img/bckground.jpg') }}')">
@@ -185,11 +188,6 @@
                                 Syarat dan Ketentuan ini tunduk dan ditafsirkan berdasarkan hukum yang berlaku di Republik Indonesia.
                             </p>
                         </div>
-
-                        
-                        <!-- <a href="{{ route('motor', $maxi) }}" class="bg-black">
-                            Booking Now
-                        </a> -->
                     </div>
                 </div>
             </div>

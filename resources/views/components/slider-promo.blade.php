@@ -2,7 +2,7 @@
     x-data="{
         current: 0,
         slides: [
-            { title: 'Order Online Selanjutnya Mulai', value: '26 Januari', subtitle: 'Mulai Pukul 19.00 WIB' },
+            { title: 'Order Online Selanjutnya Mulai', value: '27 Januari', subtitle: 'Mulai Pukul 19.00 WIB' },
             { title: 'Waktu pembelian hanya', value: '25 MENIT', subtitle: 'Mulai Pukul 19.00 WIB' },
         ]
     }"
