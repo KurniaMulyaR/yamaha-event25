@@ -53,35 +53,50 @@
             <h2 class="text-lg font-bold mb-4" id="modalTitle"></h2>
 
             <form id="userForm">
-                @csrf
-                <input type="hidden" id="user_id">
+                    @csrf
+                    <input type="hidden" id="user_id" name="user_id">
 
-                <div class="mb-4">
-                    <label class="text-sm font-semibold">Name</label>
-                    <input type="text" id="name" class="w-full border rounded px-3 py-2">
-                </div>
+                    <div class="mb-4">
+                        <label class="text-sm font-semibold">Name</label>
+                        <input type="text" id="name" name="name"
+                            class="w-full border rounded px-3 py-2">
+                    </div>
 
-                <div class="mb-4">
-                    <label class="text-sm font-semibold">Email</label>
-                    <input type="email" id="email" class="w-full border rounded px-3 py-2">
-                </div>
+                    <div class="mb-4">
+                        <label class="text-sm font-semibold">Email</label>
+                        <input type="email" id="email" name="email"
+                            class="w-full border rounded px-3 py-2">
+                    </div>
 
-                <div class="mb-4">
-                    <label class="text-sm font-semibold">Role</label>
-                    <select name="role">
-                        <option value="admin">Admin</option>
-                        <option value="user">User</option>
-                    </select>
-                </div>
+                    <div class="mb-4">
+                        <label class="text-sm font-semibold">
+                            Password <span class="text-xs text-gray-500">(kosongkan jika tidak diubah)</span>
+                        </label>
+                        <input type="password" id="password" name="password"
+                            class="w-full border rounded px-3 py-2">
+                    </div>
 
-                <div class="flex justify-end gap-2">
-                    <button type="button" id="closeModal"
-                        class="px-4 py-2 bg-gray-400 rounded text-white">Cancel</button>
+                    <div class="mb-4">
+                        <label class="text-sm font-semibold">Role</label>
+                        <select id="role" name="role"
+                            class="w-full border rounded px-3 py-2">
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                    </div>
 
-                    <button type="submit"
-                        class="px-4 py-2 bg-blue-600 rounded text-white">Save</button>
-                </div>
-            </form>
+                    <div class="flex justify-end gap-2">
+                        <button type="button" id="closeModal"
+                            class="px-4 py-2 bg-gray-400 rounded text-white">
+                            Cancel
+                        </button>
+
+                        <button type="submit"
+                            class="px-4 py-2 bg-blue-600 rounded text-white">
+                            Save
+                        </button>
+                    </div>
+                </form>
         </div>
     </div>
 
