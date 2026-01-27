@@ -8,7 +8,8 @@ use App\Models\Notifikasi;
 use Carbon\Carbon;
 use App\Mail\TestMail;
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Support\Facades\Log;
+use Throwable;
 class SendEmailWa extends Command
 {
     /**
@@ -42,24 +43,67 @@ class SendEmailWa extends Command
      */
     public function handle()
     {
-        $notif = Notifikasi::where('status', 'pending')
-                ->limit(1)
-                ->get();
-        foreach($notif as $not){
-            Http::withHeaders([
-                        'Authorization' => 'App ' . config('services.infobip.api_key'),
-                        'Content-Type' => 'application/json'
-                    ])->post('https://api.infobip.com/whatsapp/1/message/template', $not->post_data);
+        $notifs = Notifikasi::where('status', 'pending')
+        ->limit(1)
+        ->get();
 
-            Mail::to($this->notif->email)
-                ->send(new TestMail(json_decode($this->notif->post_data, true)));
+    foreach ($notifs as $not) {
+        try {
+            /* =========================
+             * SEND WHATSAPP
+             * ========================= */
+            $waResponse = Http::withHeaders([
+                    'Authorization' => 'App ' . config('services.infobip.api_key'),
+                    'Content-Type'  => 'application/json',
+                ])
+                ->timeout(15)
+                ->post(
+                    'https://api.infobip.com/whatsapp/1/message/template',
+                    json_decode($not->post_data, true)
+                );
 
-            $this->notif->update([
-                'status' => 'sent',
-                'sent_at' => now(),
+            if (! $waResponse->successful()) {
+                throw new \Exception(
+                    'WA failed: ' . $waResponse->status() . ' - ' . $waResponse->body()
+                );
+            }
+
+            /* =========================
+             * SEND EMAIL
+             * ========================= */
+            if (!empty($not->email)) {
+                Mail::to($not->email)
+                    ->send(new TestMail(json_decode($not->post_data, true)));
+            }
+
+            /* =========================
+             * UPDATE STATUS
+             * ========================= */
+            $not->update([
+                'status'  => 'sent',
+                'sent_at'=> now(),
             ]);
 
-            Log::info('cron running');
+            Log::info('Notifikasi sent', [
+                'notif_id' => $not->id,
+            ]);
+
+        } catch (Throwable $e) {
+
+            /* =========================
+             * HANDLE ERROR
+             * ========================= */
+            Log::error('Gagal kirim notifikasi', [
+                'notif_id' => $not->id,
+                'error'    => $e->getMessage(),
+            ]);
+
+            $not->update([
+                'status' => 'failed',
+            ]);
         }
+    }
+
+    return Command::SUCCESS;
     }
 }
