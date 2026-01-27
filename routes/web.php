@@ -43,6 +43,7 @@ Route::get('/ajax/dealer', [WilayahController::class, 'dealer']);
 //log-viewers
 Route::get('log-viewers', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
+
 Route::middleware(['auth','role:user'])->group(function () {
     Route::resource('profile', ProfileController::class);
 });
@@ -57,8 +58,12 @@ Route::prefix('admin')
     ->group(function () {
 
         Route::get('/dashboard', function () {
-            return view('admin.dashboard');
+            $tombol = \App\Models\Tombol::find(1);
+            return view('admin.dashboard', compact('tombol'));
         })->name('dashboard');
+
+        Route::post('/tombol/{id}', [UserController::class, 'toggleStatus'])
+                ->name('tombol');
 
         Route::resource('user', UserController::class);
         Route::get('/reportusers', [UserController::class, 'getUser'])->name('getUser');

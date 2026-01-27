@@ -891,6 +891,12 @@ input:where([type='file']):focus {
 .mt-8 {
   margin-top: 2rem;
 }
+.mt-5 {
+  margin-top: 1.25rem;
+}
+.mt-\[20rem\] {
+  margin-top: 20rem;
+}
 .block {
   display: block;
 }
@@ -1209,6 +1215,9 @@ input:where([type='file']):focus {
 }
 .scroll-smooth {
   scroll-behavior: smooth;
+}
+.break-all {
+  word-break: break-all;
 }
 .rounded {
   border-radius: 0.25rem;
@@ -1604,6 +1613,9 @@ input:where([type='file']):focus {
 .text-center {
   text-align: center;
 }
+.text-right {
+  text-align: right;
+}
 .font-sans {
   font-family: Nunito, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
@@ -1650,6 +1662,26 @@ input:where([type='file']):focus {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+.text-9xl {
+  font-size: 8rem;
+  line-height: 1;
+}
+.text-\[10rem\] {
+  font-size: 10rem;
+}
+.text-\[64px\] {
+  font-size: 64px;
+}
+.text-\[54px\] {
+  font-size: 54px;
+}
+.text-\[42px\] {
+  font-size: 42px;
 }
 .font-bold {
   font-weight: 700;

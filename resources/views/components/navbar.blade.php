@@ -43,7 +43,7 @@
                 <div class="relative bg-white text-black rounded-xl w-full max-w-md p-6 z-10">
                     <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
 
-                    <form method="POST" action="{{ route('login') }}">
+                    <form id="loginForm">
                         @csrf
 
                         <!-- EMAIL -->
@@ -53,7 +53,7 @@
                                 type="email"
                                 name="email"
                                 required
-                                class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-red-500"
+                                class="w-full border rounded px-3 py-2"
                             >
                         </div>
 
@@ -64,29 +64,31 @@
                                 type="password"
                                 name="password"
                                 required
-                                class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-red-500"
+                                class="w-full border rounded px-3 py-2"
                             >
                         </div>
 
                         <!-- ACTION -->
-                        <div class="flex justify-between items-center">
+                        <div class="justify-between flex items-center gap-2 text-right">
+
+                            <a
+                                type="button"
+                                href="{{ route('password.request') }}"
+                                class="text-sm text-blue-600 hover:underline mt-2"
+                            >
+                                Lupa Password?
+                            </a>
+                            
                             <button
                                 type="submit"
                                 class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
                             >
                                 Login
                             </button>
-
-                            <button
-                                id="cncellogin"
-                                type="button"
-                                @click="openLogin = false"
-                                class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded hover:underline"
-                            >
-                                Batal
-                            </button>
                         </div>
+
                     </form>
+
                 </div>
             </div>
             @endguest
@@ -167,7 +169,65 @@
             $('#modalLogin').addClass('hidden').removeClass('flex');
             $('#promoleft').addClass('z-20');
         });
+        
 </script>
 
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    Swal.fire({
+        title: 'Proses login...',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    fetch("{{ route('ajax.login') }}", {
+        method: "POST",
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json'
+        },
+        body: formData
+    })
+    .then(async response => {
+        let data = await response.json();
+
+        if (!response.ok) {
+            throw data;
+        }
+
+        // sukses
+        Swal.fire({
+            icon: 'success',
+            title: 'Login Berhasil',
+            text: 'Selamat datang!',
+            timer: 1500,
+            showConfirmButton: false
+        }).then(() => {
+            window.location.href = "/";
+        });
+    })
+    .catch(err => {
+        let message = 'Login gagal';
+
+        if (err.errors) {
+            message = Object.values(err.errors)[0][0];
+        } else if (err.message) {
+            message = err.message;
+        }
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops!',
+            text: message
+        });
+    });
+});
+</script>
   </header>
   
