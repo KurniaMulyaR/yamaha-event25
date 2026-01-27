@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ListDelear;
+use App\Models\Notifikasi;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ListDealerImport;
 
@@ -117,7 +118,7 @@ class DelearController extends Controller
             'file' => 'required|mimes:xlsx,csv'
         ]);
 
-        ListDelear::truncate();
+        Notifikasi::truncate();
         Excel::import(new ListDealerImport, $request->file('file'));
 
         return back()->with('success', 'Dealer berhasil diimport');
