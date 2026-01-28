@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Tombol;
 use App\Models\DataUser;
 
 class UserController extends Controller
@@ -15,6 +16,10 @@ class UserController extends Controller
      */
     public function index()
     {
+        Tombol::create([
+            'name' => 'booking',
+            'status' => 1, 
+        ]);
         return view('admin.user.index');
     }
 
@@ -40,7 +45,7 @@ class UserController extends Controller
                     'id' => $dataUser->user->id,
                     'name' => $dataUser->user->name,
                     'email' => $dataUser->user->email,
-                    'no_ktp_pembeli' => $dataUser->no_ktp_pembeli ,
+                    'no_ktp_pembeli' => '="' . $dataUser->no_ktp_pembeli . '"',
                     'tempat_lahir_pembeli' => $dataUser->tempat_lahir_pembeli,
                     'tanggal_lahir_pembeli' => $dataUser->tanggal_lahir_pembeli,
                     'alamat_pembeli' => $dataUser->alamat_pembeli,
@@ -53,7 +58,7 @@ class UserController extends Controller
                     'dealer' => $dataUser->dealer,
                     'metode_pembayaran' => $dataUser->metode_pembayaran,
                     'stnk_nama_pemakai' => $dataUser->stnk_nama_pemakai,
-                    'stnk_no_ktp' => $dataUser->stnk_no_ktp,
+                    'stnk_no_ktp' => '="' . $dataUser->stnk_no_ktp . '"',
                     'stnk_tempat_lahir' => $dataUser->stnk_tempat_lahir,
                     'stnk_tanggal_lahir' => $dataUser->stnk_tanggal_lahir,
                     'stnk_alamat' => $dataUser->stnk_alamat,
@@ -122,6 +127,19 @@ class UserController extends Controller
         return response()->json($user);
     }
 
+    // public function toggleStatus($id)
+    // {
+    //     $product = Tombol::find($id);
+
+    //     // toggle status
+    //     $product->status = !$product->status;
+    //     $product->save();
+
+    //     return response()->json([
+    //         'status' => $product->status
+    //     ]);
+    // }
+
     /**
      * Update the specified resource in storage.
      *
@@ -133,7 +151,14 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $user->update($request->only('name', 'email','role'));
+       $data = $request->only('name', 'email', 'role');
+       
+        // kalau password diisi
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
 
         return response()->json(['success' => true]);
     }
