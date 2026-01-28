@@ -58,8 +58,7 @@ Route::prefix('admin')
     ->group(function () {
 
         Route::get('/dashboard', function () {
-            $tombol = \App\Models\Tombol::find(1);
-            return view('admin.dashboard', compact('tombol'));
+            return view('admin.dashboard');
         })->name('dashboard');
 
         Route::post('/tombol/{id}', [UserController::class, 'toggleStatus'])
