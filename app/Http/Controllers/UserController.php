@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Tombol;
 use App\Models\DataUser;
 
 class UserController extends Controller
@@ -126,19 +125,6 @@ class UserController extends Controller
 
         return response()->json($user);
     }
-
-    // public function toggleStatus($id)
-    // {
-    //     $product = Tombol::find($id);
-
-    //     // toggle status
-    //     $product->status = !$product->status;
-    //     $product->save();
-
-    //     return response()->json([
-    //         'status' => $product->status
-    //     ]);
-    // }
 
     /**
      * Update the specified resource in storage.

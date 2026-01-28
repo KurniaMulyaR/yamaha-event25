@@ -61,9 +61,6 @@ Route::prefix('admin')
             return view('admin.dashboard');
         })->name('dashboard');
 
-        Route::post('/tombol/{id}', [UserController::class, 'toggleStatus'])
-                ->name('tombol');
-
         Route::resource('user', UserController::class);
         Route::get('/reportusers', [UserController::class, 'getUser'])->name('getUser');
         Route::resource('produk', ProdukController::class);
