@@ -46,7 +46,6 @@ class SendEmailWa extends Command
         $notif = Notifikasi::where('status', 'pending')
                 ->limit(15)
                 ->get();
-            Log::info('cron running');
         foreach($notif as $not){
            
             // Http::withHeaders([
