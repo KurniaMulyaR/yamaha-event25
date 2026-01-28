@@ -15,10 +15,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        Tombol::create([
-            'name' => 'booking',
-            'status' => 1, 
-        ]);
         return view('admin.user.index');
     }
 
