@@ -54,14 +54,15 @@ class SendEmailWa extends Command
             //             'Content-Type' => 'application/json'
             //         ])->post('https://api.infobip.com/whatsapp/1/message/template', $not->post_data);
 
-            Mail::to("alisadikinsyahrizal@gmail.com")
+            Mail::to($not->email)
                 ->send(new TestMail($not->post_data));
  
-            return 0;
             $not->update([  
                 'status' => 'sent',
                 'sent_at' => now(),
             ]);
+
+            return 0;
 
         }
     }
