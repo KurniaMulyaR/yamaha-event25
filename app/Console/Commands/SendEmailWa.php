@@ -44,7 +44,7 @@ class SendEmailWa extends Command
     public function handle()
     {
         $notif = Notifikasi::where('status', 'pending')
-                ->limit(1)
+                ->limit(15)
                 ->get();
             Log::info('cron running');
         foreach($notif as $not){
@@ -61,8 +61,6 @@ class SendEmailWa extends Command
                 'status' => 'sent',
                 'sent_at' => now(),
             ]);
-
-            return 0;
 
         }
     }
