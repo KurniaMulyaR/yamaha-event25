@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ListProduk;
+use App\Models\User;
+use App\Models\DataUser;
+use App\Models\ListPesanan;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 
@@ -82,5 +85,49 @@ class HomeController extends Controller
     public function generalprivacy()
     {
         return view('generalprivacy');
+    }
+
+    public function dashboard()
+    {
+        // ===== BASIC COUNT =====
+        $totalUsers     = User::count();
+        $totalDataUser  = DataUser::count();
+        $totalOrders    = ListPesanan::count();
+
+        $totalPaid      = ListPesanan::where('status', 'LUNAS')->count();
+        $totalFailed    = ListPesanan::where('status', 'PENDING')->count();
+        $ctr = ($totalPaid / $totalDataUser) * 100;
+
+        // ===== SAFE CALCULATION =====
+        $conversionRate = 0;
+        $successRate    = 0;
+        $failureRate    = 0;
+
+        if ($totalUsers > 0) {
+            $conversionRate = ($totalPaid / $totalUsers) * 100;
+        }
+
+        if ($totalOrders > 0) {
+            $successRate = ($totalPaid / $totalOrders) * 100;
+            $failureRate = ($totalFailed / $totalOrders) * 100;
+        }
+
+        // ===== FORMAT 2 DECIMAL =====
+        $conversionRate = number_format($conversionRate, 2);
+        $successRate    = number_format($successRate, 2);
+        $failureRate    = number_format($failureRate, 2);
+        $ctrttl = number_format($ctr, 2);
+
+        return view('admin.dashboard', compact(
+            'totalUsers',
+            'totalDataUser',
+            'totalOrders',
+            'totalPaid',
+            'totalFailed',
+            'conversionRate',
+            'successRate',
+            'failureRate',
+            'ctrttl'
+        ));
     }
 }
