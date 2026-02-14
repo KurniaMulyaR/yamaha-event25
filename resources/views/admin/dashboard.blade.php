@@ -25,9 +25,9 @@
         </div>
 
     </div>
-    <div class="grid grid-cols-3 md:grid-cols-3 gap-12 mb-8">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
         <!-- Paid Orders -->
-        <div class="bg-green-500 text-white p-6 rounded-2xl shadow-sm">
+        <div class="bg-green-600 text-white p-6 rounded-2xl shadow-sm">
             <p class="text-sm opacity-80">Paid Orders</p>
             <h2 class="text-3xl font-bold mt-2">{{ number_format($totalPaid) }}</h2>
         </div>
@@ -39,7 +39,7 @@
         </div>
 
         <!-- CTR -->
-        <div class="bg-indigo-600 text-white p-6 rounded-2xl shadow-sm">
+        <div class="bg-blue-600 text-white p-6 rounded-2xl shadow-sm">
             <p class="text-sm opacity-80">CTR (Estimated)</p>
             <h2 class="text-3xl font-bold mt-2">{{ $ctrttl }}%</h2>
             <p class="text-xs mt-2 opacity-75">Based on paid transactions</p>
@@ -73,7 +73,7 @@
                     <span class="font-semibold text-green-600">{{ $successRate }}%</span>
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div class="bg-green-500 h-2 rounded-full"
+                    <div class="bg-green-600 h-2 rounded-full"
                          style="width: {{ $successRate }}%"></div>
                 </div>
             </div>
@@ -97,7 +97,7 @@
                     <span class="font-semibold text-indigo-600">{{ $ctrttl }}%</span>
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div class="bg-indigo-500 h-2 rounded-full"
+                    <div class="bg-blue-600 h-2 rounded-full"
                          style="width: {{ $ctrttl }}%"></div>
                 </div>
             </div>
