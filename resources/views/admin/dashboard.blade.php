@@ -61,7 +61,7 @@
                     <span class="font-semibold text-blue-600">{{ $conversionRate }}%</span>
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-3">
-                    <div class="bg-blue-500 h-3 rounded-full"
+                    <div class="bg-blue-600 h-3 rounded-full"
                          style="width: {{ $conversionRate }}%"></div>
                 </div>
             </div>
